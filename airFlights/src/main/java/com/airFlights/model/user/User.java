@@ -10,6 +10,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.airFlights.model.Reservation;
+
 @Entity
 public class User {
 
@@ -26,7 +28,7 @@ public class User {
 	@Column(name = "role", columnDefinition = "tinyInt")
 	private UserRole role;
 	
-	
+	@Column(unique = true, length=20)
 	private String email;
 	
 	private String password;
@@ -52,6 +54,8 @@ public class User {
 	@OneToMany(mappedBy = "userWhoAccept")
 	private Set<Friendship> requestedFriendships = new HashSet<Friendship>();
 	
+	@OneToMany(mappedBy = "user")
+	private Set<Reservation> reservations = new HashSet<Reservation>();
 	
 	public User() {
 		super();

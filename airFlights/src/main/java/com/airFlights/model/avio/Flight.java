@@ -22,7 +22,7 @@ public class Flight {
 
 	@Id
 	@GeneratedValue
-	private Long flightId;
+	private Integer flightId;
 	
 	@Column(name = "departure", nullable = false)
 	private Date departure;
@@ -61,15 +61,17 @@ public class Flight {
 	@OneToMany(mappedBy = "flight", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Set<AirlineTicket> tickets;
 	
+	private Integer numberOfSeats;
+	
 	public Flight() {
 		super();
 	}
 
-	public Long getFlightId() {
+	public Integer getFlightId() {
 		return flightId;
 	}
 
-	public void setFlightId(Long flightId) {
+	public void setFlightId(Integer flightId) {
 		this.flightId = flightId;
 	}
 
@@ -175,6 +177,14 @@ public class Flight {
 
 	public void setFlightProfit(Float flightProfit) {
 		this.flightProfit = flightProfit;
+	}
+
+	public Integer getNumberOfSeats() {
+		return numberOfSeats;
+	}
+
+	public void setNumberOfSeats(Integer numberOfSeats) {
+		this.numberOfSeats = numberOfSeats;
 	}
 	
 	

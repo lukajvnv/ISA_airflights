@@ -13,13 +13,16 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+
+import com.airFlights.model.Pricelist;
 
 @Entity
 public class Airline {
 
 	@Id
 	@GeneratedValue
-	private Long airlineId;
+	private Integer airlineId;
 	
 	@Column(name="name", nullable=false)
 	private String name;
@@ -33,6 +36,8 @@ public class Airline {
 	@Column(name="description", nullable=false)
 	private String promoDescription;
 	
+	private String luggageInfo;
+	
 	@Column(name="ratingSum", nullable=true)
 	private Integer ratingSum;
 	
@@ -41,23 +46,28 @@ public class Airline {
 	
 	@ManyToMany
 	@JoinTable(name="flight_destinations", joinColumns = @JoinColumn(name = "airline_id", referencedColumnName = "airlineId"), inverseJoinColumns = @JoinColumn(name="destination_id", referencedColumnName = "destinationId"))
-	private Set<Destination> flightDestination = new HashSet<Destination>();
+	private Set<Destination> flightDestinations = new HashSet<Destination>();
 	
 	@OneToMany(mappedBy = "airline", fetch= FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<Flight> airlineFlights = new HashSet<Flight>();
 	
 	@OneToMany(mappedBy = "airline", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	private Set<AirlineTicket> discountTicket = new HashSet<AirlineTicket>();
+	private Set<AirlineTicket> discountTickets = new HashSet<AirlineTicket>();
+	
+	@OneToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "pricelist_id")
+	private Pricelist pricelist;
+	
 	
 	public Airline() {
 		super();
 	}
 
-	public Long getAirlineId() {
+	public Integer getAirlineId() {
 		return airlineId;
 	}
 
-	public void setAirlineId(Long airlineId) {
+	public void setAirlineId(Integer airlineId) {
 		this.airlineId = airlineId;
 	}
 
@@ -106,6 +116,46 @@ public class Airline {
 	}
 
 	public void setRatingNumber(int ratingNumber) {
+		this.ratingNumber = ratingNumber;
+	}
+
+	public String getLuggageInfo() {
+		return luggageInfo;
+	}
+
+	public void setLuggageInfo(String luggageInfo) {
+		this.luggageInfo = luggageInfo;
+	}
+
+	public Set<Destination> getFlightDestination() {
+		return flightDestinations;
+	}
+
+	public void setFlightDestination(Set<Destination> flightDestination) {
+		this.flightDestinations = flightDestination;
+	}
+
+	public Set<Flight> getAirlineFlights() {
+		return airlineFlights;
+	}
+
+	public void setAirlineFlights(Set<Flight> airlineFlights) {
+		this.airlineFlights = airlineFlights;
+	}
+
+	public Set<AirlineTicket> getDiscountTicket() {
+		return discountTickets;
+	}
+
+	public void setDiscountTicket(Set<AirlineTicket> discountTicket) {
+		this.discountTickets = discountTicket;
+	}
+
+	public void setRatingSum(Integer ratingSum) {
+		this.ratingSum = ratingSum;
+	}
+
+	public void setRatingNumber(Integer ratingNumber) {
 		this.ratingNumber = ratingNumber;
 	}
 	

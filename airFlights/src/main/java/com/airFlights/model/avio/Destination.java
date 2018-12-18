@@ -13,7 +13,7 @@ public class Destination {
 
 	@Id
 	@GeneratedValue
-	private Long destinationId;
+	private Integer destinationId;
 	
 	@Column(name="code", length=3, nullable=false)
 	private String destinationCode;
@@ -27,7 +27,7 @@ public class Destination {
 	@Column(name="description")
 	private String destinationDescription;
 
-	@ManyToMany(mappedBy="flightDestination")
+	@ManyToMany(mappedBy="flightDestinations")
 	private Set<Airline> airlines;
 	
 	@ManyToMany(mappedBy = "stops")
@@ -37,11 +37,11 @@ public class Destination {
 		super();
 	}
 	
-	public Long getDestinationId() {
+	public Integer getDestinationId() {
 		return destinationId;
 	}
 
-	public void setDestinationId(Long destinationId) {
+	public void setDestinationId(Integer destinationId) {
 		this.destinationId = destinationId;
 	}
 

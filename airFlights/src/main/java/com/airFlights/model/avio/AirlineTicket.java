@@ -36,7 +36,7 @@ public class AirlineTicket {
 	
 	@Id
 	@GeneratedValue
-	private Long ticketId;
+	private Integer ticketId;
 	
 	
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
@@ -47,11 +47,17 @@ public class AirlineTicket {
 	@JoinColumn(name = "flight_id")
 	private Flight flight;
 	
+	@Column(scale = 2)
 	private Float basePrice;
 	private Integer seatNumber;
+	@Column(scale = 2)
 	private Float discount;
+	@Column(scale = 2)
 	private Float sellingPrice;
 	private Integer luggage;
+	
+	private String additionalService;
+	
 	private Boolean markedFlight;
 	 
 	private String passportNum;
@@ -137,12 +143,12 @@ public class AirlineTicket {
 	}
 
 
-	public Long getTicketId() {
+	public Integer getTicketId() {
 		return ticketId;
 	}
 
 
-	public void setTicketId(Long ticketId) {
+	public void setTicketId(Integer ticketId) {
 		this.ticketId = ticketId;
 	}
 
@@ -164,6 +170,16 @@ public class AirlineTicket {
 
 	public void setFlight(Flight flight) {
 		this.flight = flight;
+	}
+
+
+	public String getAdditionalService() {
+		return additionalService;
+	}
+
+
+	public void setAdditionalService(String additionalService) {
+		this.additionalService = additionalService;
 	}
 
 }
