@@ -8,6 +8,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -16,12 +17,16 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 import com.airFlights.model.Pricelist;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+//@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
 public class Airline {
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(updatable = false)
 	private Integer airlineId;
 	
 	@Column(name="name", nullable=false)
@@ -36,15 +41,18 @@ public class Airline {
 	@Column(name="description", nullable=false)
 	private String promoDescription;
 	
+	@JsonIgnore
 	private String luggageInfo;
 	
+	@JsonIgnore
 	@Column(name="ratingSum", nullable=true)
 	private Integer ratingSum;
 	
+	@JsonIgnore
 	@Column(name="ratingNumber", nullable=true)
 	private Integer ratingNumber;
 	
-	@ManyToMany
+	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name="flight_destinations", joinColumns = @JoinColumn(name = "airline_id", referencedColumnName = "airlineId"), inverseJoinColumns = @JoinColumn(name="destination_id", referencedColumnName = "destinationId"))
 	private Set<Destination> flightDestinations = new HashSet<Destination>();
 	
@@ -54,7 +62,8 @@ public class Airline {
 	@OneToMany(mappedBy = "airline", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<AirlineTicket> discountTickets = new HashSet<AirlineTicket>();
 	
-	@OneToOne(fetch = FetchType.EAGER)
+	@JsonIgnore
+	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "pricelist_id")
 	private Pricelist pricelist;
 	

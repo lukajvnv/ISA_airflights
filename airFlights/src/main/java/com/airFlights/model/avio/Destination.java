@@ -4,15 +4,20 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Destination {
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(updatable = false)
 	private Integer destinationId;
 	
 	@Column(name="code", length=3, nullable=false)
@@ -27,7 +32,8 @@ public class Destination {
 	@Column(name="description")
 	private String destinationDescription;
 
-	@ManyToMany(mappedBy="flightDestinations")
+	@ManyToMany(mappedBy="flightDestinations", fetch=FetchType.LAZY)
+	@JsonIgnore
 	private Set<Airline> airlines;
 	
 	@ManyToMany(mappedBy = "stops")

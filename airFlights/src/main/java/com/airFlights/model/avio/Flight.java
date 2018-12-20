@@ -37,6 +37,10 @@ public class Flight {
 	
 	private Integer ratingSum;
 	
+	private Integer numberOfSeats;
+	
+	private String airplaneName;
+	
 	@Column(name = "profit", scale=2)
 	private Float flightProfit;
 
@@ -61,7 +65,7 @@ public class Flight {
 	@OneToMany(mappedBy = "flight", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Set<AirlineTicket> tickets;
 	
-	private Integer numberOfSeats;
+	
 	
 	public Flight() {
 		super();
@@ -185,6 +189,14 @@ public class Flight {
 
 	public void setNumberOfSeats(Integer numberOfSeats) {
 		this.numberOfSeats = numberOfSeats;
+	}
+
+	public String getAirplaneName() {
+		return airplaneName;
+	}
+
+	public void setAirplaneName(String airplaneName) {
+		this.airplaneName = airplaneName;
 	}
 	
 	
