@@ -1,6 +1,7 @@
 package com.airFlights.model.avio;
 
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -9,6 +10,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -17,30 +19,42 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Flight {
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer flightId;
 	
-	@Column(name = "departure", nullable = false)
-	private Date departure;
+	@Column(name = "departure_date", nullable = false)
+	private LocalDate departureDate;
 	
-	@Column(name = "arrival", nullable = false)
-	private Date arrival;
+	@Column(name = "arrival_date", nullable = false)
+	private LocalDate arrivalDate;
+	
+	@Column(name = "departure_time", nullable = false)
+	private LocalTime departureTime;
+	
+	@Column(name = "arrival_time", nullable = false)
+	private LocalTime arrivalTime;
 	
 	@Column(name = "duration", scale=2)
 	private Float flightDuration;
 	
+	@JsonIgnore
 	private Integer ratingNum;
 	
+	@JsonIgnore
 	private Integer ratingSum;
 	
 	private Integer numberOfSeats;
 	
+	@Column(name = "airplane")
 	private String airplaneName;
 	
+	@JsonIgnore
 	@Column(name = "profit", scale=2)
 	private Float flightProfit;
 
@@ -58,6 +72,7 @@ public class Flight {
 	private Set<Destination> stops = new HashSet<Destination>();
 	
 	
+	@JsonIgnore
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "airline_id")
 	private Airline airline;
@@ -77,22 +92,6 @@ public class Flight {
 
 	public void setFlightId(Integer flightId) {
 		this.flightId = flightId;
-	}
-
-	public Date getDeparture() {
-		return departure;
-	}
-
-	public void setDeparture(Date departure) {
-		this.departure = departure;
-	}
-
-	public Date getArrival() {
-		return arrival;
-	}
-
-	public void setArrival(Date arrival) {
-		this.arrival = arrival;
 	}
 
 	public double getFlightDuration() {

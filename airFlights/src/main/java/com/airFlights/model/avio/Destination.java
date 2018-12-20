@@ -37,6 +37,7 @@ public class Destination {
 	private Set<Airline> airlines;
 	
 	@ManyToMany(mappedBy = "stops")
+	@JsonIgnore
 	private Set<Flight> flights;
 	
 	public Destination() {
