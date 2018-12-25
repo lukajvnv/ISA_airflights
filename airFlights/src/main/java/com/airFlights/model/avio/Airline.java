@@ -20,7 +20,7 @@ import com.airFlights.model.Pricelist;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-//@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
 public class Airline {
 
@@ -41,7 +41,7 @@ public class Airline {
 	@Column(name="description", nullable=false)
 	private String promoDescription;
 	
-	@JsonIgnore
+	
 	private String luggageInfo;
 	
 	@JsonIgnore
@@ -57,21 +57,24 @@ public class Airline {
 	private Set<Destination> flightDestinations = new HashSet<Destination>();
 	
 	@OneToMany(mappedBy = "airline", fetch= FetchType.LAZY, cascade = CascadeType.ALL)
+	@JsonIgnoreProperties("airline")
 	private Set<Flight> airlineFlights = new HashSet<Flight>();
 	
 	@OneToMany(mappedBy = "airline", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<AirlineTicket> discountTickets = new HashSet<AirlineTicket>();
 	
-	@JsonIgnore
-	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "pricelist_id")
-	private Pricelist pricelist;
-	
+//	@JsonIgnore
+//	@OneToOne(fetch = FetchType.LAZY)
+//	@JoinColumn(name = "pricelist_id")
+//	private Pricelist pricelist;
+//	
 	
 	public Airline() {
 		super();
 	}
 
+	
+	
 	public Integer getAirlineId() {
 		return airlineId;
 	}
@@ -167,7 +170,35 @@ public class Airline {
 	public void setRatingNumber(Integer ratingNumber) {
 		this.ratingNumber = ratingNumber;
 	}
+
+	public Airline(Integer airlineId, String name, String address, String city, String promoDescription,
+			String luggageInfo, Integer ratingSum, Integer ratingNumber, Set<Destination> flightDestinations,
+			Set<Flight> airlineFlights, Set<AirlineTicket> discountTickets, Pricelist pricelist) {
+		super();
+		this.airlineId = airlineId;
+		this.name = name;
+		this.address = address;
+		this.city = city;
+		this.promoDescription = promoDescription;
+		this.luggageInfo = luggageInfo;
+		this.ratingSum = ratingSum;
+		this.ratingNumber = ratingNumber;
+		this.flightDestinations = flightDestinations;
+		this.airlineFlights = airlineFlights;
+		this.discountTickets = discountTickets;
+	}
 	
+	public Airline(Integer airlineId, String name, String address, String city, String promoDescription,
+			String luggageInfo) {
+		super();
+		this.airlineId = airlineId;
+		this.name = name;
+		this.address = address;
+		this.city = city;
+		this.promoDescription = promoDescription;
+		this.luggageInfo = luggageInfo;
+		
+	}
 	
 	
 }

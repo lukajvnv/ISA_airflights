@@ -1,47 +1,63 @@
 package com.airFlights.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
 public class Pricelist {
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer pricelistId;
 	
-	private String economy;
-	private String business;
-	private String first;
+	@Column(name = "economy", scale=2)
+	private Float economyPrice;
+	
+	@Column(name = "business", scale=2)
+	private Float businessPrice;
+	
+	@Column(name = "first", scale=2)
+	private Float firstPrice;
 	
 	public Pricelist() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public String getEconomy() {
-		return economy;
+	public Integer getPricelistId() {
+		return pricelistId;
 	}
 
-	public void setEconomy(String economy) {
-		this.economy = economy;
+	public void setPricelistId(Integer pricelistId) {
+		this.pricelistId = pricelistId;
 	}
 
-	public String getBusiness() {
-		return business;
+	public Float getEconomyPrice() {
+		return economyPrice;
 	}
 
-	public void setBusiness(String business) {
-		this.business = business;
+	public void setEconomyPrice(Float economyPrice) {
+		this.economyPrice = economyPrice;
 	}
 
-	public String getFirst() {
-		return first;
+	public Float getBusinessPrice() {
+		return businessPrice;
 	}
 
-	public void setFirst(String first) {
-		this.first = first;
+	public void setBusinessPrice(Float businessPrice) {
+		this.businessPrice = businessPrice;
 	}
-	
+
+	public Float getFirstPrice() {
+		return firstPrice;
+	}
+
+	public void setFirstPrice(Float firstPrice) {
+		this.firstPrice = firstPrice;
+	}
+
+
 }

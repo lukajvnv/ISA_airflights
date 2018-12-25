@@ -1,7 +1,9 @@
 package com.airFlights.model.avio;
 
+import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.Period;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -19,7 +21,11 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import org.hibernate.annotations.ColumnDefault;
+
+import com.airFlights.model.Pricelist;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 public class Flight {
@@ -43,10 +49,16 @@ public class Flight {
 	@Column(name = "duration", scale=2)
 	private Float flightDuration;
 	
-	@JsonIgnore
+	@Column(name = "distance", scale=2)
+	private Float flightDistance;
+	
+	
+	//@JsonIgnore
+	@ColumnDefault(value = "0")
 	private Integer ratingNum;
 	
-	@JsonIgnore
+	//@JsonIgnore
+	@ColumnDefault(value = "0")
 	private Integer ratingSum;
 	
 	private Integer numberOfSeats;
@@ -55,14 +67,23 @@ public class Flight {
 	private String airplaneName;
 	
 	@JsonIgnore
+	@ColumnDefault(value = "0")
 	@Column(name = "profit", scale=2)
 	private Float flightProfit;
 
-	@OneToOne(fetch = FetchType.EAGER)
+//	@OneToOne(fetch = FetchType.EAGER)
+//	@JoinColumn(name = "departure_dest")
+//	private Destination departureDestination;
+//	
+//	@OneToOne(fetch = FetchType.EAGER)
+//	@JoinColumn(name = "arrival_dest")
+//	private Destination arrivalDestination;
+	
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "departure_dest")
 	private Destination departureDestination;
 	
-	@OneToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "arrival_dest")
 	private Destination arrivalDestination;
 	
@@ -72,14 +93,18 @@ public class Flight {
 	private Set<Destination> stops = new HashSet<Destination>();
 	
 	
-	@JsonIgnore
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	//@JsonIgnore
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name = "airline_id")
+	@JsonIgnoreProperties("airlineFlights")		/*allow getters?setters?*/
 	private Airline airline;
 	
 	@OneToMany(mappedBy = "flight", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Set<AirlineTicket> tickets;
 	
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "pricelist_id")
+	private Pricelist pricelist;
 	
 	
 	public Flight() {
@@ -98,26 +123,32 @@ public class Flight {
 		return flightDuration;
 	}
 
-	public void setFlightDuration(float flightDuration) {
-		this.flightDuration = flightDuration;
+	public void setFlightDuration() {
+		Period period = Period.between(departureDate, arrivalDate);
+		Duration duration = Duration.between(departureTime, arrivalTime);
+		
+		int daysH = period.getDays() * 24;
+		float hours = duration.abs().toMinutes()*1f / 60;
+		
+		this.flightDuration = daysH + hours;
 	}
 
 	public int getRatingNum() {
 		return ratingNum;
 	}
 
-	public void setRatingNum(int ratingNum) {
-		this.ratingNum = ratingNum;
-	}
-
 	public int getRatingSum() {
 		return ratingSum;
 	}
 
-	public void setRatingSum(int ratingSum) {
-		this.ratingSum = ratingSum;
+	public void setRatingNum(Integer ratingNum) {
+		this.ratingNum = ratingNum;
 	}
 
+	public void setRatingSum(Integer ratingSum) {
+		this.ratingSum = ratingSum;
+	}
+	
 	public double getFlightProfit() {
 		return flightProfit;
 	}
@@ -170,13 +201,6 @@ public class Flight {
 		this.flightDuration = flightDuration;
 	}
 
-	public void setRatingNum(Integer ratingNum) {
-		this.ratingNum = ratingNum;
-	}
-
-	public void setRatingSum(Integer ratingSum) {
-		this.ratingSum = ratingSum;
-	}
 
 	public void setFlightProfit(Float flightProfit) {
 		this.flightProfit = flightProfit;
@@ -196,6 +220,54 @@ public class Flight {
 
 	public void setAirplaneName(String airplaneName) {
 		this.airplaneName = airplaneName;
+	}
+
+	public LocalDate getDepartureDate() {
+		return departureDate;
+	}
+
+	public void setDepartureDate(LocalDate departureDate) {
+		this.departureDate = departureDate;
+	}
+
+	public LocalDate getArrivalDate() {
+		return arrivalDate;
+	}
+
+	public void setArrivalDate(LocalDate arrivalDate) {
+		this.arrivalDate = arrivalDate;
+	}
+
+	public LocalTime getDepartureTime() {
+		return departureTime;
+	}
+
+	public void setDepartureTime(LocalTime departureTime) {
+		this.departureTime = departureTime;
+	}
+
+	public LocalTime getArrivalTime() {
+		return arrivalTime;
+	}
+
+	public void setArrivalTime(LocalTime arrivalTime) {
+		this.arrivalTime = arrivalTime;
+	}
+
+	public Float getFlightDistance() {
+		return flightDistance;
+	}
+
+	public void setFlightDistance(Float flightDistance) {
+		this.flightDistance = flightDistance;
+	}
+
+	public Pricelist getPricelist() {
+		return pricelist;
+	}
+
+	public void setPricelist(Pricelist pricelist) {
+		this.pricelist = pricelist;
 	}
 	
 	

@@ -25,7 +25,11 @@ public class AirlineTicket {
 	public enum TicketClass{
 		ECONOMY, BUSINESS, FIRST
 	}
-		
+	
+	public enum FlightType{
+		ROUND_TRIP, ONE_WAY, MULTI_CITY
+	}
+	
 	@Enumerated
 	@Column(name="class", nullable=false, columnDefinition = "tinyint")
 	private TicketClass ticketClass;
