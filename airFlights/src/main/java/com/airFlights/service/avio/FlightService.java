@@ -1,6 +1,7 @@
 package com.airFlights.service.avio;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.airFlights.model.avio.Airline;
 import com.airFlights.model.avio.Destination;
 import com.airFlights.model.avio.Flight;
+import com.airFlights.model.avio.FlightReturn;
 import com.airFlights.model.avio.SearchFlightParams;
 import com.airFlights.repository.avio.AirlineRepository;
 import com.airFlights.repository.avio.DestinationRepository;
@@ -65,7 +67,7 @@ public class FlightService {
 		Destination departureDestination = destinationRepository.findById(dep_dest).get();
 		Destination arrivalDestination = destinationRepository.findById(ari_dest).get();
 		
-		List<Flight> f = flightRepository.searchFlights(d, departureDestination, arrivalDestination);
+		List<Flight> f = flightRepository.searchFlightsOneWay(d, departureDestination, arrivalDestination);
 		//List<Flight> flights = flightRepository.findAllByDepartureDateAndDepartureDestinationAndArrivalDestination(d, departureDestination, arrivalDestination);		
 				
 		return f;
@@ -75,10 +77,45 @@ public class FlightService {
 		
 		List<Flight> flights = flightRepository.findByAirline(filterParams.getAirlineFilter());
 		
+		 LocalTime arrivalTimeFilterLower = filterParams.getArrivalTimeFilterLower();
+		 LocalTime arrivalTimeFilterUpper = filterParams.getArrivalTimeFilterUpper();
+		 LocalTime departureTimeFilterLower = filterParams.getDepartureTimeFilterLower();
+		 LocalTime departureTimeFilterUpper = filterParams.getDepartureTimeFilterUpper();
+		
+		List<Flight> flights2 = flightRepository.findByDepartureTimeBetween(departureTimeFilterLower, departureTimeFilterUpper);
+		List<Flight> flights3 = flightRepository.findByArrivalTimeBetween(arrivalTimeFilterLower, arrivalTimeFilterUpper);
+ 
+		LocalDate departureDate = filterParams.getDepartureDate();
+		LocalDate arrivalDate = filterParams.getArrivalDate();
 		switch(filterParams.getFlightType()) {
 		case ONE_WAY:
+			Destination departureDestination = filterParams.getDepartureDestinations().get(0);
+			Destination arrivalDestination = filterParams.getArrivalDestinations().get(0);
+		
+			List<Flight> flightsOneWay = flightRepository.searchFlightsOneWay(departureDate, departureDestination, arrivalDestination);
+			int seatNum = filterParams.getPersonNum();
+			switch (filterParams.getTicketClass()) {
+			case ECONOMY:
+				List<Flight> flightsOneWaye = flightRepository.searchFlightsOneWayEconomy(departureDate, departureDestination, arrivalDestination, seatNum);
+				break;
+			case BUSINESS:
+				List<Flight> flightsOneWayb = flightRepository.searchFlightsOneWayBusiness(departureDate, departureDestination, arrivalDestination,seatNum);
+				break;
+			case FIRST:
+				List<Flight> flightsOneWayf = flightRepository.searchFlightsOneWayEconomy(departureDate, departureDestination, arrivalDestination, seatNum);
+				break;
+
+			default:
+				break;
+			}
+			
 			break;
 		case ROUND_TRIP:
+			Destination departureDestination1 = filterParams.getDepartureDestinations().get(0);
+			Destination arrivalDestination1 = filterParams.getArrivalDestinations().get(0);
+			
+			List<FlightReturn> flightsRoundTrip = flightRepository.searchFlightsRoundTrip(departureDate, arrivalDate, departureDestination1, arrivalDestination1);
+
 			break;
 		case MULTI_CITY:
 			break;

@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.airFlights.model.avio.AirlineTicket.FlightType;
 import com.airFlights.model.avio.AirlineTicket.TicketClass;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalTimeDeserializer;
 
 public class SearchFlightParams {
 
@@ -19,8 +20,10 @@ public class SearchFlightParams {
 	
 	private Airline airlineFilter;
 	private float flightDurationFilter;
-	private LocalTime arrivalTimeFilter;
-	private LocalTime departureTimeFilter;
+	private LocalTime arrivalTimeFilterLower;
+	private LocalTime arrivalTimeFilterUpper;
+	private LocalTime departureTimeFilterLower;
+	private LocalTime departureTimeFilterUpper;
 	
 	private List<Destination> departureDestinations;
 	private List<Destination> arrivalDestinations;
@@ -73,12 +76,6 @@ public class SearchFlightParams {
 	public void setFlightDurationFilter(float flightDurationFilter) {
 		this.flightDurationFilter = flightDurationFilter;
 	}
-	public LocalTime getArrivalTimeFilter() {
-		return arrivalTimeFilter;
-	}
-	public void setArrivalTimeFilter(LocalTime arrivalTimeFilter) {
-		this.arrivalTimeFilter = arrivalTimeFilter;
-	}
 	
 	public List<Destination> getDepartureDestinations() {
 		return departureDestinations;
@@ -93,34 +90,46 @@ public class SearchFlightParams {
 		this.arrivalDestinations = arrivalDestinations;
 	}
 
-
-
-
 	public LocalDate getArrivalDate() {
 		return arrivalDate;
 	}
-
-
-
-
+	
 	public void setArrivalDate(LocalDate arrivalDate) {
 		this.arrivalDate = arrivalDate;
 	}
 
-
-
-
-	public LocalTime getDepartureTimeFilter() {
-		return departureTimeFilter;
+	public LocalTime getArrivalTimeFilterLower() {
+		return arrivalTimeFilterLower;
 	}
 
-
-
-
-	public void setDepartureTimeFilter(LocalTime departureTimeFilter) {
-		this.departureTimeFilter = departureTimeFilter;
+	public void setArrivalTimeFilterLower(LocalTime arrivalTimeFilterLower) {
+		this.arrivalTimeFilterLower = arrivalTimeFilterLower;
 	}
-	
-	
-	
+
+	public LocalTime getArrivalTimeFilterUpper() {
+		return arrivalTimeFilterUpper;
+	}
+
+	public void setArrivalTimeFilterUpper(LocalTime arrivalTimeFilterUpper) {
+		this.arrivalTimeFilterUpper = arrivalTimeFilterUpper;
+	}
+
+	public LocalTime getDepartureTimeFilterLower() {
+		/*if(departureTimeFilterLower == null) {
+			return new LocalTime(0, 0, 0, 0);
+		}*/
+		return departureTimeFilterLower;
+	}
+
+	public void setDepartureTimeFilterLower(LocalTime departureTimeFilterLower) {
+		this.departureTimeFilterLower = departureTimeFilterLower;
+	}
+
+	public LocalTime getDepartureTimeFilterUpper() {
+		return departureTimeFilterUpper;
+	}
+
+	public void setDepartureTimeFilterUpper(LocalTime departureTimeFilterUpper) {
+		this.departureTimeFilterUpper = departureTimeFilterUpper;
+	}	
 }

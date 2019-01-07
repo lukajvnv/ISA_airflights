@@ -63,6 +63,17 @@ public class Flight {
 	
 	private Integer numberOfSeats;
 	
+	@Column(name = "economy_free")
+	private Integer numberOfEconomyAvailableSeats;
+	
+	@Column(name = "business_free")
+	private Integer numberOfBusinessAvailableSeats;
+	
+	@Column(name = "first_free")
+	private Integer numberOfFirstAvailableSeats;
+
+
+	
 	@Column(name = "airplane")
 	private String airplaneName;
 	
@@ -212,6 +223,30 @@ public class Flight {
 
 	public void setNumberOfSeats(Integer numberOfSeats) {
 		this.numberOfSeats = numberOfSeats;
+	}
+
+	public Integer getNumberOfEconomyAvailableSeats() {
+		return numberOfEconomyAvailableSeats;
+	}
+
+	public void setNumberOfEconomyAvailableSeats(Integer numberOfEconomyAvailableSeats) {
+		this.numberOfEconomyAvailableSeats = numberOfEconomyAvailableSeats;
+	}
+
+	public Integer getNumberOfBusinessAvailableSeats() {
+		return numberOfBusinessAvailableSeats;
+	}
+
+	public void setNumberOfBusinessAvailableSeats(Integer numberOfBusinessAvailableSeats) {
+		this.numberOfBusinessAvailableSeats = numberOfBusinessAvailableSeats;
+	}
+
+	public Integer getNumberOfFirstAvailableSeats() {
+		return numberOfFirstAvailableSeats;
+	}
+
+	public void setNumberOfFirstAvailableSeats(Integer numberOfFirstAvailableSeats) {
+		this.numberOfFirstAvailableSeats = numberOfFirstAvailableSeats;
 	}
 
 	public String getAirplaneName() {

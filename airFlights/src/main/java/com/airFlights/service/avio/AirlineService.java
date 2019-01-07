@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
+import javax.persistence.Tuple;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -57,6 +58,10 @@ public class AirlineService {
 	@Transactional
 	public void removeDestinationFromAirline(int airlineId, int destinationId) {
 		Query query = manager.createNativeQuery("DELETE FROM flight_destinations WHERE airline_id=? and destination_id=?");
+		/*List<Tuple> l =  manager.createNativeQuery("DELETE FROM flight_destinations WHERE airline_id=? and destination_id=?").getResultList();
+		Tuple lo =  (Tuple) manager.createNativeQuery("DELETE FROM flight_destinations WHERE airline_id=? and destination_id=?").getSingleResult();
+		lo.get(0);*/
+		
 		//Query query2 = manager.createQuery("");
 		
 		query.setParameter(1, airlineId);
