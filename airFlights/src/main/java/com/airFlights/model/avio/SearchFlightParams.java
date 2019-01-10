@@ -6,7 +6,6 @@ import java.util.List;
 
 import com.airFlights.model.avio.AirlineTicket.FlightType;
 import com.airFlights.model.avio.AirlineTicket.TicketClass;
-import com.fasterxml.jackson.datatype.jsr310.deser.LocalTimeDeserializer;
 
 public class SearchFlightParams {
 
@@ -99,6 +98,9 @@ public class SearchFlightParams {
 	}
 
 	public LocalTime getArrivalTimeFilterLower() {
+		if(arrivalTimeFilterLower == null) {
+			arrivalTimeFilterLower =  LocalTime.of(0, 0);
+		}
 		return arrivalTimeFilterLower;
 	}
 
@@ -107,6 +109,9 @@ public class SearchFlightParams {
 	}
 
 	public LocalTime getArrivalTimeFilterUpper() {
+		if(arrivalTimeFilterUpper == null) {
+			arrivalTimeFilterUpper =  LocalTime.of(23, 59);
+		}
 		return arrivalTimeFilterUpper;
 	}
 
@@ -115,9 +120,9 @@ public class SearchFlightParams {
 	}
 
 	public LocalTime getDepartureTimeFilterLower() {
-		/*if(departureTimeFilterLower == null) {
-			return new LocalTime(0, 0, 0, 0);
-		}*/
+		if(departureTimeFilterLower == null) {
+			departureTimeFilterLower =  LocalTime.of(0, 0);
+		}
 		return departureTimeFilterLower;
 	}
 
@@ -126,6 +131,9 @@ public class SearchFlightParams {
 	}
 
 	public LocalTime getDepartureTimeFilterUpper() {
+		if(departureTimeFilterUpper == null) {
+			departureTimeFilterUpper =  LocalTime.of(23, 59);
+		}
 		return departureTimeFilterUpper;
 	}
 

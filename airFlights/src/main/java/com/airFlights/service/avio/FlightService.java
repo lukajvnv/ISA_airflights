@@ -23,10 +23,11 @@ public class FlightService {
 	private FlightRepository flightRepository;
 	
 	@Autowired
+	private DestinationRepository destinationRepository;
+	
+	@Autowired
 	private AirlineRepository airlineRepository;
 	
-	@Autowired 
-	private DestinationRepository destinationRepository;
 	
 	public List<Flight> getAllFlights(){
 		return flightRepository.findAll();
@@ -97,7 +98,8 @@ public class FlightService {
 			switch (filterParams.getTicketClass()) {
 			case ECONOMY:
 				List<Flight> flightsOneWaye = flightRepository.searchFlightsOneWayEconomy(departureDate, departureDestination, arrivalDestination, seatNum);
-				break;
+				return flightsOneWaye;
+				//break;
 			case BUSINESS:
 				List<Flight> flightsOneWayb = flightRepository.searchFlightsOneWayBusiness(departureDate, departureDestination, arrivalDestination,seatNum);
 				break;
@@ -122,5 +124,9 @@ public class FlightService {
 		}
 		
 		return flights;
+	}
+	
+	public List<Destination> getAllDestinations(){
+		return destinationRepository.findAll();
 	}
 }

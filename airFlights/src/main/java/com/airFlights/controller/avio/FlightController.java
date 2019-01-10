@@ -1,6 +1,5 @@
 package com.airFlights.controller.avio;
 
-import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.airFlights.model.avio.Destination;
 import com.airFlights.model.avio.Flight;
 import com.airFlights.model.avio.SearchFlightParams;
 import com.airFlights.service.avio.FlightService;
@@ -71,10 +71,16 @@ public class FlightController {
 		return new ResponseEntity<>(flights, HttpStatus.OK);
 	}
 	
-	@RequestMapping(path = "/search", method = RequestMethod.GET)
+	@RequestMapping(path = "/search", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<Flight>> searchFlights(@RequestBody SearchFlightParams flightParams){
 		List<Flight> flights = flightService.searchFlights(flightParams);
 		return new ResponseEntity<>(flights, HttpStatus.OK);
+	}
+	
+	@RequestMapping(path = "/getAllDestinations", method = RequestMethod.GET)
+	public ResponseEntity<List<Destination>> searchFlights(){
+		List<Destination> destinations = flightService.getAllDestinations();
+		return new ResponseEntity<>(destinations, HttpStatus.OK);
 	}
 	
 }
