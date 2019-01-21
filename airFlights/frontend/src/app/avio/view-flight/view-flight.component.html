@@ -1,10 +1,56 @@
-<p>
-    view-flight works!
-  </p>
-  <div>
-  <!-- <mat-form-field>
-      <input matInput [matDatepicker]="picker" placeholder="Choose a date">
-      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-      <mat-datepicker #picker></mat-datepicker>
-  </mat-form-field> -->
-</div>
+<h3>Informacije o letu</h3>
+<table class="table table-bordered">
+  <thead>
+
+  </thead>
+  <tbody>
+    <tr>
+      <th>Sifra leta</th>
+      <td>{{currentFlight.flightId}}</td>
+    </tr>
+    <tr class="info">
+      <th>Odlazna destinacija</th>
+      <td>{{currentFlight.departureDestination.destinationName}}</td>
+    </tr>
+    <tr class="info">
+      <th>Datum datum i vreme odlaska</th>
+      <td>{{currentFlight | dateTimeFilter:"d"}}</td>
+    </tr>
+    <tr>
+      <th>Dolazna destinacija</th>
+      <td>{{currentFlight.arrivalDestination.destinationName}}</td>
+    </tr>
+    <tr>
+      <th>Datum i vreme dolaska</th>
+      <td>{{currentFlight | dateTimeFilter:"a"}}</td>
+    </tr>
+    <tr>
+      <th>Dodatne usluge</th>
+      <td>{{currentFlight.additionalService}}</td>
+    </tr>
+    <tr>
+      <th>Vreme trajanja leta</th>
+      <td>{{currentFlight.flightDuration}}</td>
+    </tr>
+    <tr>
+      <th>Rastojanje leta leta</th>
+      <td>{{currentFlight.flightDistance}}</td>
+    </tr>
+    <tr>
+      <th>Presedanja</th>
+      <td>{{currentFlight.stops | stopDestinationsFilter}}</td>
+    </tr>
+    <tr>
+      <th>Aviokompanija</th>
+      <td>{{currentFlight.airline.name}}</td>
+    </tr>
+    <tr>
+      <th>Avion</th>
+      <td>{{currentFlight.airplaneName}}</td>
+    </tr>
+  </tbody>
+</table>
+<button type="submit" class="btn btn-primary btn-lg" style="float: right;">
+  Rezervisi <fa name="arrow-right" size="lg"></fa>
+</button>
+

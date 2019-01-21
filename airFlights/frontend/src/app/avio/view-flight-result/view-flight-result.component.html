@@ -1,0 +1,114 @@
+<div class="container-fluid">
+<div class="row">
+
+      <!--Filter avio kompnanija sa leve strane-->
+      <div class="col-lg-2 themed-grid-col leviStubac" style="border:2px solid red ">
+            <h4>Aviokompanije</h4>
+            <div class="list-group">
+              <a (click)="filterByAirline(undefined);" [class.active]="selectedAirline === undefined" class="list-group-item list-group-item-action" >Sve</a>
+              <a *ngFor="let airline of airlines" (click)="filterByAirline(airline);" [class.active]="selectedAirline === airline" class="list-group-item list-group-item-action">{{airline.name}}</a>
+            </div>
+      </div>
+
+    <!--Centralni deo gde se prikazuju letovi-->
+    <div class="col-lg-6 themed-grid-col" style="border:2px solid blue ">
+      <div *ngFor="let oneFlight of flightsResult">
+
+<!--       <div class="row oneFlight" *ngFor="let oneFlight of flightsResult">
+ -->        <app-one-way-flight-result [flight]="oneFlight"></app-one-way-flight-result>
+          <!-- <div class="col-lg-9">
+              <div class="row">
+                  <div class="col-lg-4">
+                    <p><b>{{flight | timeFilter}}</b></p>
+                  </div>
+                  <div class="col-lg-4">
+                    <p><b>{{flight.stops.length}} presedanja</b></p>
+                  </div>
+                  <div class="col-lg-4">
+                    <p style="text-align: right"><b>{{renderFlightDuration(flight)}}</b></p>
+                  </div>
+              </div>
+              <div class="row">
+                  <div class="col-lg-4">
+                    <p><b>{{flight.airline.name}}</b></p>
+                  </div>
+                  <div class="col-lg-5">
+                      <p><b>LON, NYC</b></p>
+                  </div>
+                  <div class="col-lg-3"  style="font-size: 17px">
+                    <p><b>{{flight.departureDestination.destinationCode}}-{{flight.arrivalDestination.destinationCode}}</b></p>
+                  </div>
+              </div>
+          </div>
+          <div class="vl">
+          </div>
+          <div class="col-lg-3">
+            <h5>Cena:500$</h5>
+            <button type="submit" class="btn btn-primary btn-block" (click)="filter()">
+                Vidi
+            </button>
+          </div> -->
+      </div>
+
+    </div>
+
+    <!--Filteri sa desne strane-->
+    <div class="col-lg-4 themed-grid-col" style="border:2px solid red ">
+        <div class = "form-group">
+          <label for="priceSlider">Cena:</label>
+          <mv-slider [(value)]="priceValue" [min]="1" [max]="1500"  (change)="change()" [ngbTooltip]="priceValue" name="priceSlider" class="slider"
+          ></mv-slider>
+          <span>{{priceValue}}€</span>
+        </div>
+        <hr/>
+        <div clas="row">
+          <h5>Vreme polaska</h5>
+          <div class="divTimeFilter">
+            <b>Od:</b>
+          </div>
+          <div class="col-md-5 divTimeFilter">
+            <ngb-timepicker [(ngModel)]="departureTimeLower"></ngb-timepicker>
+          </div>
+          <div class="divTimeFilter">
+            <b>Do:</b>
+          </div>
+          <div class="col-md-5 divTimeFilter">
+            <ngb-timepicker [(ngModel)]="departureTimeUpper"></ngb-timepicker>
+          </div>
+        </div>
+        <div clas="row">
+          <h5>Vreme dolaska</h5>
+          <div class="divTimeFilter">
+            <b>Od:</b>
+          </div>
+          <div class="col-md-5 divTimeFilter">
+            <ngb-timepicker [(ngModel)]="arrivalTimeLower"></ngb-timepicker>
+          </div>
+          <div class="divTimeFilter">
+            <b>Do:</b>
+          </div>
+          <div class="col-md-5 divTimeFilter">
+            <ngb-timepicker [(ngModel)]="arrivalTimeUpper"></ngb-timepicker>
+          </div>
+        </div>
+        <hr/>
+        <div class = "form-group">
+          <label for="durationSlider">Let:</label>
+          <mv-slider [(value)]="durationValue" [min]="0" [max]="30" (change)="change()" [ngbTooltip]="durationValue" name="durationSlider" class="slider"></mv-slider>
+          <span>{{durationValue}}h</span>
+        </div>
+        <div class="row">
+          <div class="col-lg-6">
+            <button type="button" class="btn btn-primary btn-lg btn-block" [routerLink]="['']">
+                  <fa name="angle-left" size="lg"></fa> Povratak
+            </button>
+          </div>
+          <div class="col-lg-6">
+            <button type="submit" class="btn btn-primary btn-lg btn-block" (click)="filter()">
+                  <fa name="search" size="lg"></fa> Filtriraj
+            </button>
+          </div>
+        </div>
+    </div>
+  </div>
+</div>

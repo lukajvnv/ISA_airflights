@@ -58,9 +58,9 @@ public class AirlineTicket {
 	private Float discount;
 	@Column(scale = 2)
 	private Float sellingPrice;
-	private Integer luggage;
 	
-	private String additionalService;
+	//private Integer luggage;
+	//private String additionalService;
 	
 	private Boolean markedFlight;
 	 
@@ -110,14 +110,6 @@ public class AirlineTicket {
 
 	public void setSellingPrice(Float sellingPrice) {
 		this.sellingPrice = sellingPrice;
-	}
-
-	public Integer getLuggage() {
-		return luggage;
-	}
-
-	public void setLuggage(Integer luggage) {
-		this.luggage = luggage;
 	}
 
 	public Boolean getMarkedFlight() {
@@ -176,14 +168,5 @@ public class AirlineTicket {
 		this.flight = flight;
 	}
 
-
-	public String getAdditionalService() {
-		return additionalService;
-	}
-
-
-	public void setAdditionalService(String additionalService) {
-		this.additionalService = additionalService;
-	}
 
 }

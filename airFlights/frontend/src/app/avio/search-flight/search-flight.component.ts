@@ -2,10 +2,10 @@ import { FlightService } from './../../services/flight.service';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, NgForm} from '@angular/forms';
 import { NgbDatepicker } from '@ng-bootstrap/ng-bootstrap';
-import { Observable } from 'rxjs';
+import { Observable, from } from 'rxjs';
 import { Destination } from 'src/app/models/destination.model';
-import { isNumber } from 'util';
 import { SearchFlightParams } from 'src/app/models/search-flight-params.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-search-flight',
@@ -30,7 +30,7 @@ export class SearchFlightComponent implements OnInit {
    flightClasses = [{id: 'ECONOMY', name: 'Economy'}, {id: 'BUSINESS', name: 'Business'}, {id: 'FIRST', name: 'First'}];
 
 
-  constructor(private flightService: FlightService) {}
+  constructor(private flightService: FlightService, private router: Router, private searchFlightObject: SearchFlightParams) {}
 
   ngOnInit() {
      this.flightService.getDestinations().subscribe(data => {this.destinations = data;
@@ -41,12 +41,11 @@ export class SearchFlightComponent implements OnInit {
      this.persons = 1;
   }
 
-fligthTypeChanged() {
-  console.log(this.isArrivalDateDisabled);
-  console.log(this.type);
+  fligthTypeChanged() {
+    console.log(this.isArrivalDateDisabled);
+    console.log(this.type);
 
-  (this.type === this.flightTypes[0].id) ? this.isArrivalDateDisabled = true : this.isArrivalDateDisabled = false;
-
+    (this.type === this.flightTypes[0].id) ? this.isArrivalDateDisabled = true : this.isArrivalDateDisabled = false;
 }
 
 test(f) {// console.log(this.departureDate + this.type); const ps = this.destinations;
@@ -70,19 +69,22 @@ test(f) {// console.log(this.departureDate + this.type); const ps = this.destina
       return;
     }
 
-    /*const searchFlightParams: SearchFlightParams = new SearchFlightParams(this.departureDate, this.arrivalDate, this.type, this.class,
-      this.persons, this.luggage,
-      this.departureDestination, this.arrivalDestination);*/
-      // console.log(searchFlightParams);
-      const searchFlightParams1: SearchFlightParams = new SearchFlightParams();
-searchFlightParams1.init(this.departureDate, this.arrivalDate, this.type, this.class,
-  this.persons, this.luggage,
-  this.departureDestination, this.arrivalDestination);
-  console.log(searchFlightParams1);
-    this.flightService.searchFlights(searchFlightParams1).subscribe(data => {
+    if ( this.type !== 'ONE_WAY' && !this.arrivalDate) {
+      alert('Molimo unesite datum dolaska');
+      return;
+    }
+
+      // const searchFlightParams: SearchFlightParams = new SearchFlightParams();
+    this.searchFlightObject.init(this.departureDate, this.arrivalDate, this.type, this.class,
+    this.persons, this.luggage, this.departureDestination, this.arrivalDestination);
+    console.log(this.searchFlightObject);
+
+    this.router.navigate(['/viewFlightResults']);
+
+    /* this.flightService.searchFlights(searchFlightParams).subscribe(data => {
       console.log('prosao');
       console.log(data);
-    });
+    }); */
 
   }
 

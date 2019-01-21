@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.airFlights.model.avio.Destination;
 import com.airFlights.model.avio.Flight;
+import com.airFlights.model.avio.FlightReturn;
 import com.airFlights.model.avio.SearchFlightParams;
 import com.airFlights.service.avio.FlightService;
 
@@ -64,21 +65,33 @@ public class FlightController {
 		return new ResponseEntity<>(flights, HttpStatus.OK);
 	}*/
 	
-	@RequestMapping(path = "/{DEP}-{ARI}/{depDate}", method = RequestMethod.GET)
+	/*@RequestMapping(path = "/{DEP}-{ARI}/{depDate}", method = RequestMethod.GET)
 	public ResponseEntity<List<Flight>> searchFlights(@PathVariable("DEP") int dep_dest, @PathVariable("ARI") int ari_dest, 
 			@PathVariable("depDate") String depDate){
 		List<Flight> flights = flightService.searchFlights(dep_dest, ari_dest, depDate);
 		return new ResponseEntity<>(flights, HttpStatus.OK);
-	}
+	}*/
 	
-	@RequestMapping(path = "/search", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<Flight>> searchFlights(@RequestBody SearchFlightParams flightParams){
-		List<Flight> flights = flightService.searchFlights(flightParams);
+	@RequestMapping(path = "/search/oneWay", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<Flight>> searchFlightsOneWay(@RequestBody SearchFlightParams flightParams){
+		List<Flight> flights = flightService.searchFlightsOneWayBasic(flightParams);
 		return new ResponseEntity<>(flights, HttpStatus.OK);
 	}
 	
+	@RequestMapping(path = "/search/roundTrip", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<FlightReturn>> searchFlightsRoundTrip(@RequestBody SearchFlightParams flightParams){
+		List<FlightReturn> flights = flightService.searchFlightsRoundTripBasic(flightParams);
+		return new ResponseEntity<>(flights, HttpStatus.OK);
+	}
+	
+	@RequestMapping(path = "/search/multiCity", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<Flight>> searchFlightsMultiCity(@RequestBody SearchFlightParams flightParams){
+		//List<Flight> flights = flightService.searchFlights(flightParams);
+		return new ResponseEntity<>(HttpStatus.OK);
+	}
+	
 	@RequestMapping(path = "/getAllDestinations", method = RequestMethod.GET)
-	public ResponseEntity<List<Destination>> searchFlights(){
+	public ResponseEntity<List<Destination>> getAllDestinations(){
 		List<Destination> destinations = flightService.getAllDestinations();
 		return new ResponseEntity<>(destinations, HttpStatus.OK);
 	}

@@ -1,0 +1,33 @@
+<div class="row oneFlight">
+  <div class="col-lg-9">
+      <div class="row">
+          <div class="col-lg-4">
+            <p><b>{{flight | timeFilter}}</b></p>
+          </div>
+          <div class="col-lg-4">
+            <p><b>{{flight.stops.length}} presedanja</b></p>
+          </div>
+          <div class="col-lg-4">
+            <p style="text-align: right"><b>{{renderFlightDuration(flight)}}</b></p>
+          </div>
+      </div>
+      <div class="row">
+          <div class="col-lg-4">
+            <p><b>{{flight.airline.name}}</b></p>
+          </div>
+          <div class="col-lg-5">
+              <p><b></b></p>
+          </div>
+          <div class="col-lg-3"  style="font-size: 17px">
+            <p><b>{{flight.departureDestination.destinationCode}}-{{flight.arrivalDestination.destinationCode}}</b></p>
+          </div>
+      </div>
+  </div>
+  <div class="col-lg-3 priceDiv">
+<!--     <h5>Cena:500$</h5>
+ -->    <h5>{{flight | priceFilter: flightClass}} €</h5>
+    <button type="submit" class="btn btn-primary btn-block" [routerLink]="['viewFlight', flight.flightId]">
+        Vidi
+    </button>
+  </div>
+</div>

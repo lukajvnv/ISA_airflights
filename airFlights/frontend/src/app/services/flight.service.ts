@@ -1,8 +1,7 @@
 import { SearchFlightParams } from './../models/search-flight-params.model';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-
 
 @Injectable({
   providedIn: 'root'
@@ -10,8 +9,11 @@ import { Observable } from 'rxjs';
 export class FlightService {
 
   private destinationsUrl = 'http://localhost:8080/flight/getAllDestinations';
-  private searchFlightsUrl = 'http://localhost:8080/flight/search';
+  private searchFlightsUrlOneWay = 'http://localhost:8080/flight/search/oneWay';
+  private searchFlightsUrlRoundTrip = 'http://localhost:8080/flight/search/roundTrip';
+  private searchFlightsUrlMultiCity = 'http://localhost:8080/flight/search/multiCity';
 
+  private getFlightBase = 'http://localhost:8080/flight/';
 
   constructor(private http: HttpClient) { }
 
@@ -21,14 +23,19 @@ export class FlightService {
 
   searchFlights(searchFlightParams: SearchFlightParams): Observable<any> {
     console.log(searchFlightParams);
-    // const h = new HttpHeaders();
-    // h.append('Content-Type', 'application/json');
-    // let options = new RequestOptions({ headers: headers });
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type':  'application/json'
-      })
-    };
-    return this.http.post(this.searchFlightsUrl, searchFlightParams);
+    let urlPath: string;
+    switch (searchFlightParams.flightType) {
+      case 'ONE_WAY': urlPath = this.searchFlightsUrlOneWay; break;
+      case 'ROUND_TRIP': urlPath = this.searchFlightsUrlRoundTrip; break;
+      case 'MULTI_CITY': urlPath = this.searchFlightsUrlMultiCity; break;
+      default: return;
+    }
+    // const params = new HttpParams().set('searchFlightParams', JSON.stringify(searchFlightParams));
+    // this.http.get(urlPath, params);
+    return this.http.post(urlPath, searchFlightParams);
+  }
+
+  getFlight(flightId: string): Observable<any> {
+    return this.http.get(this.getFlightBase + flightId)/*.map(response => response.json()).catch()*/;
   }
 }

@@ -9,6 +9,7 @@ import com.airFlights.model.avio.AirlineTicket.TicketClass;
 
 public class SearchFlightParams {
 
+	
 	private LocalDate departureDate;
 	private LocalDate arrivalDate;
 

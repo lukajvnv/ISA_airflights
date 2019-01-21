@@ -82,6 +82,12 @@ public class Flight {
 	@Column(name = "profit", scale=2)
 	private Float flightProfit;
 
+	@Column(name = "add_service")
+	private String additionalService;
+	
+	@Column(name = "luggage")
+	private Float luggage;
+	
 //	@OneToOne(fetch = FetchType.EAGER)
 //	@JoinColumn(name = "departure_dest")
 //	private Destination departureDestination;
@@ -98,7 +104,7 @@ public class Flight {
 	@JoinColumn(name = "arrival_dest")
 	private Destination arrivalDestination;
 	
-	@ManyToMany(cascade = CascadeType.ALL)
+	@ManyToMany(cascade = CascadeType.ALL, fetch= FetchType.EAGER)
 	@JoinTable(name="flight_stops", joinColumns = @JoinColumn(name = "flight_id", referencedColumnName = "flightId"), 
 	inverseJoinColumns = @JoinColumn(name="stop_id", referencedColumnName = "destinationId"))
 	private Set<Destination> stops = new HashSet<Destination>();
@@ -305,5 +311,20 @@ public class Flight {
 		this.pricelist = pricelist;
 	}
 	
-	
+	public String getAdditionalService() {
+		return additionalService;
+	}
+
+
+	public void setAdditionalService(String additionalService) {
+		this.additionalService = additionalService;
+	}
+
+	public Float getLuggage() {
+		return luggage;
+	}
+
+	public void setLuggage(Float luggage) {
+		this.luggage = luggage;
+	}
 }

@@ -23,7 +23,7 @@ public class AirlineService {
 	private EntityManager manager;
 	
 	public List<Airline> findAllAirlines() {
-		return airlineRepository.findAll();
+		return airlineRepository.findAllByOrderByName();
 	}
 	
 	public Airline findAirlineById(Integer index) {
