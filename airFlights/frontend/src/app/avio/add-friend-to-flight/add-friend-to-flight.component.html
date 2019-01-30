@@ -1,0 +1,100 @@
+<table class="table table-bordered">
+  <thead>
+  </thead>
+  <tbody>
+    <tr class="info">
+      <th>Odlazna destinacija</th>
+      <td>{{currentFlight?.departureDestination.destinationName}}</td>
+      <th>Dolazna destinacija</th>
+      <td>{{currentFlight?.arrivalDestination.destinationName}}</td>
+    </tr>
+    <tr class="info">
+      <th>Datum datum i vreme odlaska</th>
+      <td>{{currentFlight | dateTimeFilter:"d"}}</td>
+      <th>Datum i vreme dolaska</th>
+      <td>{{currentFlight | dateTimeFilter:"a"}}</td>
+    </tr>
+    <tr>
+      <th>Vreme trajanja leta</th>
+      <td>{{currentFlight?.flightDuration}} h</td>
+      <th>Rastojanje leta leta</th>
+      <td>{{currentFlight?.flightDistance}} km</td>
+    </tr>
+    <tr>
+      <th>Presedanja</th>
+      <td>{{currentFlight?.stops | stopDestinationsFilter}}</td>
+      <th>Dodatne usluge</th>
+      <td>{{currentFlight?.additionalService}}</td>
+    </tr>
+    <tr>
+      <th>Aviokompanija</th>
+      <td>{{currentFlight?.airline.name}}</td>
+      <th>Avion</th>
+      <td>{{currentFlight?.airplaneName}}</td>
+    </tr>
+  </tbody>
+</table>
+<div>
+    <form #f ="ngForm" (ngSubmit) = "submit(f)">
+      <div class="row">
+          <div class="col-md-2  mb-3">
+            <label for="imePrijatelja">Ime prijatelja:</label>
+          </div>
+          <div class="col-md-3 mb-3">
+            <div class="input-group">
+              <span class="input-group-addon"><fa name="search" style="color:green" size="2x"></fa></span>
+              <input name="imePrijatelja" #imeP (keyup)="filterIme(imeP.value)" type="text" class="form-control" placeholder="Ime prijatelja...">
+            </div>
+          </div>
+          <div class="col-md-2 mb-3">
+            <label for="prezimePrijatelja">Prezime prijatelja:</label>
+          </div>
+          <div class="col-md-3 mb-3">
+            <div class="input-group">
+              <span class="input-group-addon"><fa name="search" style="color:green" size="2x"></fa></span>
+              <input name="prezimePrijatelja" #prezimeP (keyup)="filterPrezime(prezimeP.value)" type="text" class="form-control" id="zip" placeholder="Prezime prijatelja...">
+            </div>
+          </div>
+          <div class="col-md-2 mb-3">
+              <label>Prijatelji:</label>
+              <input type="checkbox" class="form-check-input" value="">
+          </div>
+          <!-- <div class="col-md-1 mb-3">
+              <div class="form-check-inline">
+                  <label class="form-check-label">
+                    Option 1<input type="checkbox" class="form-check-input" value="">
+                  </label>
+              </div>
+          </div> -->
+          <!-- <div class="form-check-inline">
+              <label class="form-check-label">
+                Option 1<input type="checkbox" class="form-check-input" value="">
+              </label>
+          </div> -->
+
+      </div>
+      <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>Ime</th>
+              <th>Prezime</th>
+              <th>Pozovi</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let korisnik of filtriraniKorisnici">
+              <td>{{korisnik.ime}}</td>
+              <td>{{korisnik.prezime}}  </td>
+              <td><input type="checkbox" value="dodajOsobu"/></td>
+            </tr>
+          </tbody>
+      </table>
+    </form>
+    <button type="submit" class="btn btn-primary btn-lg" >
+        <fa name="arrow-left" size="lg"></fa>Povratak
+     </button>
+     <button type="submit" class="btn btn-primary btn-lg" style="float: right;" (click)="enterPassengerDetails()" >
+       Rezervisi <fa name="arrow-right" size="lg"></fa>
+     </button>
+</div>
+

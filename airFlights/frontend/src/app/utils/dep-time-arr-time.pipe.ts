@@ -5,7 +5,7 @@ import {Pipe, PipeTransform} from '@angular/core';
   name: 'timeFilter'
 })
 export class DepTimeArrTimePipe implements PipeTransform {
-  transform(value: Flight, args?: any) {
+  transform(value?: Flight, args?: any) {
     const dep = value.departureTime.toString();
     const arr = value.arrivalTime.toString();
 

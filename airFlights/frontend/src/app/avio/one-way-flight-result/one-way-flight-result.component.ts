@@ -10,7 +10,7 @@ import { SearchFlightParams } from './../../models/search-flight-params.model';
 export class OneWayFlightResultComponent implements OnInit {
 
   @Input()
-  flight: Flight;
+  flight?: Flight;
   flightClass;
 
   constructor(private searchFlightObject: SearchFlightParams) { }

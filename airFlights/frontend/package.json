@@ -27,6 +27,7 @@
     "bootstrap": "^4.2.1",
     "bootstrap-slider": "^10.6.0",
     "core-js": "^2.6.1",
+    "fabric": "^2.6.0",
     "font-awesome": "^4.7.0",
     "glyphicons": "^0.2.0",
     "jquery": "^3.3.1",

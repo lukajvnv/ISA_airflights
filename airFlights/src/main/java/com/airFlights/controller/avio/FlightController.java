@@ -2,6 +2,8 @@ package com.airFlights.controller.avio;
 
 import java.util.List;
 
+import javax.mail.MessagingException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -17,7 +19,9 @@ import com.airFlights.model.avio.Destination;
 import com.airFlights.model.avio.Flight;
 import com.airFlights.model.avio.FlightReturn;
 import com.airFlights.model.avio.SearchFlightParams;
+import com.airFlights.model.user.User;
 import com.airFlights.service.avio.FlightService;
+import com.airFlights.service.avio.MailService;
 
 @RestController
 @RequestMapping("/flight")
@@ -25,6 +29,9 @@ public class FlightController {
 
 	@Autowired
 	private FlightService flightService;
+	
+	@Autowired
+	private MailService mailService;
 	
 	
 	@RequestMapping(path = "/all", method = RequestMethod.GET)
@@ -94,6 +101,16 @@ public class FlightController {
 	public ResponseEntity<List<Destination>> getAllDestinations(){
 		List<Destination> destinations = flightService.getAllDestinations();
 		return new ResponseEntity<>(destinations, HttpStatus.OK);
+	}
+	
+	@RequestMapping(path = "/sendMail", method = RequestMethod.GET)
+	public ResponseEntity<List<Destination>> sendMail(){
+		try {
+			mailService.sendNotification(new User(), "Potvrda rezervacije", "Proba");
+			return new ResponseEntity<>(HttpStatus.OK);
+		} catch (MessagingException e) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
 	}
 	
 }

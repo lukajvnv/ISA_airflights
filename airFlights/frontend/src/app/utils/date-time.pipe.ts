@@ -9,21 +9,25 @@ export class DateTimePipe implements PipeTransform {
     let time;
     let date;
 
-    if ( depOrArr === 'd' ) {
-      time = value.departureTime.toString();
-      date = value.departureDate.toString();
+    if (value) {
+      if ( depOrArr === 'd' ) {
+        time = value.departureTime.toString();
+        date = value.departureDate.toString();
+      } else {
+        time = value.arrivalTime.toString();
+        date = value.arrivalDate.toString();
+      }
+
+      const hour = time.split(':')[0];
+      const minute = time.split(':')[1];
+      const day = time.split(':')[2];
+      const month = time.split(':')[1];
+      const year = time.split(':')[0];
+
+      console.log(date);
+      return date + ' ' + hour + ':' + minute;
     } else {
-      time = value.arrivalTime.toString();
-      date = value.arrivalDate.toString();
+      return;
     }
-
-    const hour = time.split(':')[0];
-    const minute = time.split(':')[1];
-    const day = time.split(':')[2];
-    const month = time.split(':')[1];
-    const year = time.split(':')[0];
-
-    console.log(date);
-    return date + ' ' + hour + ':' + minute;
   }
 }

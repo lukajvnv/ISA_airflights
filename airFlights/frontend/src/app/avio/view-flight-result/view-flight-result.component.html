@@ -11,44 +11,18 @@
       </div>
 
     <!--Centralni deo gde se prikazuju letovi-->
-    <div class="col-lg-6 themed-grid-col" style="border:2px solid blue ">
-      <div *ngFor="let oneFlight of flightsResult">
+    <div class="col-lg-6 themed-grid-col" style="border:2px solid blue">
+      <div *ngIf="flightsResult?.length > 0; then flightsExist else noFlights"></div>
+      <ng-template #noFlights>
+        <h2>Nema letove za unete parametre!</h2>
+      </ng-template>
+      <ng-template #flightsExist>
+        <div *ngFor="let oneFlight of flightsResult">
 
 <!--       <div class="row oneFlight" *ngFor="let oneFlight of flightsResult">
  -->        <app-one-way-flight-result [flight]="oneFlight"></app-one-way-flight-result>
-          <!-- <div class="col-lg-9">
-              <div class="row">
-                  <div class="col-lg-4">
-                    <p><b>{{flight | timeFilter}}</b></p>
-                  </div>
-                  <div class="col-lg-4">
-                    <p><b>{{flight.stops.length}} presedanja</b></p>
-                  </div>
-                  <div class="col-lg-4">
-                    <p style="text-align: right"><b>{{renderFlightDuration(flight)}}</b></p>
-                  </div>
-              </div>
-              <div class="row">
-                  <div class="col-lg-4">
-                    <p><b>{{flight.airline.name}}</b></p>
-                  </div>
-                  <div class="col-lg-5">
-                      <p><b>LON, NYC</b></p>
-                  </div>
-                  <div class="col-lg-3"  style="font-size: 17px">
-                    <p><b>{{flight.departureDestination.destinationCode}}-{{flight.arrivalDestination.destinationCode}}</b></p>
-                  </div>
-              </div>
-          </div>
-          <div class="vl">
-          </div>
-          <div class="col-lg-3">
-            <h5>Cena:500$</h5>
-            <button type="submit" class="btn btn-primary btn-block" (click)="filter()">
-                Vidi
-            </button>
-          </div> -->
-      </div>
+        </div>
+      </ng-template>
 
     </div>
 

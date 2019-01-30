@@ -26,6 +26,8 @@ import { SearchFlightParams } from './models/search-flight-params.model';
 import { OneWayFlightResultComponent } from './avio/one-way-flight-result/one-way-flight-result.component';
 import { FlightPricePipe } from './utils/flight-price.pipe';
 import { StopDestinationPipe } from './utils/stop-destination.pipe';
+import { AddFriendToFlightComponent } from './avio/add-friend-to-flight/add-friend-to-flight.component';
+import { AddPassengerDetailsComponent } from './avio/add-passenger-details/add-passenger-details.component';
 
 
 @NgModule({
@@ -40,7 +42,9 @@ import { StopDestinationPipe } from './utils/stop-destination.pipe';
     FlightPricePipe,
     DateTimePipe,
     StopDestinationPipe,
-    OneWayFlightResultComponent
+    OneWayFlightResultComponent,
+    AddFriendToFlightComponent,
+    AddPassengerDetailsComponent
   ],
   imports: [
     BrowserModule,
@@ -57,10 +61,15 @@ import { StopDestinationPipe } from './utils/stop-destination.pipe';
     RouterModule.forRoot([
       {path : '', component : SearchFlightComponent},
       {path : 'viewFlightResults', component : ViewFlightResultComponent},
-      {path : 'viewFlightResults/viewFlight/:flightId', component : ViewFlightComponent}
-
-
+      {path : 'viewFlightResults/viewFlight/:flightId', component : ViewFlightComponent},
+      {path : 'viewFlightResults/viewFlight/:flightId/bookFlight/:flightId', redirectTo: 'bookFlight/:flightId',  pathMatch: 'full'},
+      {path : 'bookFlight/:flightId', component : BookFlightComponent},
+      {path : 'bookFlight/:flightId/flight/:flightId/addFriendToFlight',
+      redirectTo: 'flight/:flightId/addFriendToFlight',  pathMatch: 'full'},
+      {path : 'flight/addFriendToFlight/:flightId', component : AddFriendToFlightComponent},
+      {path : 'flight/addPassengerDetails/:flightId', component : AddPassengerDetailsComponent}
     ])
+
   ],
   providers: [FlightService, AirlineService, SearchFlightParams],
   bootstrap: [AppComponent]

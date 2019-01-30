@@ -6,11 +6,11 @@
   <tbody>
     <tr>
       <th>Sifra leta</th>
-      <td>{{currentFlight.flightId}}</td>
+      <td>{{currentFlight?.flightId}}</td>
     </tr>
     <tr class="info">
       <th>Odlazna destinacija</th>
-      <td>{{currentFlight.departureDestination.destinationName}}</td>
+      <td>{{currentFlight?.departureDestination.destinationName}}</td>
     </tr>
     <tr class="info">
       <th>Datum datum i vreme odlaska</th>
@@ -18,7 +18,7 @@
     </tr>
     <tr>
       <th>Dolazna destinacija</th>
-      <td>{{currentFlight.arrivalDestination.destinationName}}</td>
+      <td>{{currentFlight?.arrivalDestination.destinationName}}</td>
     </tr>
     <tr>
       <th>Datum i vreme dolaska</th>
@@ -26,31 +26,34 @@
     </tr>
     <tr>
       <th>Dodatne usluge</th>
-      <td>{{currentFlight.additionalService}}</td>
+      <td>{{currentFlight?.additionalService}}</td>
     </tr>
     <tr>
       <th>Vreme trajanja leta</th>
-      <td>{{currentFlight.flightDuration}}</td>
+      <td>{{currentFlight?.flightDuration}} h</td>
     </tr>
     <tr>
       <th>Rastojanje leta leta</th>
-      <td>{{currentFlight.flightDistance}}</td>
+      <td>{{currentFlight?.flightDistance}} km</td>
     </tr>
     <tr>
       <th>Presedanja</th>
-      <td>{{currentFlight.stops | stopDestinationsFilter}}</td>
+      <td>{{currentFlight?.stops | stopDestinationsFilter}}</td>
     </tr>
     <tr>
       <th>Aviokompanija</th>
-      <td>{{currentFlight.airline.name}}</td>
+      <td>{{currentFlight?.airline.name}}</td>
     </tr>
     <tr>
       <th>Avion</th>
-      <td>{{currentFlight.airplaneName}}</td>
+      <td>{{currentFlight?.airplaneName}}</td>
     </tr>
   </tbody>
 </table>
-<button type="submit" class="btn btn-primary btn-lg" style="float: right;">
+<button type="submit" class="btn btn-primary btn-lg" (click)="backClick()">
+   <fa name="arrow-left" size="lg"></fa>Povratak
+</button>
+<button type="submit" class="btn btn-primary btn-lg" style="float: right;" [routerLink]="['bookFlight', currentFlight?.flightId]">
   Rezervisi <fa name="arrow-right" size="lg"></fa>
 </button>
 

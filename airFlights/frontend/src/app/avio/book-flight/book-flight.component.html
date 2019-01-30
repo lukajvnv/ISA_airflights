@@ -1,3 +1,45 @@
-<p>
-  book-flight works!
-</p>
+<form>
+  <fieldset class="well the-fieldset">
+      <legend class="the-legend">Your legend</legend>
+      <span class="border border-info reserved"></span>
+    <span class="border border-light free"></span>
+    <span class="border border-dark discount"></span>
+  </fieldset>
+</form>
+
+<div class="container">
+  <h2>Oznacite zeljeno mesto</h2>
+  <ng-container *ngFor="let item of svaSedistaAviona; let i = index;">
+  <span (mouseup)="selektuj(i)" [ngClass]="{'border': !selectDiv[i], 'borderSelected': selectDiv[i]}">{{i+1}}</span>
+
+  <!-- <span (mouseup)="selektuj(i)" [ngClass]="{'border': true, 'selectedD': selectDiv[i]}">{{i+1}}</span> -->
+  <div *ngIf="(i + 1) % 4 === 0" class="w-100"></div>
+  </ng-container>
+  <div class="w-100"></div>
+  <button type="submit" class="btn btn-primary btn-lg" (click)="backClick()">
+      <fa name="arrow-left" size="lg"></fa>Povratak
+   </button>
+  <button class="btn btn-primary btn-lg" style="float: right;" (click)="rezervisi()">
+    Rezervisi <fa name="arrow-right" size="lg"></fa>
+  </button>
+
+<!--   <span *ngFor="let item of arrayOne(); let i = index" class="border border-primary" style="background-color: red">{{i+1}}</span>
+ -->  <!-- <span class="border border-success">2</span>
+  <span class="border border-danger">3</span>
+  <span class="border border-warning"></span>
+  <span class="border border-info"></span>
+  <span class="border border-light"></span>
+  <span class="border border-dark"></span>
+  <span class="border border-white" style="background-color: red"></span>
+  <span class="border border-primary" style="background-color: red"></span>
+  <span class="border border-success"></span>
+  <span class="border border-danger"></span>
+  <span class="border border-warning"></span>
+  <span class="border border-info"></span>
+  <span class="border border-light"></span>
+  <span class="border border-dark"></span>
+  <span class="border border-white" style="background-color: red"></span> -->
+</div>
+
+
+

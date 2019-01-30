@@ -1,8 +1,10 @@
 import { Flight } from './../../models/flight.model';
 import { FlightService } from './../../services/flight.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit, Input } from '@angular/core';
 import { Observable, combineLatest } from 'rxjs';
+
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-view-flight',
@@ -11,7 +13,8 @@ import { Observable, combineLatest } from 'rxjs';
 })
 export class ViewFlightComponent implements OnInit {
 
-  constructor(private activatedRoute: ActivatedRoute, private flightService: FlightService) { }
+  constructor(private activatedRoute: ActivatedRoute, private flightService: FlightService, private router: Router,
+    private location: Location) { }
 
   @Input()
   currentFlight: Flight;
@@ -24,5 +27,10 @@ export class ViewFlightComponent implements OnInit {
         console.log(this.currentFlight);
       });
     });
+  }
+
+  backClick() {
+     // this.router.navigate(['../viewFlightResults'], { relativeTo: this.activatedRoute });
+     this.location.back();
   }
 }

@@ -1,0 +1,135 @@
+<h1>Informacije o letu</h1>
+<table class="table table-bordered">
+  <thead>
+  </thead>
+  <tbody>
+    <tr class="info">
+      <th>Odlazna destinacija</th>
+      <td>{{currentFlight?.departureDestination.destinationName}}</td>
+      <th>Dolazna destinacija</th>
+      <td>{{currentFlight?.arrivalDestination.destinationName}}</td>
+    </tr>
+    <tr class="info">
+      <th>Datum datum i vreme odlaska</th>
+      <td>{{currentFlight | dateTimeFilter:"d"}}</td>
+      <th>Datum i vreme dolaska</th>
+      <td>{{currentFlight | dateTimeFilter:"a"}}</td>
+    </tr>
+    <tr>
+      <th>Vreme trajanja leta</th>
+      <td>{{currentFlight?.flightDuration}} h</td>
+      <th>Rastojanje leta leta</th>
+      <td>{{currentFlight?.flightDistance}} km</td>
+    </tr>
+    <tr>
+      <th>Presedanja</th>
+      <td>{{currentFlight?.stops | stopDestinationsFilter}}</td>
+      <th>Dodatne usluge</th>
+      <td>{{currentFlight?.additionalService}}</td>
+    </tr>
+    <tr>
+      <th>Aviokompanija</th>
+      <td>{{currentFlight?.airline.name}}</td>
+      <th>Avion</th>
+      <td>{{currentFlight?.airplaneName}}</td>
+    </tr>
+  </tbody>
+</table>
+<!-- <form #f ="ngForm">
+  <div class="row">
+      <div class="col-md-2  mb-3">
+        <label for="imePrijatelja">Ime prijatelja:</label>
+      </div>
+      <div class="col-md-3 mb-3">
+          <input name="imePrijatelja" #imeP type="text" class="form-control" placeholder="Ime prijatelja...">
+      </div>
+      <div class="col-md-2 mb-3">
+        <label for="prezimePrijatelja">Prezime prijatelja:</label>
+      </div>
+      <div class="col-md-3 mb-3">
+          <input name="prezimePrijatelja" #prezimeP type="text" class="form-control" id="zip" placeholder="Prezime prijatelja...">
+      </div>
+  </div>
+  <div class="row">
+    <div class="col-md-2  mb-3">
+      <label for="imePrijatelja">Ime prijatelja:</label>
+    </div>
+    <div class="col-md-3 mb-3">
+        <input name="imePrijatelja" #imeP type="text" class="form-control" placeholder="Ime prijatelja...">
+    </div>
+    <div class="col-md-2 mb-3">
+      <label for="prezimePrijatelja">Prezime prijatelja:</label>
+    </div>
+    <div class="col-md-3 mb-3">
+        <input name="prezimePrijatelja" #prezimeP type="text" class="form-control" id="zip" placeholder="Prezime prijatelja...">
+    </div>
+  </div>
+<div class="row">
+  <div class="col-md-2  mb-3">
+    <label for="imePrijatelja">Ime prijatelja:</label>
+  </div>
+  <div class="col-md-3 mb-3">
+      <input name="imePrijatelja" #imeP type="text" class="form-control" placeholder="Ime prijatelja...">
+  </div>
+  <div class="col-md-2 mb-3">
+    <label for="prezimePrijatelja">Prezime prijatelja:</label>
+  </div>
+  <div class="col-md-3 mb-3">
+      <input name="prezimePrijatelja" #prezimeP type="text" class="form-control" id="zip" placeholder="Prezime prijatelja...">
+  </div>
+  </div>
+</form> -->
+<h1>Putnik 1 od 2</h1>
+<form [formGroup]="passengerForm" (ngSubmit) ="potvrdi()">
+  <div class="row">
+      <div class="col-md-2  mb-3">
+        <label for="passengerName">Ime putnika:</label>
+      </div>
+      <div class="col-md-3 mb-3">
+          <input  formControlName="passengerName" id="passengerName" type="text" class="form-control" placeholder="Ime putnika..." [disabled]="true">
+      </div>
+      <div class="col-md-2 mb-3">
+        <label for="passengerLastName">Prezime putnika:</label>
+      </div>
+      <div class="col-md-3 mb-3">
+          <input id="passengerLastName" formControlName="passengerLastName" type="text" class="form-control"  placeholder="Prezime putnika...">
+      </div>
+  </div>
+  <div class="row">
+    <div class="col-md-2  mb-3">
+      <label for="passengerAddress">Adresa putnika:</label>
+    </div>
+    <div class="col-md-3 mb-3">
+        <input id="passengerAddress" formControlName="passengerAddress" type="text" class="form-control" placeholder="Adresa putnika...">
+    </div>
+    <div class="col-md-2 mb-3">
+      <label for="passengerPassportNum">Br. pasosa putnika:</label>
+    </div>
+    <div class="col-md-3 mb-3">
+        <input id="passengerPassportNum" formControlName="passengerPassportNum" type="text" class="form-control"  placeholder="Br. pasosa putnika...">
+    </div>
+  </div>
+<div class="row">
+  <div class="col-md-2  mb-3">
+    <label for="passengerTelephone">Telefon putnika:</label>
+  </div>
+  <div class="col-md-3 mb-3">
+      <input id="passengerTelephone" formControlName="passengerTelephone" type="text" class="form-control" placeholder="Telefon putnika...">
+  </div>
+  <div class="col-md-2 mb-3">
+    <label for="passengerMail">Email putnika:</label>
+  </div>
+  <div class="col-md-3 mb-3">
+      <input id="passengerMail" formControlName="passengerMail" type="text" class="form-control"  placeholder="Email putnika...">
+  </div>
+  <div class="col-md-2 mb-3">
+    <button type="submit" class="btn btn-primary btn-lg btn-block">Potvrdi</button>
+</div>
+  </div>
+</form>
+<ul class="pagination pagination-lg justify-content-center">
+    <li class="page-item"><a class="page-link" href="">Previous</a></li>
+    <li class="page-item"><a class="page-link" href="">1</a></li>
+    <li class="page-item"><a class="page-link" href="">2</a></li>
+    <li class="page-item"><a class="page-link" href="">Next</a></li>
+  </ul>
