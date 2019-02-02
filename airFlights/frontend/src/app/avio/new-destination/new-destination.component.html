@@ -1,0 +1,45 @@
+<h2>Dodavanje nove destinacije</h2>
+<form [formGroup]="destinationForm" (ngSubmit) ="potvrdi()">
+  <div class="row">
+      <div class="col-md-3  mb-3">
+        <label for="destinationName">Ime destinacije*:</label>
+      </div>
+      <div class="col mb-3">
+          <input  formControlName="destinationName" id="destinationName" type="text" class="form-control" placeholder="Ime destinacije...">
+      </div>
+  </div>
+  <div class="row">
+    <div class="col-md-3 mb-3">
+      <label for="destinationCode">Kod destinacije*:</label>
+    </div>
+    <div class="col mb-3">
+        <input id="destinationCode" formControlName="destinationCode" type="text" class="form-control"  placeholder="Karakteri, duzina 3...">
+    </div>
+</div>
+  <div class="row">
+    <div class="col-md-3  mb-3">
+      <label for="destinationAirport">Ime aerodroma*:</label>
+    </div>
+    <div class="col mb-3">
+        <input id="destinationAirport" formControlName="destinationAirport" type="text" class="form-control" placeholder="Ime aerodroma...">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-3 mb-3">
+      <label for="destinationDescription">Opis destinacije:</label>
+    </div>
+    <div class="col mb-3">
+        <input id="destinationDescription" formControlName="destinationDescription" type="text" class="form-control"  placeholder="Opis destinacije...">
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-4">
+
+    </div>
+    <div class="col-md-4">
+        <button class="btn btn-lg btn-block btn-primary">Dodaj</button>
+    </div>
+
+  </div>
+</form>

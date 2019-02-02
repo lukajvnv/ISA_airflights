@@ -1,0 +1,22 @@
+div.divTime {display: inline-block;}
+
+.vl {
+  border-left: 6px solid green;
+  height: 80px;
+  position: absolute;
+  right: 25%;
+  margin-left: -3px;
+  /* top: 0;*/
+}
+
+.oneFlight {
+  border: 2px solid red;
+  margin-top:5px;
+  background-color: beige;
+}
+
+.stopsTable{
+  overflow-y:scroll;
+  height:200px;
+  display:block;
+}

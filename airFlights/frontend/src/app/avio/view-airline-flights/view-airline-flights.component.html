@@ -1,0 +1,59 @@
+<h2>Letovi kompanije</h2>
+<div  class="stopsTable">
+<div *ngFor="let flight of airlineFlights">
+  <div class="row oneFlight">
+    <div class="col-lg-9">
+      <div class="row">
+        <div class="col-lg-4">
+          <p><b>{{flight | timeFilter}}</b></p>
+        </div>
+        <div class="col-lg-5">
+          <p><b>{{flight.stops.length}} presedanja</b></p>
+        </div>
+        <div class="col-lg-3">
+          <p><b>{{flight?.flightDistance}}km</b></p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-4">
+          <p><b>{{flight.airline.name}}</b></p>
+        </div>
+        <div class="col-lg-5">
+          <p><b>{{flight.stops | stopDestinationsFilter}}</b></p>
+        </div>
+        <div class="col-lg-3"  style="font-size: 17px">
+          <p><b>{{flight.departureDestination.destinationCode}}-{{flight.arrivalDestination.destinationCode}}</b></p>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-3 priceDiv">
+      <!-- <div class="w-100">fdfd</div> -->
+      <div style="text-align: center">
+        <button type="submit" class="btn btn-primary btn-block detail" (click)="pogledajDetalje(flight)">
+          Detalji
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+<app-view-airline-flight [currentFlight]="selectedFlight"></app-view-airline-flight>
+<div *ngIf="isRightAdmin" class="row">
+  <div class="col-md-3">
+    <button class="btn btn-lg btn-block btn-primary" (click)="noviLet()">
+      Dodaj novi let
+    </button>
+  </div>
+  <div class="col-md-6">
+
+  </div>
+  <div class="col-md-3">
+      <button type="submit" class="btn btn-warning btn-block btn-lg" (click)="izmeniLet()">
+          Izmeni postojeci let
+      </button>
+  </div>
+</div>
+
+
+
+

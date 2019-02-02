@@ -1,0 +1,120 @@
+<h2>Azuriranje avio kompanije</h2>
+<form [formGroup]="airlineForm" (ngSubmit) ="potvrdi()">
+  <div class="row">
+      <div class="col-md-3  mb-3">
+        <label for="airlineName">Ime avio kompanije*:</label>
+      </div>
+      <div class="col-md-3 mb-3">
+          <input  formControlName="airlineName" id="airlineName" type="text" class="form-control" placeholder="Ime avio kompanije...">
+      </div>
+  </div>
+  <div class="row">
+    <div class="col-md-3 mb-3">
+      <label for="airlineAddress">Adresa avio kompanije*:</label>
+    </div>
+    <div class="col-md-3 mb-3">
+        <input id="airlineAddress" formControlName="airlineAddress" type="text" class="form-control"  placeholder="Adresa avio kompanije...">
+    </div>
+    <div class="col-md-3 mb-3">
+      <label for="airlineCity">Grad avio kompanije*:</label>
+    </div>
+    <div class="col-md-3 mb-3">
+      <input id="airlineCity" formControlName="airlineCity" type="text" class="form-control"  placeholder="Grad avio kompanije...">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-3  mb-3">
+      <label for="airlinePromoDescription">Promo opis:</label>
+    </div>
+    <div class="col-md-9 mb-3">
+        <input id="airlinePromoDescription" formControlName="airlinePromoDescription" type="text" class="form-control" placeholder="Promo opis...">
+    </div>
+  </div>
+  <div class="row">
+      <div class="col-md-3  mb-3">
+        <label for="airlineLuggageInfo">Info o prtljagu:</label>
+      </div>
+      <div class="col-md-9 mb-3">
+          <input id="airlineLuggageInfo" formControlName="airlineLuggageInfo" type="text" class="form-control" placeholder="Info o prtljagu...">
+      </div>
+  </div>
+  <div class="row">
+    <div class="col-md-2 mb-3">
+      <label for="stops">Destinacije poslovanja:</label>
+    </div>
+    <div class="col-md-3 mb-3">
+      <button type="button" class="btn btn-outline-primary" (click)="isCollapsed = !isCollapsed"
+        [attr.aria-expanded]="!isCollapsed" aria-controls="collapseExample">
+        Prikazi trenutne destinacije
+      </button>
+    </div>
+  </div>
+  <div class="row" id="collapseExample" [ngbCollapse]="isCollapsed">
+    <div class="col-md-3 mb-3">
+      <label>Trenutne destinacije poslovanja:</label>
+    </div>
+    <div class="col-md-9 mb-3">
+      <table class="table table-bordered stopsTable">
+        <thead>
+          <tr>
+            <td>Ime destinacije</td>
+            <td>Kod destinacije</td>
+            <td>Ime aerodroma</td>
+            <td>Opis destinacije</td>
+            <td>Ukloni</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let dest of businessDestinations">
+            <td>{{dest.destinationName}}</td>
+            <td>{{dest.destinationCode}}</td>
+            <td>{{dest.destinationAirport}}</td>
+            <td>{{dest.destinationDescription}}</td>
+            <td>
+            <button class="btn btn-lg btn-block btn-danger" (click)="ukloniDestinacijuPoslovanja(dest)">Ukloni</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <hr />
+    <div class="row">
+      <div class="col-md-3 mb-3">
+        <label>Izaberite destinacije poslovanja:</label>
+      </div>
+      <div class="col-md-9 mb-3">
+        <table class="table table-bordered stopsTable">
+          <thead>
+            <tr>
+              <td>Ime destinacije</td>
+              <td>Kod destinacije</td>
+              <td>Ime aerodroma</td>
+              <td>Opis destinacije</td>
+              <td>Dodaj</td>
+             </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let dest of unassignedDestinations">
+              <td>{{dest.destinationName}}</td>
+              <td>{{dest.destinationCode}}</td>
+              <td>{{dest.destinationAirport}}</td>
+              <td>{{dest.destinationDescription}}</td>
+              <td>
+                <button class="btn btn-lg btn-block btn-success" (click)="dodajDestinacijuPoslovanja(dest)">Dodaj</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  <div class="row">
+    <div class="col-md-4">
+
+    </div>
+    <div class="col-md-4">
+        <button class="btn btn-lg btn-block btn-primary">Dodaj</button>
+    </div>
+
+  </div>
+</form>

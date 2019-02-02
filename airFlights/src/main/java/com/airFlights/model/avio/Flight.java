@@ -19,12 +19,11 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 
 import org.hibernate.annotations.ColumnDefault;
 
+import com.airFlights.dto.avio.FlightDTO;
 import com.airFlights.model.Pricelist;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
@@ -46,10 +45,10 @@ public class Flight {
 	@Column(name = "arrival_time", nullable = false)
 	private LocalTime arrivalTime;
 	
-	@Column(name = "duration", scale=2)
+	@Column(name = "duration")
 	private Float flightDuration;
 	
-	@Column(name = "distance", scale=2)
+	@Column(name = "distance")
 	private Float flightDistance;
 	
 	
@@ -77,7 +76,7 @@ public class Flight {
 	@Column(name = "airplane")
 	private String airplaneName;
 	
-	@JsonIgnore
+	// @JsonIgnore
 	@ColumnDefault(value = "0")
 	@Column(name = "profit", scale=2)
 	private Float flightProfit;
@@ -136,10 +135,11 @@ public class Flight {
 		this.flightId = flightId;
 	}
 
-	public double getFlightDuration() {
+	public float getFlightDuration() {
 		return flightDuration;
 	}
 
+	//@JsonProperty
 	public void setFlightDuration() {
 		Period period = Period.between(departureDate, arrivalDate);
 		Duration duration = Duration.between(departureTime, arrivalTime);
@@ -147,7 +147,32 @@ public class Flight {
 		int daysH = period.getDays() * 24;
 		float hours = duration.abs().toMinutes()*1f / 60;
 		
-		this.flightDuration = daysH + hours;
+		//this.flightDuration = daysH + hours;
+		setFlightDuration(daysH + hours);
+	}
+	
+	//@JsonProperty
+	public void addStopToFlight(Destination destination) {
+		this.getStops().add(destination);
+	}
+	
+	//@JsonProperty
+	public void setSimpleData(FlightDTO flightFront) {
+		setDepartureDate(flightFront.getDepartureDate());
+		setArrivalDate(flightFront.getArrivalDate());
+		setDepartureTime(flightFront.getDepartureTime());
+		setArrivalTime(flightFront.getArrivalTime());
+		setFlightDuration();
+		
+		setFlightDistance(flightFront.getFlightDistance());
+		setAirplaneName(flightFront.getAirplaneName());
+		setAdditionalService(flightFront.getAdditionalService());
+		setLuggage(flightFront.getLuggage());
+		
+		setNumberOfSeats(flightFront.getNumberOfSeats());
+		setNumberOfEconomyAvailableSeats(flightFront.getNumberOfEconomyAvailableSeats());
+		setNumberOfBusinessAvailableSeats(flightFront.getNumberOfBusinessAvailableSeats());
+		setNumberOfFirstAvailableSeats(flightFront.getNumberOfFirstAvailableSeats());
 	}
 
 	public int getRatingNum() {
@@ -166,8 +191,8 @@ public class Flight {
 		this.ratingSum = ratingSum;
 	}
 	
-	public double getFlightProfit() {
-		return flightProfit;
+	public float getFlightProfit() {
+		return flightProfit == null ? 0 : flightProfit;
 	}
 
 	public void setFlightProfit(float flightProfit) {

@@ -1,0 +1,31 @@
+<h3>Informacije o letu</h3>
+<table class="table table-bordered">
+  <thead>
+  </thead>
+  <tbody>
+    <tr class="info">
+      <th>Odlazna destinacija</th>
+      <td>{{currentFlight?.departureDestination.destinationName}}</td>
+      <th>Dolazna destinacija</th>
+      <td>{{currentFlight?.arrivalDestination.destinationName}}</td>
+    </tr>
+    <tr class="info">
+      <th>Datum datum i vreme odlaska</th>
+      <td>{{currentFlight | dateTimeFilter:"d"}}</td>
+      <th>Datum i vreme dolaska</th>
+      <td>{{currentFlight | dateTimeFilter:"a"}}</td>
+    </tr>
+    <tr>
+      <th>Vreme trajanja leta</th>
+      <td>{{currentFlight?.flightDuration}} h</td>
+      <th>Rastojanje leta</th>
+      <td>{{currentFlight?.flightDistance}} km</td>
+    </tr>
+    <tr>
+      <th>Presedanja</th>
+      <td>{{currentFlight?.stops | stopDestinationsFilter}}</td>
+      <th>Dodatne usluge</th>
+      <td>{{currentFlight?.additionalService}}</td>
+    </tr>
+  </tbody>
+</table>

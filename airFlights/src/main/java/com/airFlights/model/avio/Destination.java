@@ -2,6 +2,7 @@ package com.airFlights.model.avio;
 
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -33,11 +34,17 @@ public class Destination {
 	@Column(name="description")
 	private String destinationDescription;
 
-	@ManyToMany(mappedBy="flightDestinations", fetch=FetchType.LAZY)
+	@ManyToMany(mappedBy="flightDestinations", fetch=FetchType.LAZY, cascade = {
+            CascadeType.MERGE,
+            CascadeType.REFRESH
+        })
 	@JsonIgnore
 	private Set<Airline> airlines;
 	
-	@ManyToMany(mappedBy = "stops")
+	@ManyToMany(mappedBy = "stops", cascade = {
+            CascadeType.MERGE,
+            CascadeType.REFRESH
+        })
 	@JsonIgnore
 	private Set<Flight> flights;
 	

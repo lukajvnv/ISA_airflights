@@ -1,7 +1,9 @@
+import { Flight } from './../models/flight.model';
 import { SearchFlightParams } from './../models/search-flight-params.model';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { Pricelist } from '../models/pricelist.model';
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +16,13 @@ export class FlightService {
   private searchFlightsUrlMultiCity = 'http://localhost:8080/flight/search/multiCity';
 
   private getFlightBase = 'http://localhost:8080/flight/';
+
+  private newFlightUrl = 'http://localhost:8080/flight/new';
+  private updateFlightUrl = 'http://localhost:8080/flight/update';
+
+  private getAllPricelistUrl = 'http://localhost:8080/flight/pricelist/all';
+  private addNewPricelistUrl = 'http://localhost:8080/flight/pricelist/new';
+
 
   constructor(private http: HttpClient) { }
 
@@ -37,5 +46,24 @@ export class FlightService {
 
   getFlight(flightId: string): Observable<any> {
     return this.http.get(this.getFlightBase + flightId)/*.map(response => response.json()).catch()*/;
+  }
+
+  addNewFlight(newFlight: Flight): Observable<any> {
+    // const params = new HttpParams().set('airlineId', airlineId);
+    /* const options = airlineId ?
+   { params: new HttpParams().set('airlineId', airlineId) } : {}; */
+    return this.http.post(this.newFlightUrl, newFlight);
+  }
+
+  updateFlight(flight: Flight): Observable<any> {
+    return this.http.put(this.updateFlightUrl, flight);
+  }
+
+  getAllPricelist(): Observable<any> {
+    return this.http.get(this.getAllPricelistUrl);
+  }
+
+  addNewPricelist(pricelist: Pricelist): Observable<any> {
+    return this.http.post(this.addNewPricelistUrl, pricelist);
   }
 }

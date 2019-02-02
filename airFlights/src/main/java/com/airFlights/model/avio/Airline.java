@@ -14,7 +14,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
+
+import org.hibernate.annotations.ColumnDefault;
 
 import com.airFlights.model.Pricelist;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -45,14 +46,19 @@ public class Airline {
 	private String luggageInfo;
 	
 	@JsonIgnore
+	@ColumnDefault(value = "0")
 	@Column(name="ratingSum", nullable=true)
 	private Integer ratingSum;
 	
 	@JsonIgnore
+	@ColumnDefault(value = "0")
 	@Column(name="ratingNumber", nullable=true)
 	private Integer ratingNumber;
 	
-	@ManyToMany(fetch = FetchType.LAZY)
+	@ManyToMany(fetch = FetchType.EAGER,cascade = {
+            CascadeType.MERGE,
+            CascadeType.REFRESH
+        })
 	@JoinTable(name="flight_destinations", joinColumns = @JoinColumn(name = "airline_id", referencedColumnName = "airlineId"), inverseJoinColumns = @JoinColumn(name="destination_id", referencedColumnName = "destinationId"))
 	private Set<Destination> flightDestinations = new HashSet<Destination>();
 	
@@ -61,19 +67,41 @@ public class Airline {
 	private Set<Flight> airlineFlights = new HashSet<Flight>();
 	
 	@OneToMany(mappedBy = "airline", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JsonIgnoreProperties("airline")
 	private Set<AirlineTicket> discountTickets = new HashSet<AirlineTicket>();
-	
-//	@JsonIgnore
-//	@OneToOne(fetch = FetchType.LAZY)
-//	@JoinColumn(name = "pricelist_id")
-//	private Pricelist pricelist;
-//	
 	
 	public Airline() {
 		super();
 	}
 
+	public Airline(Integer airlineId, String name, String address, String city, String promoDescription,
+			String luggageInfo, Integer ratingSum, Integer ratingNumber, Set<Destination> flightDestinations,
+			Set<Flight> airlineFlights, Set<AirlineTicket> discountTickets, Pricelist pricelist) {
+		super();
+		this.airlineId = airlineId;
+		this.name = name;
+		this.address = address;
+		this.city = city;
+		this.promoDescription = promoDescription;
+		this.luggageInfo = luggageInfo;
+		this.ratingSum = ratingSum;
+		this.ratingNumber = ratingNumber;
+		this.flightDestinations = flightDestinations;
+		this.airlineFlights = airlineFlights;
+		this.discountTickets = discountTickets;
+	}
 	
+	public Airline(Integer airlineId, String name, String address, String city, String promoDescription,
+			String luggageInfo) {
+		super();
+		this.airlineId = airlineId;
+		this.name = name;
+		this.address = address;
+		this.city = city;
+		this.promoDescription = promoDescription;
+		this.luggageInfo = luggageInfo;
+		
+	}
 	
 	public Integer getAirlineId() {
 		return airlineId;
@@ -139,14 +167,6 @@ public class Airline {
 		this.luggageInfo = luggageInfo;
 	}
 
-	public Set<Destination> getFlightDestination() {
-		return flightDestinations;
-	}
-
-	public void setFlightDestination(Set<Destination> flightDestination) {
-		this.flightDestinations = flightDestination;
-	}
-
 	public Set<Flight> getAirlineFlights() {
 		return airlineFlights;
 	}
@@ -171,34 +191,20 @@ public class Airline {
 		this.ratingNumber = ratingNumber;
 	}
 
-	public Airline(Integer airlineId, String name, String address, String city, String promoDescription,
-			String luggageInfo, Integer ratingSum, Integer ratingNumber, Set<Destination> flightDestinations,
-			Set<Flight> airlineFlights, Set<AirlineTicket> discountTickets, Pricelist pricelist) {
-		super();
-		this.airlineId = airlineId;
-		this.name = name;
-		this.address = address;
-		this.city = city;
-		this.promoDescription = promoDescription;
-		this.luggageInfo = luggageInfo;
-		this.ratingSum = ratingSum;
-		this.ratingNumber = ratingNumber;
+	public Set<Destination> getFlightDestinations() {
+		return flightDestinations;
+	}
+
+	public void setFlightDestinations(Set<Destination> flightDestinations) {
 		this.flightDestinations = flightDestinations;
-		this.airlineFlights = airlineFlights;
+	}
+
+	public Set<AirlineTicket> getDiscountTickets() {
+		return discountTickets;
+	}
+
+	public void setDiscountTickets(Set<AirlineTicket> discountTickets) {
 		this.discountTickets = discountTickets;
 	}
-	
-	public Airline(Integer airlineId, String name, String address, String city, String promoDescription,
-			String luggageInfo) {
-		super();
-		this.airlineId = airlineId;
-		this.name = name;
-		this.address = address;
-		this.city = city;
-		this.promoDescription = promoDescription;
-		this.luggageInfo = luggageInfo;
-		
-	}
-	
 	
 }

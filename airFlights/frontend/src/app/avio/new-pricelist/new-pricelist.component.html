@@ -1,0 +1,36 @@
+<h2>Dodavanje novog cenovnika</h2>
+<form [formGroup]="pricelistForm" (ngSubmit) ="potvrdi()">
+  <div class="row">
+      <div class="col-md-3  mb-3">
+        <label for="economyPrice">Cena ekonomske karte*:</label>
+      </div>
+      <div class="col-md-5 mb-3">
+          <input  formControlName="economyPrice" id="economyPrice" type="text" class="form-control" placeholder="Cena ekonomske karte[format: BBB.dd]...">
+      </div>
+  </div>
+  <div class="row">
+    <div class="col-md-3 mb-3">
+      <label for="businessPrice">Cena business karte*:</label>
+    </div>
+    <div class="col-md-5 mb-3">
+        <input id="businessPrice" formControlName="businessPrice" type="text" class="form-control"  placeholder="Cena business karte[format: BBB.dd]...">
+    </div>
+</div>
+  <div class="row">
+    <div class="col-md-3  mb-3">
+      <label for="firstPrice">Cena firstClass karte*:</label>
+    </div>
+    <div class="col-md-5 mb-3">
+        <input id="firstPrice" formControlName="firstPrice" type="text" class="form-control" placeholder="Cena firstClass karte[format: BBB.dd]...">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-4">
+
+    </div>
+    <div class="col-md-4">
+        <button class="btn btn-lg btn-block btn-primary">Dodaj</button>
+    </div>
+
+  </div>
+</form>

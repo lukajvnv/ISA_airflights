@@ -1,0 +1,247 @@
+<!-- <h2 *ngIf="airline"> Dodavanje leta u {{ airline.name }}</h2>
+ --><form #f ="ngForm">
+    <div class="row">
+      <div class="col-md-3  mb-3">
+        <label for="departure">Odlazna destinacija* :</label>
+      </div>
+      <div class="col-md-3  mb-3">
+          <label for="arrival">Dolazna destinacija* :</label>
+      </div>
+      <div class="col-md-3  mb-3">
+        <label for="dp1">Datum odlaska* :</label>
+      </div>
+      <div class="col-md-3  mb-3">
+        <label for="dp2">Datum dolaska* :</label>
+      </div>
+    </div>
+  <div class="row">
+    <div class="col-md-3 mb-3">
+      <div class="input-group">
+        <span class="input-group-addon"><fa name="plane-departure" style="color:blue" size="2x"></fa>
+        </span>
+        <select [(ngModel)]="departureDestination" name="departure" id="departure" class="custom-select d-block" required>
+          <!-- <option hidden value="" disabled> Polazna destinacija</option> -->
+          <option *ngFor="let destination of destinations;" [ngValue]="destination">{{destination.destinationCode + ', ' + destination.destinationName + ', ' + destination.destinationAirport}}</option>
+        </select>
+      </div>
+    </div>
+    <div class="col-md-3 mb-3">
+        <div class="input-group">
+          <span class="input-group-addon"><fa name="plane-arrival" style="color:red" size="2x"></fa></span>
+           <select [(ngModel)]="arrivalDestination" name="arrival" id="arrival" class="custom-select d-block" required>
+                <!-- <option hidden value="" disabled> Dolazna destinacija</option> -->
+                <option *ngFor="let destination of destinations; let idx = index" [ngValue]="destination" [selected]="idx == 0">
+                  {{destination.destinationCode + ', ' + destination.destinationName + ', ' + destination.destinationAirport}}</option>
+        </select>
+        </div>
+    </div>
+    <div class="col-md-2 mb-2">
+      <div class="input-group">
+        <input class="form-control" placeholder="yyyy-mm-dd"
+               name="dp1" id="dp1" [(ngModel)]="departureDate" ngbDatepicker startDate="2019-01-07" #departurePicker="ngbDatepicker" required>
+        <div class="input-group-append">
+          <button class="btn btn-outline-secondary calendar" (click)="departurePicker.toggle()" type="button"><fa name="calendar-alt" style="color:blue" size="lg"></fa></button>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-2 mb-2">
+        <div class="input-group">
+          <input class="form-control" placeholder="yyyy-mm-dd"
+                 name="dp2" name="dp2" [(ngModel)]="arrivalDate"  ngbDatepicker #arrivalPicker="ngbDatepicker" required>
+          <div class="input-group-append">
+            <button class="btn btn-outline-secondary calendar" (click)="arrivalPicker.toggle()" type="button"><fa name="calendar-alt" style="color:red" size="lg"></fa></button>
+          </div>
+        </div>
+      </div>
+  </div>
+  <div clas="row">
+    <div class="col-md-2 divTime">
+      <b>Vreme polaska* :</b>
+    </div>
+    <div class="col-md-3 divTime">
+      <ngb-timepicker [(ngModel)]="departureTime" name="depTime"></ngb-timepicker>
+    </div>
+    <div class="col-md-2 divTime">
+      <b>Vreme dolaska* :</b>
+    </div>
+    <div class="col-md-3 divTime">
+      <ngb-timepicker [(ngModel)]="arrivalTime" name="arrTime"></ngb-timepicker>
+    </div>
+  </div>
+  <hr/>
+  <div class="row">
+    <div class="col-md-2  mb-3">
+      <label for="seatNum">Ukupno sedista* :</label>
+    </div>
+    <div class="col-md-1 mb-3">
+        <input id="seatNum" name="seatNum" [(ngModel)]="seatNum" type="text" class="form-control" maxlength="3" required>
+    </div>
+    <div class="col-md-2 mb-3">
+      <label for="seatEconomy">Br economy:</label>
+    </div>
+    <div class="col-md-1 mb-3">
+        <input id="seatEconomy" name="seatEconomy" [(ngModel)]="seatEconomy" type="text" class="form-control" maxlength="3">
+    </div>
+    <div class="col-md-2 mb-3">
+      <label for="seatBusiness">Br business:</label>
+    </div>
+    <div class="col-md-1 mb-3">
+        <input id="seatBusiness" name="seatBusiness" [(ngModel)]="seatBusiness"  type="text" class="form-control"  maxlength="3">
+    </div>
+    <div class="col-md-2 mb-3">
+      <label for="seatFirst">Br first-class:</label>
+    </div>
+    <div class="col-md-1 mb-3">
+        <input id="seatFirst" name="seatFirst" [(ngModel)]="seatFirst"  type="text" class="form-control"  maxlength="3">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-2  mb-3">
+      <label for="luggage">Prtljag[u kg]:</label>
+    </div>
+    <div class="col-md-1 mb-3">
+      <input id="luggage" name="luggage" [(ngModel)]="luggage" type="text" class="form-control">
+    </div>
+    <div class="col-md-2 mb-3">
+      <label for="airplane">Ime aviona:</label>
+    </div>
+    <div class="col-md-3 mb-3">
+      <input id="airplane" name="airplane" [(ngModel)]="airplane" type="text" class="form-control">
+    </div>
+    <div class="col-md-2 mb-3">
+      <label for="distance">Rastojanje:</label>
+    </div>
+    <div class="col-md-2 mb-3">
+      <input id="distance" name="distance" [(ngModel)]="distance" type="text" class="form-control">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-3 mb-3">
+        <label for="additionalService">Dodatne usluge:</label>
+    </div>
+    <div class="col-md-9 mb-3">
+        <input id="additionalService" name="additionalService" [(ngModel)]="additionalService" type="text" class="form-control">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-2 mb-3">
+        <label for="stopNum">Cenovnik:</label>
+    </div>
+    <div class="col-md-3 mb-3">
+      <select [(ngModel)]="selectedPricelist" name="selectedPricelist" id="selectedPricelist" class="custom-select d-block" required>
+          <option *ngFor="let priceL of allPricelist" [ngValue]="priceL">{{priceL.pricelistId}}</option>
+      </select>
+    </div>
+    <div class="col-md-7 mb-3">
+        <table class="table table-bordered">
+          <tr>
+            <th>Economy:</th>
+            <td>{{selectedPricelist?.economyPrice}} €</td>
+            <th>Business:</th>
+            <td>{{selectedPricelist?.businessPrice}} €</td>
+            <th>First:</th>
+            <td>{{selectedPricelist?.firstPrice}} €</td>
+          </tr>
+        </table>
+    </div>
+  </div>
+  <hr />
+  <div class="row">
+    <div class="col-md-2 mb-3">
+        <label for="stopNum">Broj presedanja:</label>
+    </div>
+    <div class="col-md-3 mb-3">
+      <input id="stopNum" type="text" class="form-control" [(ngModel)]="stops.length" name="stopNum" disabled="true">
+    </div>
+    <div class="col-md-2 mb-3">
+      <label for="stops">Lokacije presedanja:</label>
+    </div>
+    <div class="col-md-3 mb-3">
+        <!-- <select [(ngModel)]="stops" name="stops" id="stops" class="custom-select d-block" >
+            <option *ngFor="let destination of stops;" [ngValue]="destination">{{destination.destinationCode + ', ' + destination.destinationName + ', ' + destination.destinationAirport}}<button>Ukloni</button></option>
+          </select> -->
+          <button type="button" class="btn btn-outline-primary" (click)="isCollapsed = !isCollapsed"
+          [attr.aria-expanded]="!isCollapsed" aria-controls="collapseExample">
+            Prikazi trenutna presedanja
+         </button>
+    </div>
+  </div>
+  <div class="row" id="collapseExample" [ngbCollapse]="isCollapsed">
+    <div class="col-md-3 mb-3">
+          <label>Izaberite destinacije presedanja:</label>
+      </div>
+    <div class="col-md-9 mb-3">
+      <table class="table table-bordered stopsTable">
+        <thead>
+          <tr>
+            <td>Ime destinacije</td>
+            <td>Kod destinacije</td>
+            <td>Ime aerodroma</td>
+            <td>Opis destinacije</td>
+            <td>Ukloni</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let stop of stops">
+            <td>
+              {{stop.destinationName}}
+            </td>
+            <td>
+              {{stop.destinationCode}}
+            </td>
+            <td>
+              {{stop.destinationAirport}}
+            </td>
+            <td>
+              {{stop.destinationDescription}}
+            </td>
+            <td>
+              <button class="btn btn-lg btn-block btn-danger" (click)="ukloniPresedanje(stop)">Ukloni</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <hr />
+  <div class="row">
+      <div class="col-md-3 mb-3">
+          <label>Izaberite destinacije presedanja:</label>
+      </div>
+      <div class="col-md-9 mb-3">
+        <table class="table table-bordered stopsTable">
+          <thead>
+            <tr>
+              <td>Ime destinacije</td>
+              <td>Kod destinacije</td>
+              <td>Ime aerodroma</td>
+              <td>Opis destinacije</td>
+              <td>Dodaj</td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let stop of unassignedStops">
+              <td>
+                {{stop.destinationName}}
+              </td>
+              <td>
+                {{stop.destinationCode}}
+              </td>
+              <td>
+                {{stop.destinationAirport}}
+              </td>
+              <td>
+                {{stop.destinationDescription}}
+              </td>
+              <td>
+                <button class="btn btn-lg btn-block btn-success" (click)="dodajPresedanje(stop)">Dodaj</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+  </div>
+  <button type="submit" class="btn btn-primary btn-lg" style="float: right;" (click) = "dodajLet(f)">
+      {{submitText}} <fa name="plus" size="lg"></fa>
+  </button>
+</form>

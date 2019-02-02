@@ -3,12 +3,16 @@ package com.airFlights.service.avio;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
-import java.util.Collections;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.airFlights.dto.avio.DestinationDTO;
+import com.airFlights.dto.avio.FlightDTO;
+import com.airFlights.model.Pricelist;
 import com.airFlights.model.avio.Airline;
 import com.airFlights.model.avio.Destination;
 import com.airFlights.model.avio.Flight;
@@ -17,6 +21,7 @@ import com.airFlights.model.avio.SearchFlightParams;
 import com.airFlights.repository.avio.AirlineRepository;
 import com.airFlights.repository.avio.DestinationRepository;
 import com.airFlights.repository.avio.FlightRepository;
+import com.airFlights.repository.avio.PricelistRepository;
 
 @Service
 public class FlightService {
@@ -30,6 +35,9 @@ public class FlightService {
 	@Autowired
 	private AirlineRepository airlineRepository;
 	
+	@Autowired
+	private PricelistRepository pricelistRepository;
+	
 	
 	public List<Flight> getAllFlights(){
 		return flightRepository.findAll();
@@ -39,16 +47,58 @@ public class FlightService {
 		return flightRepository.findById(flightId).get();
 	}
 	
-	public void updateFlight(Flight flight) {
-		flightRepository.save(flight);
+	public void updateFlight(FlightDTO flight) {
+		Airline airline = airlineRepository.findById(flight.getAirline().getAirlineId()).get();
+		Flight persistFlight = flightRepository.findById(flight.getFlightId()).get();
+		
+		if(airline == null || persistFlight == null) {
+			return ;
+		}
+		
+		
+		Set<Destination> stops = new HashSet<Destination>();
+		for(DestinationDTO stop: flight.getStops()) {
+			Destination destination = destinationRepository.findById(stop.getDestinationId()).get();
+			stops.add(destination);
+		}	
+		Destination depDest = destinationRepository.findById(flight.getDepartureDestination().getDestinationId()).get();
+		Destination arrDest = destinationRepository.findById(flight.getArrivalDestination().getDestinationId()).get();
+		
+		Pricelist pricelist = pricelistRepository.findById(flight.getPricelist().getPricelistId()).get();
+		
+		
+		persistFlight.setDepartureDestination(depDest);
+		persistFlight.setArrivalDestination(arrDest);
+		persistFlight.setAirline(airline);
+		persistFlight.setStops(stops);
+		persistFlight.setPricelist(pricelist);
+		
+		persistFlight.setSimpleData(flight);
+		flightRepository.save(persistFlight);
 	}
 	
-	public void saveNewFlight(Flight flight, int airlineId) {
+	public void saveNewFlight(Flight flight/*, int airlineId*/) {
 		try {
-			Airline airline = airlineRepository.findById(airlineId).get();
+			Airline airline = airlineRepository.findById(flight.getAirline().getAirlineId()).get();
 			if(airline == null) {
 				return ;
 			}
+			
+			Set<Destination> stops = new HashSet<Destination>();
+			for(Destination stop: flight.getStops()) {
+				Destination destination = destinationRepository.findById(stop.getDestinationId()).get();
+				stops.add(destination);
+			}
+			
+			Destination depDest = destinationRepository.findById(flight.getDepartureDestination().getDestinationId()).get();
+			Destination arrDest = destinationRepository.findById(flight.getArrivalDestination().getDestinationId()).get();
+			
+			Pricelist pricelist = pricelistRepository.findById(flight.getPricelist().getPricelistId()).get();
+			
+			flight.setArrivalDestination(depDest);
+			flight.setArrivalDestination(arrDest);
+			flight.setPricelist(pricelist);
+			flight.setStops(stops);
 			flight.setAirline(airline);
 			
 			flight.setFlightDuration();
@@ -219,6 +269,14 @@ public class FlightService {
 		List<Destination> destinations = destinationRepository.findAllByOrderByDestinationCode();
 		//Collections.sort(des);
 		return destinations;
+	}
+	
+	public List<Pricelist> getAllPricelist(){
+		return pricelistRepository.findAll();
+	}
+	
+	public void addNewPricelist(Pricelist pricelist) {
+		pricelistRepository.saveAndFlush(pricelist);
 	}
 	
 }

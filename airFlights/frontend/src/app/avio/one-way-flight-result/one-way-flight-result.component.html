@@ -16,7 +16,7 @@
             <p><b>{{flight.airline.name}}</b></p>
           </div>
           <div class="col-lg-5">
-              <p><b></b></p>
+              <p><b>{{flight.stops | stopDestinationsFilter}}</b></p>
           </div>
           <div class="col-lg-3"  style="font-size: 17px">
             <p><b>{{flight.departureDestination.destinationCode}}-{{flight.arrivalDestination.destinationCode}}</b></p>

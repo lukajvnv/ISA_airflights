@@ -1,5 +1,6 @@
 package com.airFlights.controller.avio;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.mail.MessagingException;
@@ -12,9 +13,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.airFlights.dto.PricelistDTO;
+import com.airFlights.dto.avio.DestinationDTO;
+import com.airFlights.dto.avio.FlightDTO;
+import com.airFlights.model.Pricelist;
 import com.airFlights.model.avio.Destination;
 import com.airFlights.model.avio.Flight;
 import com.airFlights.model.avio.FlightReturn;
@@ -35,35 +39,46 @@ public class FlightController {
 	
 	
 	@RequestMapping(path = "/all", method = RequestMethod.GET)
-	public ResponseEntity<List<Flight>> getFlight(){
+	public ResponseEntity<List<FlightDTO>> getFlights(){
 		List<Flight> flights = flightService.getAllFlights();
-		return new ResponseEntity<>(flights, HttpStatus.OK);
+		
+		List<FlightDTO> answer = new ArrayList<FlightDTO>();
+		for(Flight f: flights) {
+			answer.add(new FlightDTO(f));
+		}
+		return new ResponseEntity<>(answer, HttpStatus.OK);
 	}
 	
 	
 	@RequestMapping(path = "/{flightId}", method = RequestMethod.GET)
-	public ResponseEntity<Flight> getFlight(@PathVariable("flightId") int flightId){
+	public ResponseEntity<FlightDTO> getFlight(@PathVariable("flightId") Integer flightId){
 		Flight flight = flightService.getFlight(flightId);
-		return new ResponseEntity<>(flight, HttpStatus.OK);
+		return new ResponseEntity<>(new FlightDTO(flight), HttpStatus.OK);
 	}
 	
-	@RequestMapping(path = "/new", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	/*@RequestMapping(path = "/new", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<String> addNewFlight(@RequestParam int  airlineId, @RequestBody Flight flight){
 		flightService.saveNewFlight(flight, airlineId);
 		return new ResponseEntity<>("Uspesno dodat", HttpStatus.OK);
+	}*/
+	
+	@RequestMapping(path = "/new", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<String> addNewFlight(/*@RequestParam int  airlineId, */@RequestBody Flight flight){
+		flightService.saveNewFlight(flight);
+		return new ResponseEntity<>(HttpStatus.OK);
 	}
 	
-	@RequestMapping(path = "/new", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<String> updateFlight(@RequestParam int  airlineId, @RequestBody Flight flight){
-		flightService.saveNewFlight(flight, airlineId);
-		return new ResponseEntity<>("Uspesno dodat", HttpStatus.OK);
+	@RequestMapping(path = "/update", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<String> updateFlight(@RequestBody FlightDTO flight){
+		flightService.updateFlight(flight);
+		return new ResponseEntity<>(HttpStatus.OK);
 	}
 	
-	@RequestMapping(path = "/{flightId}", method = RequestMethod.DELETE)
-	public ResponseEntity<String> removeFlight(@PathVariable("flightId") int flightId){
-		flightService.deleteFlight(flightId);
-		return new ResponseEntity<>("Uspesno dodat", HttpStatus.OK);
-	}
+//	@RequestMapping(path = "/{flightId}", method = RequestMethod.DELETE)
+//	public ResponseEntity<String> removeFlight(@PathVariable("flightId") Integer flightId){
+//		flightService.deleteFlight(flightId);
+//		return new ResponseEntity<>("Uspesno dodat", HttpStatus.OK);
+//	}
 	
 	/*@RequestMapping(path = "/{DEP}-{ARI}/{depDate}", method = RequestMethod.GET)
 	public ResponseEntity<List<Flight>> searchFlights(@PathVariable("DEP") String dep_dest, @PathVariable("ARI") String ari_dest, 
@@ -80,9 +95,15 @@ public class FlightController {
 	}*/
 	
 	@RequestMapping(path = "/search/oneWay", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<Flight>> searchFlightsOneWay(@RequestBody SearchFlightParams flightParams){
+	public ResponseEntity<List<FlightDTO>> searchFlightsOneWay(@RequestBody SearchFlightParams flightParams){
 		List<Flight> flights = flightService.searchFlightsOneWayBasic(flightParams);
-		return new ResponseEntity<>(flights, HttpStatus.OK);
+				
+		List<FlightDTO> answer = new ArrayList<FlightDTO>();
+		for(Flight f: flights) {
+			answer.add(new FlightDTO(f));
+		}
+		
+		return new ResponseEntity<>(answer, HttpStatus.OK);
 	}
 	
 	@RequestMapping(path = "/search/roundTrip", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -98,9 +119,32 @@ public class FlightController {
 	}
 	
 	@RequestMapping(path = "/getAllDestinations", method = RequestMethod.GET)
-	public ResponseEntity<List<Destination>> getAllDestinations(){
+	public ResponseEntity<List<DestinationDTO>> getAllDestinations(){
 		List<Destination> destinations = flightService.getAllDestinations();
-		return new ResponseEntity<>(destinations, HttpStatus.OK);
+		
+		List<DestinationDTO> answer = new ArrayList<DestinationDTO>();
+		for(Destination f: destinations) {
+			answer.add(new DestinationDTO(f));
+		}
+		return new ResponseEntity<>(answer, HttpStatus.OK);
+	}
+	
+	@RequestMapping(path = "/pricelist/all", method = RequestMethod.GET)
+	public ResponseEntity<List<PricelistDTO>> getAllPricelist(){
+		List<Pricelist> pricelist = flightService.getAllPricelist();
+		
+		List<PricelistDTO> answer = new ArrayList<PricelistDTO>();
+		for(Pricelist f: pricelist) {
+			answer.add(new PricelistDTO(f));
+		}
+		
+		return new ResponseEntity<>(answer, HttpStatus.OK);
+	}
+	
+	@RequestMapping(path = "/pricelist/new", method = RequestMethod.POST)
+	public ResponseEntity<List<Pricelist>> addNewPricelist(@RequestBody Pricelist newPricelist){
+		flightService.addNewPricelist(newPricelist);
+		return new ResponseEntity<>(HttpStatus.OK);
 	}
 	
 	@RequestMapping(path = "/sendMail", method = RequestMethod.GET)

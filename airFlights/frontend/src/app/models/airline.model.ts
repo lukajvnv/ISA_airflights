@@ -1,3 +1,5 @@
+import { Destination } from './destination.model';
+import { Flight } from './flight.model';
 export interface Airline {
   airlineId: number;
   name: string;
@@ -7,4 +9,7 @@ export interface Airline {
   luggageInfo: string;
   ratingSum: number;
   ratingNumber: number;
+
+  flightDestinations: Destination[];
+  // discountTickets: any[];
 }

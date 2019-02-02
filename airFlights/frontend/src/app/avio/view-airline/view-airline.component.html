@@ -1,3 +1,74 @@
-<p>
-  view-airline works!
-</p>
+<div class="row">
+  <div class="col-md-3" style="border: 2px solid blue">
+    <img src="../../../assets/airplane-icon128.png" alt="Nema slike">
+  </div>
+  <div class="col" style="border: 2px solid blue">
+    <h1>Info o avio kompaniji</h1>
+    <table class="table table-bordered">
+      <tr>
+        <th>Naziv kompanije</th>
+        <td>{{currentAirline?.name}}</td>
+      </tr>
+      <tr>
+          <th>Adresa kompanije</th>
+          <td>{{currentAirline?.address}}</td>
+      </tr>
+      <tr>
+          <th>Grad kompanije</th>
+          <td>{{currentAirline?.city}}</td>
+      </tr>
+      <tr>
+          <th>Promo opis</th>
+          <td>{{currentAirline?.promoDescription}}</td>
+      </tr>
+      <tr>
+          <th>Informacije o prtljagu</th>
+          <td>{{currentAirline?.luggageInfo}}</td>
+      </tr>
+    </table>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-3 mb-3">
+    <!-- <button class="btn btn-lg btn-block btn-primary" (click)="prikaziDestinacije()">Destinacije</button> -->
+    <button type="button" class="btn btn-lg btn-block btn-primary" (click)="isCollapsed = !isCollapsed"
+        [attr.aria-expanded]="!isCollapsed" aria-controls="collapseExample">
+        Destinacije
+      </button>
+  </div>
+  <div class="col-md-3 mb-3">
+    <button class="btn btn-lg btn-block btn-success" (click)="prikaziLetove()">Letovi kompanije</button>
+  </div>
+  <div class="col-md-3 mb-3">
+    <button class="btn btn-lg btn-block btn-primary" (click)= "prikaziSnizeneKarte()">Karte na popustu</button>
+  </div>
+  <div class="col-md-3 mb-3" *ngIf="isRightAdmin">
+    <button class="btn btn-lg btn-block btn-info" (click)="izmeniAvioKompaniju()">Izmeni podatke</button>
+  </div>
+</div>
+<div class="row" id="collapseExample" [ngbCollapse]="isCollapsed">
+    <div class="col-md-3 mb-3">
+      <label>Trenutne destinacije poslovanja:</label>
+    </div>
+    <div class="col-md-9 mb-3">
+      <table class="table table-bordered stopsTable">
+        <thead>
+          <tr>
+            <td>Ime destinacije</td>
+            <td>Kod destinacije</td>
+            <td>Ime aerodroma</td>
+            <td>Opis destinacije</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let dest of currentAirline?.flightDestinations">
+            <td>{{dest.destinationName}}</td>
+            <td>{{dest.destinationCode}}</td>
+            <td>{{dest.destinationAirport}}</td>
+            <td>{{dest.destinationDescription}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
