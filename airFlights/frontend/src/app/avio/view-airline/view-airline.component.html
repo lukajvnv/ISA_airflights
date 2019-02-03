@@ -29,21 +29,34 @@
   </div>
 </div>
 <div class="row">
-  <div class="col-md-3 mb-3">
+  <div class="col mb-3">
     <!-- <button class="btn btn-lg btn-block btn-primary" (click)="prikaziDestinacije()">Destinacije</button> -->
     <button type="button" class="btn btn-lg btn-block btn-primary" (click)="isCollapsed = !isCollapsed"
         [attr.aria-expanded]="!isCollapsed" aria-controls="collapseExample">
         Destinacije
       </button>
   </div>
-  <div class="col-md-3 mb-3">
+  <div class="col mb-3">
     <button class="btn btn-lg btn-block btn-success" (click)="prikaziLetove()">Letovi kompanije</button>
   </div>
-  <div class="col-md-3 mb-3">
+  <div class="col mb-3">
     <button class="btn btn-lg btn-block btn-primary" (click)= "prikaziSnizeneKarte()">Karte na popustu</button>
   </div>
-  <div class="col-md-3 mb-3" *ngIf="isRightAdmin">
-    <button class="btn btn-lg btn-block btn-info" (click)="izmeniAvioKompaniju()">Izmeni podatke</button>
+</div>
+<div *ngIf="isRightAdmin">
+  <h2>Informacije za admina</h2>
+  <div  class="row">
+    <div class="col-md-3">
+      <button class="btn btn-lg btn-block btn-primary" (click)="pokreniAnalitiku()">
+        Analitika
+      </button>
+    </div>
+    <div class="col-md-6">
+
+    </div>
+    <div class="col-md-3 mb-3">
+        <button class="btn btn-lg btn-block btn-info" (click)="izmeniAvioKompaniju()">Izmeni podatke</button>
+    </div>
   </div>
 </div>
 <div class="row" id="collapseExample" [ngbCollapse]="isCollapsed">

@@ -41,4 +41,8 @@ export class ViewAirlineComponent implements OnInit {
     return this.router.navigate([ 'airline/update', this.currentAirline.airlineId ]);
   }
 
+  pokreniAnalitiku() {
+    this.router.navigate(['analytics', this.currentAirline.airlineId ]);
+  }
+
 }

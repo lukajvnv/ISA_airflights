@@ -36,6 +36,9 @@ import { UpdateAirlineComponent } from './avio/update-airline/update-airline.com
 import { AvioAnalyticsComponent } from './avio/avio-analytics/avio-analytics.component';
 import { ViewAirlineFlightsComponent } from './avio/view-airline-flights/view-airline-flights.component';
 import { ViewAirlineFlightComponent } from './avio/view-airline-flight/view-airline-flight.component';
+import { AvioAnalyticsMarksComponent } from './avio/avio-analytics-marks/avio-analytics-marks.component';
+import { AvioAnalyticsReportComponent } from './avio/avio-analytics-report/avio-analytics-report.component';
+import { AvioAnalyticsIncomeComponent } from './avio/avio-analytics-income/avio-analytics-income.component';
 
 
 @NgModule({
@@ -59,7 +62,10 @@ import { ViewAirlineFlightComponent } from './avio/view-airline-flight/view-airl
     UpdateAirlineComponent,
     AvioAnalyticsComponent,
     ViewAirlineFlightsComponent,
-    ViewAirlineFlightComponent
+    ViewAirlineFlightComponent,
+    AvioAnalyticsMarksComponent,
+    AvioAnalyticsReportComponent,
+    AvioAnalyticsIncomeComponent
   ],
   imports: [
     BrowserModule,
@@ -75,7 +81,10 @@ import { ViewAirlineFlightComponent } from './avio/view-airline-flight/view-airl
     TextInputAutocompleteModule,
     RouterModule.forRoot([
       {path : '', component : SearchFlightComponent},
-      {path : 'analytics', component: AvioAnalyticsComponent },
+      {path : 'analytics/:airlineId', component: AvioAnalyticsComponent,  },
+      {path : 'analytics/marks/:airlineId', component: AvioAnalyticsMarksComponent },
+      {path : 'analytics/report/:airlineId', component: AvioAnalyticsReportComponent },
+      {path : 'analytics/income/:airlineId', component: AvioAnalyticsIncomeComponent },
       {path : 'airline/:airlineId', component: ViewAirlineComponent},
       {path : 'airline/flights/:airlineId', component: ViewAirlineFlightsComponent},
       {path : 'airline/update/:airlineId', component: UpdateAirlineComponent},

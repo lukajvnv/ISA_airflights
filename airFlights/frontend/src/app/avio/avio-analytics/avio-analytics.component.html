@@ -1,10 +1,28 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-    <h1>
-      Welcome to {{ title }}!
-    </h1>
-    <button class="btn btn-primary" (click)="test()">Promena</button>
-    <canvas id="lineChart"></canvas>
-    <!-- <canvas id="barChart"></canvas>
-    <canvas id="pieChart"></canvas> -->
+ <ul class="nav nav-pills nav-fill">
+    <li class="nav-item"  [class.active]="activeTab === 'marks'">
+      <a class="nav-link" (click)="activeTab = 'marks'">Ocene</a>
+    </li>
+    <li class="nav-item" [class.active]="activeTab === 'reports'">
+      <a class="nav-link" (click)="activeTab = 'reports'">Dijagrami</a>
+    </li>
+    <li class="nav-item" [class.active]="activeTab === 'income'">
+      <a class="nav-link" (click)="activeTab = 'income'">Prihodi</a>
+    </li>
+  </ul>
+
+  <div [ngSwitch]="activeTab">
+    <div *ngSwitchCase="'marks'">
+      <app-avio-analytics-marks [currentAirline]="currentAirline"></app-avio-analytics-marks>
+    </div>
+    <div *ngSwitchCase="'reports'">
+      <app-avio-analytics-report [currentAirline]="currentAirline"></app-avio-analytics-report>
+    </div>
+    <div *ngSwitchCase="'income'" >
+      <app-avio-analytics-income [currentAirline]="currentAirline"></app-avio-analytics-income>
+    </div>
+    <div *ngSwitchDefault>
+      <app-avio-analytics-report [currentAirline]="currentAirline"></app-avio-analytics-report>
+    </div>
   </div>
+
+

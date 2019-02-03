@@ -1,0 +1,87 @@
+<div class="row">
+  <div class="col-md-2 mb-3" style="border: 2px solid blue">
+    <img src="../../../assets/airplane-icon128.png" alt="Nema slike">
+  </div>
+  <div class="col-md-7 mb-3" style="border: 2px solid blue">
+    <h1>Info o avio kompaniji</h1>
+    <table class="table table-bordered">
+      <tr>
+        <th>Naziv kompanije</th>
+        <td>{{currentAirline?.name}}</td>
+      </tr>
+      <tr>
+          <th>Adresa kompanije</th>
+          <td>{{currentAirline?.address}}</td>
+      </tr>
+      <tr>
+          <th>Grad kompanije</th>
+          <td>{{currentAirline?.city}}</td>
+      </tr>
+      <tr>
+          <th>Promo opis</th>
+          <td>{{currentAirline?.promoDescription}}</td>
+      </tr>
+      <tr>
+          <th>Informacije o prtljagu</th>
+          <td>{{currentAirline?.luggageInfo}}</td>
+      </tr>
+    </table>
+  </div>
+  <div class="col-md-3 mb-3">
+    <div class="row" style="margin: 100px 0px 0px 0px"><div class="col"><button class="btn btn-lg btn-block btn-success">Ocena</button></div></div>
+    <div class="row"><div class="col"><h2>Prosecna ocena:</h2></div></div>
+    <div class="row"><div class="col"><h2 style="text-align: center">3.05:</h2></div></div>
+  </div>
+</div>
+<h2>Letovi kompanije</h2>
+<div class="row">
+  <div  class=" col-md-9 mb-3 stopsTable">
+    <div *ngFor="let flight of airlineFlights">
+      <div class="row oneFlight">
+        <div class="col-lg-9">
+          <div class="row">
+            <div class="col-lg-4">
+              <p><b>{{flight | timeFilter}}</b></p>
+            </div>
+            <div class="col-lg-5">
+              <p><b>{{flight.stops.length}} presedanja</b></p>
+            </div>
+            <div class="col-lg-3">
+              <p><b>{{flight?.flightDistance}}km</b></p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-4">
+              <p><b>{{flight.airline.name}}</b></p>
+            </div>
+            <div class="col-lg-5">
+              <p><b>{{flight.stops | stopDestinationsFilter}}</b></p>
+            </div>
+            <div class="col-lg-3"  style="font-size: 17px">
+              <p><b>{{flight.departureDestination.destinationCode}}-{{flight.arrivalDestination.destinationCode}}</b></p>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 priceDiv">
+          <div style="text-align: center">
+            <button type="submit" class="btn btn-primary btn-block detail" (click)="pogledajOcenu(flight)">
+              Ocena
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3 mb-3">
+    <!-- <div class="row" style="margin: 100px 0px 0px 0px"><div class="col"><button class="btn btn-lg btn-block btn-success">Ocena</button></div></div> -->
+    <div class="row" style="margin: 100px 0px 0px 0px"><div class="col"><h2>Prosecna ocena:</h2></div></div>
+    <div class="row"><div class="col"><h2 style="text-align: center">3.05:</h2></div></div>
+  </div>
+</div>
+<div class="row">
+    <div class="col-lg-4">
+      <button type="button" class="btn btn-primary btn-lg btn-block" (click)="povratakNaProfilAvioKompanije()">
+            <fa name="angle-left" size="lg"></fa> Povratak na profil kompanije
+      </button>
+    </div>
+</div>
