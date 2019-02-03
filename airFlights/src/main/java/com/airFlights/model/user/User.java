@@ -1,124 +1,147 @@
 package com.airFlights.model.user;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.sql.Timestamp;
+import java.util.Collection;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
 
-import com.airFlights.model.Reservation;
+import org.joda.time.DateTime;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-public class User {
+@Table(name="USERS")
+public class User implements UserDetails{
 
-	public enum UserRole {
-		CUSTOMER, AVIO_ADMIN, HOTEL_ADMIN, ADMIN_ADMIN 
-	}
+	private static final long serialVersionUID = 1L;
 	
 	@Id
-	@GeneratedValue
-	private Long userId;
+	@Column(name = "id")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 	
-	
-	@Enumerated
-	@Column(name = "role", columnDefinition = "tinyInt")
-	private UserRole role;
-	
-	@Column(unique = true, length=20)
-	private String email;
-	
-	private String password;
-	
-	private String firstName;
-	
-	private String lastName;
-	
-	private String address;
-	
-	private String city;
-	
-	private String telephone;
-	
-	@Column(name = "activated")
-	private Boolean activatedAccount;
+	@Column(name = "username")
+    private String username;
 
-	private Integer bonusPoints;
-	
-	@OneToMany(mappedBy = "userWhoInvite")
-	private Set<Friendship> friendships = new HashSet<Friendship>();
-	
-	@OneToMany(mappedBy = "userWhoAccept")
-	private Set<Friendship> requestedFriendships = new HashSet<Friendship>();
-	
-	@OneToMany(mappedBy = "user")
-	private Set<Reservation> reservations = new HashSet<Reservation>();
-	
-	public User() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
+    @JsonIgnore
+    @Column(name = "password")
+    private String password;
+    
+    @Column(name = "role")
+    private String role;
 
-	public Long getUserId() {
-		return userId;
-	}
+    @Column(name = "first_name")
+    private String firstName;
 
-	public void setUserId(Long userId) {
-		this.userId = userId;
-	}
+    @Column(name = "last_name")
+    private String lastName;
 
-	public UserRole getRole() {
+    @Column(name = "email")
+    private String email;
+    
+    @Column(name = "city")
+    private String city;
+    
+    @Column(name = "phone_number")
+    private Long phone_number;
+
+	@Column(name = "enabled")
+    private boolean enabled;
+
+    @Column(name = "last_password_reset_date")
+    private Timestamp lastPasswordResetDate;
+    
+    @Column(name = "activationId")
+    private String activationId;
+    
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(name = "user_authority",
+            joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "authority_id", referencedColumnName = "id"))
+    private List<Authority> authorities;
+    
+    
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        Timestamp now = new Timestamp(DateTime.now().getMillis());
+        this.setLastPasswordResetDate( now );
+        this.password = password;
+    }
+
+    public String getRole() {
 		return role;
 	}
 
-	public void setRole(UserRole role) {
+	public void setRole(String role) {
 		this.role = role;
 	}
 
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
 	public String getFirstName() {
-		return firstName;
-	}
+        return firstName;
+    }
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
 
-	public String getLastName() {
-		return lastName;
-	}
+    public String getLastName() {
+        return lastName;
+    }
 
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
 
-	public String getAddress() {
-		return address;
-	}
+    public void setAuthorities(List<Authority> authorities) {
+        this.authorities = authorities;
+    }
 
-	public void setAddress(String address) {
-		this.address = address;
-	}
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return this.authorities;
+    }
 
-	public String getCity() {
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+    
+    public String getCity() {
 		return city;
 	}
 
@@ -126,27 +149,55 @@ public class User {
 		this.city = city;
 	}
 
-	public String getTelephone() {
-		return telephone;
+	public Long getPhone_number() {
+		return phone_number;
 	}
 
-	public void setTelephone(String telephone) {
-		this.telephone = telephone;
+	public void setPhone_number(Long phone_number) {
+		this.phone_number = phone_number;
 	}
 
-	public Integer getBonusPoints() {
-		return bonusPoints;
+    @Override
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    public Timestamp getLastPasswordResetDate() {
+        return lastPasswordResetDate;
+    }
+
+    public void setLastPasswordResetDate(Timestamp lastPasswordResetDate) {
+        this.lastPasswordResetDate = lastPasswordResetDate;
+    }
+
+    public String getActivationId() {
+		return activationId;
 	}
 
-	public void setBonusPoints(Integer bonusPoints) {
-		this.bonusPoints = bonusPoints;
+	public void setActivationId(String activationId) {
+		this.activationId = activationId;
 	}
 
-	public Boolean getActivatedAccount() {
-		return activatedAccount;
-	}
+	@JsonIgnore
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
 
-	public void setActivatedAccount(Boolean activatedAccount) {
-		this.activatedAccount = activatedAccount;
-	}
+    @JsonIgnore
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @JsonIgnore
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
 }

@@ -1,0 +1,38 @@
+<form (ngSubmit)="sendRegistration()">
+  <fieldset>
+        <div class="form-group">
+            <label for="exampleInputUsername">Username</label>
+            <input [(ngModel)]="model.username" name="username" type="name" class="form-control" id="exampleInputUsername" placeholder="Username">
+        </div>
+        <div class="form-group">
+          <label for="exampleInputEmail1">Email address</label>
+          <input [(ngModel)]="model.email" name="email" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        </div>
+        <div class="form-group">
+          <label for="exampleInputPassword1">Password</label>
+          <input [(ngModel)]="model.password" name="password" type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+        </div>
+        <div class="form-group">
+          <label for="exampleInputPassword2">Confirm Password</label>
+          <input [(ngModel)]="model.passwordCheck" name="passwordCheck" type="password" class="form-control" id="exampleInputPassword2" placeholder="Confirm Password">
+        </div>
+        <div class="form-group">
+            <label for="exampleInputName">Name</label>
+            <input [(ngModel)]="model.firstName" name="firstName" type="name" class="form-control" id="exampleInputName" placeholder="Name">
+        </div>
+        <div class="form-group">
+            <label for="exampleInputSurname">Surname</label>
+            <input [(ngModel)]="model.lastName" name="lastName" type="surname" class="form-control" id="exampleInputSurname" placeholder="Surname">
+        </div>
+        <div class="form-group">
+            <label for="exampleInputCity">City</label>
+            <input [(ngModel)]="model.city" name="city" type="city" class="form-control" id="exampleInputCity" placeholder="City">
+        </div>
+        <div class="form-group">
+            <label for="exampleInputTelephone">Telephone</label>
+            <input [(ngModel)]="model.phone_number" name="phone_number" type="tel" class="form-control" id="exampleInputTelephone" placeholder="Telephone">
+          </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+  </fieldset>
+</form>

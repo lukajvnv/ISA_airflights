@@ -1,0 +1,15 @@
+<div>
+    <form (ngSubmit)="sendLogin()">
+      <fieldset>
+        <div class="form-group">
+          <label for="inputUsername">Username</label>
+          <input [(ngModel)]="model.username" name="username" type="text" class="form-control" id="InputUsername" placeholder="Enter Username">
+        </div>
+        <div class="form-group">
+          <label for="inputPassword">Password</label>
+          <input [(ngModel)]="model.password" name="password" type="password" class="form-control" id="inputPassword" placeholder="Enter Password">
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </fieldset>
+    </form>
+  </div>

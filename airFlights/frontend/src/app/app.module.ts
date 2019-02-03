@@ -16,6 +16,7 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+
 import { ViewAirlineComponent } from './avio/view-airline/view-airline.component';
 import { SearchFlightComponent } from './avio/search-flight/search-flight.component';
 import { ViewFlightComponent } from './avio/view-flight/view-flight.component';
@@ -39,7 +40,9 @@ import { ViewAirlineFlightComponent } from './avio/view-airline-flight/view-airl
 import { AvioAnalyticsMarksComponent } from './avio/avio-analytics-marks/avio-analytics-marks.component';
 import { AvioAnalyticsReportComponent } from './avio/avio-analytics-report/avio-analytics-report.component';
 import { AvioAnalyticsIncomeComponent } from './avio/avio-analytics-income/avio-analytics-income.component';
-
+import { RegistrationComponent } from './registration/registration.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
@@ -65,7 +68,10 @@ import { AvioAnalyticsIncomeComponent } from './avio/avio-analytics-income/avio-
     ViewAirlineFlightComponent,
     AvioAnalyticsMarksComponent,
     AvioAnalyticsReportComponent,
-    AvioAnalyticsIncomeComponent
+    AvioAnalyticsIncomeComponent,
+    RegistrationComponent,
+    PageNotFoundComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -80,6 +86,14 @@ import { AvioAnalyticsIncomeComponent } from './avio/avio-analytics-income/avio-
     HttpClientModule,
     TextInputAutocompleteModule,
     RouterModule.forRoot([
+      { 
+        path: 'registration', 
+        component: RegistrationComponent
+      },
+      {
+        path: 'login',
+        component: LoginComponent
+      },
       {path : '', component : SearchFlightComponent},
       {path : 'analytics/:airlineId', component: AvioAnalyticsComponent,  },
       {path : 'analytics/marks/:airlineId', component: AvioAnalyticsMarksComponent },
@@ -99,10 +113,12 @@ import { AvioAnalyticsIncomeComponent } from './avio/avio-analytics-income/avio-
       {path : 'flight/addFriendToFlight/:flightId', component : AddFriendToFlightComponent},
       {path : 'flight/addPassengerDetails/:flightId', component : AddPassengerDetailsComponent},
       {path: 'destination/new', component: NewDestinationComponent},
-      {path: 'pricelist/new', component: NewPricelistComponent}
-
+      {path: 'pricelist/new', component: NewPricelistComponent},
+      {
+        path: '**',
+        component: PageNotFoundComponent
+      }
     ])
-
   ],
   providers: [FlightService, AirlineService, SearchFlightParams, DestinationService],
   bootstrap: [AppComponent]
