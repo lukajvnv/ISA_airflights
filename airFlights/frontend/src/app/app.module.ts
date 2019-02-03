@@ -7,8 +7,6 @@ import { RouterModule } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, Component } from '@angular/core';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatDatepickerModule } from '@angular/material/datepicker';
 import { NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { NgxBootstrapSliderModule } from 'ngx-bootstrap-slider';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -22,7 +20,6 @@ import { SearchFlightComponent } from './avio/search-flight/search-flight.compon
 import { ViewFlightComponent } from './avio/view-flight/view-flight.component';
 import { BookFlightComponent } from './avio/book-flight/book-flight.component';
 
-import { TextInputAutocompleteModule } from 'angular-text-input-autocomplete';
 import { ViewFlightResultComponent } from './avio/view-flight-result/view-flight-result.component';
 import { SearchFlightParams } from './models/search-flight-params.model';
 import { OneWayFlightResultComponent } from './avio/one-way-flight-result/one-way-flight-result.component';
@@ -77,14 +74,11 @@ import { LoginComponent } from './login/login.component';
     BrowserModule,
     AppRoutingModule,
     AngularFontAwesomeModule,
-    MatFormFieldModule,
-    MatDatepickerModule,
     FormsModule,
     ReactiveFormsModule,
     NgbModule,
     NgxBootstrapSliderModule,
     HttpClientModule,
-    TextInputAutocompleteModule,
     RouterModule.forRoot([
       { 
         path: 'registration', 

@@ -8,11 +8,11 @@ import { Airline } from '../models/airline.model';
 })
 export class AirlineService {
 
-  private getAllAirlineUrl = 'http://localhost:8080/airline/all';
-  private getAirlineBase = 'http://localhost:8080/airline/';
-  private updateAirlineUrlBase = 'http://localhost:8080/airline/update';
+  private getAllAirlineUrl = 'http://localhost:8836/airline/all';
+  private getAirlineBase = 'http://localhost:8836/airline/';
+  private updateAirlineUrlBase = 'http://localhost:8836/airline/update';
 
-  private getAirlineFlightsUrlBase = 'http://localhost:8080/airline/flights/';
+  private getAirlineFlightsUrlBase = 'http://localhost:8836/airline/flights/';
 
 
   constructor(private http: HttpClient) { }

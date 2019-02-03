@@ -10,7 +10,7 @@ import { Pricelist } from '../models/pricelist.model';
 })
 export class FlightService {
 
-  private destinationsUrl = 'http://localhost:8080/flight/getAllDestinations';
+  private destinationsUrl = 'http://localhost:8836/flight/getAllDestinations';
   private searchFlightsUrlOneWay = 'http://localhost:8080/flight/search/oneWay';
   private searchFlightsUrlRoundTrip = 'http://localhost:8080/flight/search/roundTrip';
   private searchFlightsUrlMultiCity = 'http://localhost:8080/flight/search/multiCity';
