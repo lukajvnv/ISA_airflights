@@ -80,7 +80,7 @@ public class UserController {
        
         String htmlMsg = "Hello " + userDTO.getFirstName() + ", <br/><br/>";
                 htmlMsg += "To activate your account, click the link below or if the link is disabled, copy and paste the URL into your browser: <br/>";
-                htmlMsg += "<a href='http://localhost:4200/login?activation_id=" + activationId + "'> href='http://localhost:4200/login?activation_id=" + activationId + " </a> <br/><br/>";
+                htmlMsg += "<a href='http://localhost:4200/login?activation_id=" + activationId + "'> http://localhost:4200/login?activation_id=" + activationId + " </a> <br/><br/>";
                 htmlMsg += "All the best";
                 
         mimeMessage.setContent(htmlMsg, "text/html");
