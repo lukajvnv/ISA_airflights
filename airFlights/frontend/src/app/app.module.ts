@@ -86,9 +86,8 @@ import { LoginComponent } from './login/login.component';
     HttpClientModule,
     TextInputAutocompleteModule,
     RouterModule.forRoot([
-      { 
-        path: 'registration', 
-        component: RegistrationComponent
+      {
+      path: 'registration', component: RegistrationComponent
       },
       {
         path: 'login',

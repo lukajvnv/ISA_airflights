@@ -10,18 +10,18 @@ import { Pricelist } from '../models/pricelist.model';
 })
 export class FlightService {
 
-  private destinationsUrl = 'http://localhost:8080/flight/getAllDestinations';
-  private searchFlightsUrlOneWay = 'http://localhost:8080/flight/search/oneWay';
-  private searchFlightsUrlRoundTrip = 'http://localhost:8080/flight/search/roundTrip';
-  private searchFlightsUrlMultiCity = 'http://localhost:8080/flight/search/multiCity';
+  private destinationsUrl = 'http://localhost:8836/flight/getAllDestinations';
+  private searchFlightsUrlOneWay = 'http://localhost:8836/flight/search/oneWay';
+  private searchFlightsUrlRoundTrip = 'http://localhost:8836/flight/search/roundTrip';
+  private searchFlightsUrlMultiCity = 'http://localhost:8836/flight/search/multiCity';
 
-  private getFlightBase = 'http://localhost:8080/flight/';
+  private getFlightBase = 'http://localhost:8836/flight/';
 
-  private newFlightUrl = 'http://localhost:8080/flight/new';
-  private updateFlightUrl = 'http://localhost:8080/flight/update';
+  private newFlightUrl = 'http://localhost:8836/flight/new';
+  private updateFlightUrl = 'http://localhost:8836/flight/update';
 
-  private getAllPricelistUrl = 'http://localhost:8080/flight/pricelist/all';
-  private addNewPricelistUrl = 'http://localhost:8080/flight/pricelist/new';
+  private getAllPricelistUrl = 'http://localhost:8836/flight/pricelist/all';
+  private addNewPricelistUrl = 'http://localhost:8836/flight/pricelist/new';
 
 
   constructor(private http: HttpClient) { }

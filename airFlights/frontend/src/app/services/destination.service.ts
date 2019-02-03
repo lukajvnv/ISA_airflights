@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 })
 export class DestinationService {
 
-  private newDestinationUrl = 'http://localhost:8080/airline/newDestination';
+  private newDestinationUrl = 'http://localhost:8836/airline/newDestination';
 
   constructor(private http: HttpClient) { }
 
