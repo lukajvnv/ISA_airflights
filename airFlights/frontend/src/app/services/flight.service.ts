@@ -15,6 +15,7 @@ export class FlightService {
   private searchFlightsUrlRoundTrip = 'http://localhost:8836/flight/search/roundTrip';
   private searchFlightsUrlMultiCity = 'http://localhost:8836/flight/search/multiCity';
 
+
   private getFlightBase = 'http://localhost:8836/flight/';
 
   private newFlightUrl = 'http://localhost:8836/flight/new';

@@ -108,10 +108,15 @@ public class AuthenticationController {
 		System.out.println("TEST: " + activationId);
 		User user = userRepository.findByActivationId(activationId);
 		
-		user.setEnabled(true);
-		user.setActivationId("");
+		if(user != null)
+		{
+			user.setEnabled(true);
+			user.setActivationId("");
+			
+			userService.save(user);
+			return new ResponseEntity<>(HttpStatus.OK);
+		}
 		
-		userService.save(user);
-		return new ResponseEntity<>(HttpStatus.OK);
+		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 	}
 }
