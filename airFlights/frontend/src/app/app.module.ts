@@ -40,6 +40,11 @@ import { AvioAnalyticsIncomeComponent } from './avio/avio-analytics-income/avio-
 import { RegistrationComponent } from './registration/registration.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { LoginComponent } from './login/login.component';
+import { UserProfileComponent } from './user-profile/user-profile.component';
+import { UserReservationsComponent } from './user-reservations/user-reservations.component';
+import { UserFriendsComponent } from './user-friends/user-friends.component';
+import { UserFriendRequestComponent } from './user-friend-request/user-friend-request.component';
+import { UserBasicInfoComponent } from './user-basic-info/user-basic-info.component';
 
 @NgModule({
   declarations: [
@@ -68,7 +73,12 @@ import { LoginComponent } from './login/login.component';
     AvioAnalyticsIncomeComponent,
     RegistrationComponent,
     PageNotFoundComponent,
-    LoginComponent
+    LoginComponent,
+    UserProfileComponent,
+    UserReservationsComponent,
+    UserFriendsComponent,
+    UserFriendRequestComponent,
+    UserBasicInfoComponent
   ],
   imports: [
     BrowserModule,
@@ -86,6 +96,10 @@ import { LoginComponent } from './login/login.component';
       {
         path: 'login',
         component: LoginComponent
+      },
+      {
+        path: 'user',
+        component: UserProfileComponent
       },
       {path : '', component : SearchFlightComponent},
       {path : 'analytics/:airlineId', component: AvioAnalyticsComponent,  },
@@ -105,8 +119,8 @@ import { LoginComponent } from './login/login.component';
       redirectTo: 'flight/:flightId/addFriendToFlight',  pathMatch: 'full'},
       {path : 'flight/addFriendToFlight/:flightId', component : AddFriendToFlightComponent},
       {path : 'flight/addPassengerDetails/:flightId', component : AddPassengerDetailsComponent},
-      {path: 'destination/new', component: NewDestinationComponent},
-      {path: 'pricelist/new', component: NewPricelistComponent},
+      {path: 'destination/new/:airlineId', component: NewDestinationComponent},
+      {path: 'pricelist/new/:airlineId', component: NewPricelistComponent},
       {
         path: '**',
         component: PageNotFoundComponent

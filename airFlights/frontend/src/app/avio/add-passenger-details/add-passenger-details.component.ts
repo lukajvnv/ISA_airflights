@@ -39,11 +39,11 @@ export class AddPassengerDetailsComponent implements OnInit {
       });
     });
     const user: User = new User('Luka', 'Jovanovic', 'Drage Spasic 7', 'lukajvnv@gmail.com', '064/449-86-28');
-    this.passengerName.setValue(user.ime);
-    this.passengerLastName.setValue(user.prezime);
-    this.passengerAddress.setValue(user.adresa);
-    this.passengerMail.setValue(user.mail);
-    this.passengerTelephone.setValue(user.telefon);
+    this.passengerName.setValue(user.firstName);
+    this.passengerLastName.setValue(user.lastName);
+    this.passengerAddress.setValue(user.address);
+    this.passengerMail.setValue(user.email);
+    this.passengerTelephone.setValue(user.phone_number);
     // this.passengerName.setValue(user.ime);
   }
 

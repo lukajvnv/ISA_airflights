@@ -1,3 +1,4 @@
+import { ActivatedRoute, Router } from '@angular/router';
 import { DestinationService } from './../../services/destination.service';
 import { NgbTimeStruct } from '@ng-bootstrap/ng-bootstrap';
 import { Destination } from 'src/app/models/destination.model';
@@ -22,9 +23,14 @@ export class NewDestinationComponent implements OnInit {
     destinationDescription: new FormControl(),
   });
 
-  constructor(private destinationService: DestinationService) { }
+  airlineId: string;
+
+  constructor(private destinationService: DestinationService, private router: Router, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
+    this.activatedRoute.paramMap.subscribe(params => {
+      this.airlineId = params.get('airlineId');
+    });
 
   }
 
@@ -42,9 +48,13 @@ export class NewDestinationComponent implements OnInit {
     newDestination.destinationDescription = this.destinationDescription.value;
 
     this.destinationService.addNewDestination(newDestination).subscribe(() => {
-
+      this.router.navigate(['airline', this.airlineId]);
     });
 
+  }
+
+  povratakNaProfilAvioKompanije() {
+    this.router.navigate(['airline', this.airlineId]);
   }
 
   get destinationName() {

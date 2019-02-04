@@ -8,7 +8,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class RegistrationComponent implements OnInit {
 
-  model:RegistrationViewModel = {
+  model: RegistrationViewModel = {
     username: '',
     password: '',
     passwordCheck: '',
@@ -16,30 +16,28 @@ export class RegistrationComponent implements OnInit {
     lastName: '',
     email: '',
     city: '',
-    phone_number: 0
-  }
+    phone_number: 0 };
 
-  constructor(private http: HttpClient) { 
+  constructor(private http: HttpClient) {
   }
 
   ngOnInit() {
   }
 
-  sendRegistration() : void{
-    let url = "http://localhost:8836/api/registration";
+  sendRegistration(): void {
+    const url = 'http://localhost:8836/api/registration';
 
-    if(this.model.password === this.model.passwordCheck)
-    {
+    if (this.model.password === this.model.passwordCheck) {
       this.http.post(url, this.model).subscribe(
         res => {
-          alert("Successful");
+          alert('Successful');
         },
         err => {
-          alert("Error has occured while registering!");
+          alert('Error has occured while registering!');
         }
       );
     } else {
-      alert("Password is incorrect!");
+      alert('Password is incorrect!');
     }
   }
 
@@ -48,7 +46,7 @@ export class RegistrationComponent implements OnInit {
 export interface RegistrationViewModel {
   username: string;
   password: string;
-  passwordCheck: string,
+  passwordCheck: string;
   firstName: string;
   lastName: string;
   email: string;

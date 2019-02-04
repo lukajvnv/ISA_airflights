@@ -45,4 +45,12 @@ export class ViewAirlineComponent implements OnInit {
     this.router.navigate(['analytics', this.currentAirline.airlineId ]);
   }
 
+  novaDestinacija() {
+    this.router.navigate(['destination/new', this.currentAirline.airlineId ]);
+  }
+
+  noviCenovnik() {
+    this.router.navigate(['pricelist/new', this.currentAirline.airlineId ]);
+  }
+
 }

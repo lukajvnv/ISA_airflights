@@ -1,3 +1,51 @@
-<p>
-  avio-analytics-income works!
-</p>
+<h2>Uvid u prihode kompanije za odredjeni period</h2>
+<div class="row" style="margin: 15px 0px 0px 0px; border: 1px solid lightblue">
+    <div class="col-md-1">
+      <b>Od</b>
+    </div>
+    <div class="col-md-2 mb-3">
+        <div class="input-group">
+          <input class="form-control" placeholder="yyyy-mm-dd"
+                 name="dp1" [(ngModel)]="from" ngbDatepicker startDate="2019-02-07" #departurePicker="ngbDatepicker" required>
+          <div class="input-group-append">
+            <button class="btn btn-outline-secondary calendar" (click)="departurePicker.toggle()" type="button"><fa name="calendar-alt" style="color:blue" size="lg"></fa></button>
+          </div>
+        </div>
+    </div>
+    <div class="col-md-1">
+        <b>Od</b>
+    </div>
+    <div class="col-md-2 mb-3">
+      <div class="input-group">
+        <input class="form-control" placeholder="yyyy-mm-dd"
+               name="dp2" [(ngModel)]="to"  ngbDatepicker #arrivalPicker="ngbDatepicker">
+        <div class="input-group-append">
+          <button class="btn btn-outline-secondary calendar" (click)="arrivalPicker.toggle()" type="button"><fa name="calendar-alt" style="color:red" size="lg"></fa></button>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-1">
+        <b>Izvestaj</b>
+      </div>
+    <div class="col">
+      <button class="btn btn-lg btn-block btn-primary" (click)="generisiIzvestaj()">
+        Pogledaj
+      </button>
+    </div>
+</div>
+<div class="row">
+  <div class="col-md-8 mb-3">
+      <h2>Prihodi {{currentAirline.name}} za definisani period su:</h2>
+  </div>
+  <div class="col md-3 mb-3">
+      <input [(ngModel)]="income" name="luggage" type="text" class="form-control" id="income" disabled="true">
+  </div>
+</div>
+<div class="row">
+    <div class="col-lg-4">
+      <button type="button" class="btn btn-primary btn-lg btn-block" (click)="povratakNaProfilAvioKompanije()">
+            <fa name="angle-left" size="lg"></fa> Povratak na profil kompanije
+      </button>
+    </div>
+</div>
+

@@ -1,21 +1,28 @@
 export class User {
-    ime: string;
-    prezime: string;
-    adresa: string;
-    telefon: string;
-    mail: string;
-    brPasosa: string;
+    id: number;
+
+    username: string;
+    firstName: string;
+    lastName: string;
+    address: string;
+    phone_number: string;
+    email: string;
+
+    // brPasosa: string;
 
     pozvan: boolean;
 
     constructor(ime: string, prezime: string, adresa: string, mail: string,
       telefon: string) {
-      this.ime = ime;
-      this.prezime = prezime;
-      this.adresa = adresa;
-      this.mail = mail;
-      this.telefon = telefon;
+      this.firstName = ime;
+      this.lastName = prezime;
+      this.address = adresa;
+      this.email = mail;
+      this.phone_number = telefon;
       // this.brPasosa = brPasosa;
+
+      this.address = 'Stevana supljikca';
+
       this.pozvan = false;
     }
 }

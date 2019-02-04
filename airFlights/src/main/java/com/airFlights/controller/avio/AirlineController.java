@@ -112,7 +112,7 @@ public class AirlineController {
 	@RequestMapping(value = "/newDestination", method = RequestMethod.POST)
 	public ResponseEntity<String> addDestinationToAirline(@RequestBody Destination newDestination){
 		airlineService.addNewDestination(newDestination);
-		return new ResponseEntity<>("Dodata dest.", HttpStatus.OK);
+		return new ResponseEntity<>(HttpStatus.OK);
 	}
 	
 	

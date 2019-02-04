@@ -45,13 +45,13 @@ export class AddFriendToFlightComponent implements OnInit {
 
   filterIme(ime: string) {
     this.filtriraniKorisnici = (ime) ?
-      this.filtriraniKorisnici.filter( k => k.ime.toLowerCase().includes(ime.toLowerCase())) :
+      this.filtriraniKorisnici.filter( k => k.firstName.toLowerCase().includes(ime.toLowerCase())) :
       this.korisnici;
   }
 
   filterPrezime(prezime: string) {
     this.filtriraniKorisnici = (prezime) ?
-    this.filtriraniKorisnici.filter( k => k.prezime.toLowerCase().includes(prezime.toLowerCase())) :
+    this.filtriraniKorisnici.filter( k => k.lastName.toLowerCase().includes(prezime.toLowerCase())) :
     this.korisnici;
   }
 

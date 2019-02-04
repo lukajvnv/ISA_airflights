@@ -9,10 +9,10 @@ export class DepTimeArrTimePipe implements PipeTransform {
     const dep = value.departureTime.toString();
     const arr = value.arrivalTime.toString();
 
-     const hoursD = dep.split(':')[0];
-     const minutesD = dep.split(':')[1];
-     const hoursA = arr.split(':')[0];
-     const minutesA = arr.split(':')[1];
+     const hoursD = dep.split(',')[0];
+     const minutesD = dep.split(',')[1];
+     const hoursA = arr.split(',')[0];
+     const minutesA = arr.split(',')[1];
      return hoursD + ':' + minutesD + ' - ' + hoursA + ':' + minutesA;
   }
 }

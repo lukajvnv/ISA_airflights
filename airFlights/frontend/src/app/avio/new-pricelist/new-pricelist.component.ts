@@ -2,6 +2,7 @@ import { FlightService } from './../../services/flight.service';
 import { Pricelist } from './../../models/pricelist.model';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-new-pricelist',
@@ -22,9 +23,14 @@ export class NewPricelistComponent implements OnInit {
     Validators.pattern('^[0-9]{1,4}(\.[0-9]{2})?$')]),
   });
 
-  constructor(private flightService: FlightService) { }
+  airlineId: string;
+
+  constructor(private flightService: FlightService, private router: Router, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
+    this.activatedRoute.paramMap.subscribe(params => {
+      this.airlineId = params.get('airlineId');
+    });
   }
 
   potvrdi() {
@@ -39,8 +45,12 @@ export class NewPricelistComponent implements OnInit {
     newPricelist.firstPrice = this.firstPrice.value;
 
     this.flightService.addNewPricelist(newPricelist).subscribe(() => {
-
+      this.router.navigate(['airline', this.airlineId]);
     });
+  }
+
+  povratakNaProfilAvioKompanije() {
+    this.router.navigate(['airline', this.airlineId]);
   }
 
   get economyPrice() {

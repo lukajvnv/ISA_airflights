@@ -1,0 +1,19 @@
+<h2>Zahtevi za prijatejstvo:</h2>
+<table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Ime</th>
+        <th>Prezime</th>
+        <th>Odbij</th>
+        <th>Prihvati</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let korisnik of zahtevi">
+        <td>{{korisnik.firstName}}</td>
+        <td>{{korisnik.lastName}}  </td>
+        <td><button class="btn btn-lg btn-block btn-warning">Odbij</button></td>
+        <td><button class="btn btn-lg btn-block btn-success">Prihvati</button></td>
+      </tr>
+    </tbody>
+</table>

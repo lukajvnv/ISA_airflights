@@ -1,0 +1,57 @@
+<h2>Prijatelji</h2>
+<table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Ime</th>
+        <th>Prezime</th>
+        <th>Ukloni</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let korisnik of prijatelji">
+        <td>{{korisnik.firstName}}</td>
+        <td>{{korisnik.lastName}}  </td>
+        <td><button class="btn btn-lg btn-block btn-warning">Ukloni</button></td>
+      </tr>
+    </tbody>
+</table>
+<h2>Dodaj nove prijatelje:</h2>
+<form #f ="ngForm">
+    <div class="row">
+        <div class="col-md-2  mb-3">
+          <label for="imePrijatelja">Ime prijatelja:</label>
+        </div>
+        <div class="col-md-3 mb-3">
+          <div class="input-group">
+            <span class="input-group-addon"><fa name="search" style="color:green" size="2x"></fa></span>
+            <input name="imePrijatelja" #imeP (keyup)="filterIme(imeP.value)" type="text" class="form-control" placeholder="Ime prijatelja...">
+          </div>
+        </div>
+        <div class="col-md-2 mb-3">
+          <label for="prezimePrijatelja">Prezime prijatelja:</label>
+        </div>
+        <div class="col-md-3 mb-3">
+          <div class="input-group">
+            <span class="input-group-addon"><fa name="search" style="color:green" size="2x"></fa></span>
+            <input name="prezimePrijatelja" #prezimeP (keyup)="filterPrezime(prezimeP.value)" type="text" class="form-control" id="zip" placeholder="Prezime prijatelja...">
+          </div>
+        </div>
+    </div>
+    <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>Ime</th>
+            <th>Prezime</th>
+            <th>Pozovi</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let korisnik of filtriraniKorisnici">
+            <td>{{korisnik.firstName}}</td>
+            <td>{{korisnik.lastName}}  </td>
+            <!-- <td><input type="checkbox" value="dodajOsobu"/></td> -->
+            <td><button class="btn btn-lg btn-block btn-primary">Dodaj</button></td>
+          </tr>
+        </tbody>
+    </table>
+  </form>

@@ -1,0 +1,80 @@
+<div class="row">
+    <div class="col-md-3" style="border: 2px solid blue">
+      <img src="../../../assets/profile.png" alt="Nema slike">
+    </div>
+    <div class="col" style="border: 2px solid blue">
+      <!-- <h1>Info o avio kompaniji</h1>
+      <table class="table table-bordered">
+        <tr>
+          <th>Naziv kompanije</th>
+          <td>{{currentUser?.firstName}}</td>
+        </tr>
+        <tr>
+            <th>Adresa kompanije</th>
+            <td>{{currentUser?.lastName}}</td>
+        </tr>
+        <tr>
+            <th>Grad kompanije</th>
+            <td>{{currentUser?.address}}</td>
+        </tr>
+        <tr>
+            <th>Promo opis</th>
+            <td>{{currentUser?.email}}</td>
+        </tr>
+        <tr>
+            <th>Informacije o prtljagu</th>
+            <td>{{currentUser?.phone_number}}</td>
+        </tr>
+      </table> -->
+      <form #f ="ngForm" (ngSubmit) ="izmeniPodatke(f)">
+          <div class="row">
+              <div class="col-md-3  mb-3">
+                <label for="firstName">Ime *:</label>
+              </div>
+              <div class="col mb-3">
+                  <input [(ngModel)]="currentUser.firstName" name="firstName" id="firstName" type="text" class="form-control" required>
+              </div>
+          </div>
+          <div class="row">
+            <div class="col-md-3 mb-3">
+              <label for="lastName">Prezime*:</label>
+            </div>
+            <div class="col mb-3">
+                <input [(ngModel)]="currentUser.lastName" id="lastName" name="lastName" type="text" class="form-control" required>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-3  mb-3">
+              <label for="email">Email*:</label>
+            </div>
+            <div class="col mb-3">
+                <input [(ngModel)]="currentUser.email" id="email" name="email" type="text" class="form-control" required>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-3 mb-3">
+              <label for="telephone">Telefon*:</label>
+            </div>
+            <div class="col mb-3">
+                <input [(ngModel)]="currentUser.phone_number" id="telephone" name="telephone" type="text" class="form-control" required>
+            </div>
+          </div>
+          <div class="row">
+              <div class="col-md-3 mb-3">
+                <label for="address">Adresa*:</label>
+              </div>
+              <div class="col mb-3">
+                  <input [(ngModel)]="currentUser.address" id="address" name="address" type="text" class="form-control" required>
+              </div>
+            </div>
+
+          <div class="row">
+            <div class="col-md-4">
+            </div>
+            <div class="col-md-4">
+                <button class="btn btn-lg btn-block btn-primary">Promeni</button>
+            </div>
+          </div>
+        </form>
+    </div>
+  </div>

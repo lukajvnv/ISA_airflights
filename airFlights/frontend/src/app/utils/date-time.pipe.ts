@@ -18,11 +18,8 @@ export class DateTimePipe implements PipeTransform {
         date = value.arrivalDate.toString();
       }
 
-      const hour = time.split(':')[0];
-      const minute = time.split(':')[1];
-      const day = time.split(':')[2];
-      const month = time.split(':')[1];
-      const year = time.split(':')[0];
+      const hour = time.split(',')[0];
+      const minute = time.split(',')[1];
 
       console.log(date);
       return date + ' ' + hour + ':' + minute;

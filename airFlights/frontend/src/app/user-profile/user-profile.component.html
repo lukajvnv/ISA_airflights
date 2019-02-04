@@ -1,0 +1,32 @@
+<ul class="nav nav-pills nav-fill">
+    <li class="nav-item"  [class.active]="activeTab === 'profile'">
+      <a class="nav-link" (click)="activeTab = 'profile'">Profil</a>
+    </li>
+    <li class="nav-item" [class.active]="activeTab === 'reservations'">
+      <a class="nav-link" (click)="activeTab = 'reservations'">Rezervacije</a>
+    </li>
+    <li class="nav-item" [class.active]="activeTab === 'friends'">
+      <a class="nav-link" (click)="activeTab = 'friends'">Prijatelji</a>
+    </li>
+    <li class="nav-item" [class.active]="activeTab === 'request'">
+        <a class="nav-link" (click)="activeTab = 'request'">Zahtevi</a>
+    </li>
+  </ul>
+
+  <div [ngSwitch]="activeTab">
+    <div *ngSwitchCase="'profile'">
+      <app-user-basic-info [currentUser]="currentUser"></app-user-basic-info>
+    </div>
+    <div *ngSwitchCase="'reservations'">
+      <app-user-reservations [currentUser]="currentUser"></app-user-reservations>
+    </div>
+    <div *ngSwitchCase="'friends'" >
+      <app-user-friends [currentUser]="currentUser"></app-user-friends>
+    </div>
+    <div *ngSwitchCase="'request'" >
+        <app-user-friend-request [currentUser]="currentUser"></app-user-friend-request>
+      </div>
+    <div *ngSwitchDefault>
+        <app-user-basic-info [currentUser]="currentUser"></app-user-basic-info>
+      </div>
+  </div>

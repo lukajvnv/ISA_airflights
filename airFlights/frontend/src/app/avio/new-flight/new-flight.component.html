@@ -241,7 +241,17 @@
         </table>
       </div>
   </div>
-  <button type="submit" class="btn btn-primary btn-lg" style="float: right;" (click) = "dodajLet(f)">
-      {{submitText}} <fa name="plus" size="lg"></fa>
-  </button>
+  <div class="row">
+    <div class="col-md-4">
+        <button type="button" class="btn btn-danger btn-lg btn-block" (click)="povratakNaProfilAvioKompanije()">
+            <fa name="angle-left" size="lg"></fa> Povratak na profil kompanije
+          </button>
+    </div>
+    <div class="col-md-4"></div>
+    <div class="col-md-4">
+      <button type="submit" class="btn btn-primary btn-lg btn-block" style="float: right;" (click) = "dodajLet(f)">
+          {{submitText}} <fa name="plus" size="lg"></fa>
+      </button>
+    </div>
+  </div>
 </form>

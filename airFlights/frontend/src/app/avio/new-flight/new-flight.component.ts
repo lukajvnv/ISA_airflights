@@ -92,28 +92,28 @@ export class NewFlightComponent implements OnInit {
     this.arrivalDate = new Date();
     this.departureDate = new Date();
 
-    let day = flight.departureDate.split('-')[2];
-    let month = flight.departureDate.split('-')[1];
-    let year = flight.departureDate.split('-')[0];
+    let day = flight.departureDate/* .split('-') */[2];
+    let month = flight.departureDate/* .split('-') */[1];
+    let year = flight.departureDate/* .split('-') */[0];
 
     this.departureDate['year'] = +year;
     this.departureDate['month'] = +month;
     this.departureDate['day'] = +day;
 
-    day = flight.arrivalDate.split('-')[2];
-    month = flight.arrivalDate.split('-')[1];
-    year = flight.arrivalDate.split('-')[0];
+    day = flight.arrivalDate/* .split('-') */[2];
+    month = flight.arrivalDate/* .split('-') */[1];
+    year = flight.arrivalDate/* .split('-') */[0];
 
     this.arrivalDate['year'] = +year;
     this.arrivalDate['month'] = +month;
     this.arrivalDate['day'] = +day;
 
-    let h = flight.departureTime.split(':')[0];
-    let min = flight.departureTime.split(':')[1];
+    let h = flight.departureTime/*.split(',')*/[0];
+    let min = flight.departureTime/*.split(',')*/[1];
     this.departureTime = {hour: +h, minute: +min, second: 0};
 
-    h = flight.arrivalTime.split(':')[0];
-    min = flight.arrivalTime.split(':')[1];
+    h = flight.arrivalTime/*.split(',')*/[0];
+    min = flight.arrivalTime/*.split(',')*/[1];
     this.arrivalTime = {hour: +h, minute: +min, second: 0};
 
     this.distance = flight.flightDistance;
@@ -196,6 +196,10 @@ export class NewFlightComponent implements OnInit {
     newFlight.pricelist = this.selectedPricelist;
     newFlight.initComplexData(this.departureDate, this.arrivalDate, this.departureTime, this.arrivalTime);
     return newFlight;
+  }
+
+  povratakNaProfilAvioKompanije() {
+    this.router.navigate(['airline', this.airline.airlineId]);
   }
 
   /*compareFn(c1: any, c2: any): boolean {
