@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
+import { AuthTokenService } from '../services/auth-token.service';
 
 @Component({
   selector: 'app-login',
@@ -15,8 +16,9 @@ export class LoginComponent implements OnInit {
   }
 
   paramActivated: string;
+  currentUser: string = "currentUser";
 
-  constructor(private http: HttpClient, private route: ActivatedRoute) {
+  constructor(private http: HttpClient, private route: ActivatedRoute, private authToken: AuthTokenService) {
   }
 
   ngOnInit() {
@@ -44,9 +46,11 @@ export class LoginComponent implements OnInit {
 
   sendLogin() : void{
     let url = "http://localhost:8836/auth/login";
-    
+
     this.http.post(url, this.model).subscribe(
-      res => {
+      (res : LoginStatus) => {
+        this.authToken.setJwtToken(res);
+        localStorage.setItem(this.currentUser, res.username);
         alert("Logged in!");
       },
       err => {
@@ -60,4 +64,10 @@ export class LoginComponent implements OnInit {
 export interface LoginViewModel {
   username: string;
   password: string;
+}
+
+export interface LoginStatus {
+  username : string;
+  jwt : string;
+  expiresIn: number;
 }

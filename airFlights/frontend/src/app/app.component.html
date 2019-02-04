@@ -31,6 +31,13 @@
           <a class="dropdown-item" href="#">Something else here</a>
         </div>
       </li>
+      <li>
+        <button *ngIf="!isUserLogged" routerLink="/login" class="btn btn-secondary my-2 my-sm-0" type="submit">Login</button>
+        <a *ngIf="isUserLogged" class="nav-link" routerLink="/">{{loggedUser}}</a>
+      </li>
+      <li>
+        <button *ngIf="isUserLogged" (click)="logout()" class="btn btn-secondary my-2 my-sm-0" type="submit">Logout</button>
+      </li>
     </ul>
     <form class="form-inline my-2 my-lg-0">
       <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
