@@ -1,3 +1,4 @@
+import { BookingService } from './../../services/booking.service';
 import { FlightSeat } from './../../models/seat.model';
 import { Location } from '@angular/common';
 import { Flight } from './../../models/flight.model';
@@ -14,7 +15,8 @@ import { SearchFlightParams } from 'src/app/models/search-flight-params.model';
 export class BookFlightComponent implements OnInit {
 
   constructor(private activatedRoute: ActivatedRoute, private flightService: FlightService,
-    private searchFlightObject: SearchFlightParams, private router: Router, private location: Location) { }
+    private searchFlightObject: SearchFlightParams, private router: Router, private location: Location,
+    private bookingService: BookingService) { }
 
   @Input()
   currentFlight: Flight;
@@ -48,7 +50,7 @@ export class BookFlightComponent implements OnInit {
         });*/
 
       });
-      this.flightService.getAllSeats(flightId).subscribe(data => {
+      this.bookingService.getAllSeats(flightId).subscribe(data => {
         this.flightSeats = data;
         console.log('booking: seats');
         this.selectDiv = new Array<boolean>(this.flightSeats.length);

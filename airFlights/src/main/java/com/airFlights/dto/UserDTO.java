@@ -49,6 +49,18 @@ public class UserDTO {
 		this.lastPasswordResetDate = lastPasswordResetDate;
 	}
 
+	public UserDTO(Long id, String username, String firstName, String lastName, String email, String city,
+			Long phone_number) {
+		super();
+		this.id = id;
+		this.username = username;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.email = email;
+		this.city = city;
+		this.phone_number = phone_number;
+	}
+
 	public Long getId() {
 		return id;
 	}

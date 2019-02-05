@@ -22,7 +22,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.airFlights.dto.UserDTO;
 import com.airFlights.model.user.User;
 import com.airFlights.model.user.UserAndTokenState;
 import com.airFlights.model.user.UserTokenState;

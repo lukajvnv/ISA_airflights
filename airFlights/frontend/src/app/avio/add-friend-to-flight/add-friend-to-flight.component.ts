@@ -26,11 +26,11 @@ export class AddFriendToFlightComponent implements OnInit {
 
     }
 
-    this.korisnici.push(new User('Luka', 'Jovanovic', '', '', ''));
-    this.korisnici.push(new User('Mladen', 'Jovanovic', '', '', ''));
-    this.korisnici.push(new User('Luka', 'Ivanovic', '', '', ''));
-    this.korisnici.push(new User('Luka', 'Jokic', '', '', ''));
-    this.korisnici.push(new User('Nenad', 'Hajduk', '', '', ''));
+    this.korisnici.push(new User('Luka', 'Jovanovic', '', '', 0, ''));
+    this.korisnici.push(new User('Mladen', 'Jovanovic', '', '', 0, ''));
+    this.korisnici.push(new User('Luka', 'Ivanovic', '', '', 0, ''));
+    this.korisnici.push(new User('Luka', 'Jokic', '', '', 0, ''));
+    this.korisnici.push(new User('Nenad', 'Hajduk', '', '', 0, ''));
     this.filtriraniKorisnici = this.korisnici;
     this.activatedRoute.paramMap.subscribe(params => {
       const flightId: string = params.get('flightId');

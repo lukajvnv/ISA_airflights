@@ -19,11 +19,11 @@ export class UserFriendsComponent implements OnInit {
     private flightService: FlightService*/) { }
 
   ngOnInit() {
-    this.prijatelji.push(new User('Luka', 'Jovanovic', '', '', ''));
-    this.prijatelji.push(new User('Mladen', 'Jovanovic', '', '', ''));
-    this.prijatelji.push(new User('Luka', 'Ivanovic', '', '', ''));
-    this.prijatelji.push(new User('Luka', 'Jokic', '', '', ''));
-    this.prijatelji.push(new User('Nenad', 'Hajduk', '', '', ''));
+    this.prijatelji.push(new User('Luka', 'Jovanovic', '', '', 0, ''));
+    this.prijatelji.push(new User('Mladen', 'Jovanovic', '', '', 0, ''));
+    this.prijatelji.push(new User('Luka', 'Ivanovic', '', '', 0, ''));
+    this.prijatelji.push(new User('Luka', 'Jokic', '', '', 0, ''));
+    this.prijatelji.push(new User('Nenad', 'Hajduk', '', '', 0, ''));
     this.filtriraniKorisnici = this.prijatelji;
 
   }

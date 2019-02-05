@@ -28,8 +28,6 @@ export class FlightService {
   private getAllPricelistUrl = 'http://localhost:8836/flight/pricelist/all';
   private addNewPricelistUrl = 'http://localhost:8836/flight/pricelist/new';
 
-  private getAllSeatsByFlightBase = 'http://localhost:8836/seats/flight/';
-
   constructor(private http: HttpClient) { }
 
   getDestinations(): Observable<any> {
@@ -85,7 +83,4 @@ export class FlightService {
     return this.http.post(this.addNewPricelistUrl, pricelist);
   }
 
-  getAllSeats(flightId: string): Observable<any> {
-    return this.http.get(this.getAllSeatsByFlightBase + flightId);
-  }
 }

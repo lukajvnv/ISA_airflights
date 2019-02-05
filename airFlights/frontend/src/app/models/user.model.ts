@@ -4,8 +4,8 @@ export class User {
     username: string;
     firstName: string;
     lastName: string;
-    address: string;
-    phone_number: string;
+    city: string;
+    phone_number: number;
     email: string;
 
     // brPasosa: string;
@@ -13,15 +13,15 @@ export class User {
     pozvan: boolean;
 
     constructor(ime: string, prezime: string, adresa: string, mail: string,
-      telefon: string) {
+      telefon: number, username: string) {
       this.firstName = ime;
       this.lastName = prezime;
-      this.address = adresa;
+      this.city = adresa;
       this.email = mail;
       this.phone_number = telefon;
-      // this.brPasosa = brPasosa;
+      this.username = username;
 
-      this.address = 'Stevana supljikca';
+      this.city = 'Stevana supljikca';
 
       this.pozvan = false;
     }

@@ -2,6 +2,7 @@ package com.airFlights.model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -14,7 +15,7 @@ import com.airFlights.model.user.User;
 public class Reservation {
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer reservationId;
 	
 	@OneToOne
@@ -24,6 +25,39 @@ public class Reservation {
 	@ManyToOne
 	@JoinColumn(name = "user_id")
 	private User user;
+	
+	private String passportNum;
+	
+	/*@Column(name = "booking_date", nullable = false)
+	private LocalDate departureDate;
+	
+	@Column(name = "arrival_date", nullable = false)
+	private LocalDate arrivalDate;
+	DATE?
+	*/
+	
+	
+	public Reservation() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public Reservation(AirlineTicket ticket, User user, String passportNum) {
+		super();
+		this.ticket = ticket;
+		this.user = user;
+		this.passportNum = passportNum;
+		
+		
+	}
+
+	public Integer getReservationId() {
+		return reservationId;
+	}
+
+	public void setReservationId(Integer reservationId) {
+		this.reservationId = reservationId;
+	}
 
 	public AirlineTicket getTicket() {
 		return ticket;
@@ -41,9 +75,14 @@ public class Reservation {
 		this.user = user;
 	}
 
-	public Reservation() {
-		super();
-		// TODO Auto-generated constructor stub
+	
+
+	public String getPassportNum() {
+		return passportNum;
+	}
+
+	public void setPassportNum(String passportNum) {
+		this.passportNum = passportNum;
 	}
 	
 }

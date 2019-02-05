@@ -9,7 +9,7 @@ import { getToken } from '@angular/router/src/utils/preactivation';
   styleUrls: ['./app.component.css']
 })
 
-export class AppComponent implements OnInit{
+export class AppComponent implements OnInit {
   title = 'ISA Airflight project';
 
   isUserLogged: boolean;
@@ -18,7 +18,7 @@ export class AppComponent implements OnInit{
   constructor(private loggedUserService: LoggedUserService, private authToken: AuthTokenService) {}
 
   ngOnInit() {
-    if(this.authToken.getJwtToken().name !== undefined){
+    if (this.authToken.getJwtToken() !== undefined) {
       this.isUserLogged = true;
       this.loggedUser = localStorage.getItem('currentUser');
     } else {
@@ -26,7 +26,7 @@ export class AppComponent implements OnInit{
     }
   }
 
-  logout() : void {
+  logout(): void {
     localStorage.removeItem('currentUser');
     this.authToken.removeJwtToken();
     location.reload();

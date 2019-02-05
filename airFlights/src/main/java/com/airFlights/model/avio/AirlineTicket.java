@@ -51,27 +51,35 @@ public class AirlineTicket {
 	@JoinColumn(name = "flight_id")
 	private Flight flight;
 	
-	@Column(scale = 2)
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinColumn(name = "seat_id")
+	private FlightSeat seat;
+	
 	private Float basePrice;
-	private Integer seatNumber;
-	@Column(scale = 2)
+	// private Integer seatNumber;
 	private Float discount;
-	@Column(scale = 2)
 	private Float sellingPrice;
 	
-	//private Integer luggage;
-	//private String additionalService;
 	
 	private Boolean markedFlight;
-	 
-	private String passportNum;
-
-	
+	 	
 	public AirlineTicket() {
 		super();
 	}
 
 	 
+	public AirlineTicket(TicketClass ticketClass, TicketStatus ticketStatus, Float basePrice, Float discount,
+			Float sellingPrice, Boolean markedFlight) {
+		super();
+		this.ticketClass = ticketClass;
+		this.ticketStatus = ticketStatus;
+		this.basePrice = basePrice;
+		this.discount = discount;
+		this.sellingPrice = sellingPrice;
+		this.markedFlight = markedFlight;
+	}
+
+
 	public TicketStatus getTicketStatus() {
 		return ticketStatus;
 	}
@@ -88,13 +96,13 @@ public class AirlineTicket {
 		this.basePrice = basePrice;
 	}
 
-	public Integer getSeatNumber() {
-		return seatNumber;
-	}
-
-	public void setSeatNumber(Integer seatNumber) {
-		this.seatNumber = seatNumber;
-	}
+//	public Integer getSeatNumber() {
+//		return seatNumber;
+//	}
+//
+//	public void setSeatNumber(Integer seatNumber) {
+//		this.seatNumber = seatNumber;
+//	}
 
 	public Float getDiscount() {
 		return discount;
@@ -119,15 +127,6 @@ public class AirlineTicket {
 	public void setMarkedFlight(Boolean markedFlight) {
 		this.markedFlight = markedFlight;
 	}
-
-	public String getPassportNum() {
-		return passportNum;
-	}
-
-	public void setPassportNum(String passportNum) {
-		this.passportNum = passportNum;
-	}
-
 
 	public TicketClass getTicketClass() {
 		return ticketClass;
@@ -166,6 +165,16 @@ public class AirlineTicket {
 
 	public void setFlight(Flight flight) {
 		this.flight = flight;
+	}
+
+
+	public FlightSeat getSeat() {
+		return seat;
+	}
+
+
+	public void setSeat(FlightSeat seat) {
+		this.seat = seat;
 	}
 
 

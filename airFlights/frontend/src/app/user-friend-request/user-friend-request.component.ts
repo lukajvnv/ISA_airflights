@@ -16,11 +16,11 @@ export class UserFriendRequestComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    this.zahtevi.push(new User('Luka', 'Jovanovic', '', '', ''));
-    this.zahtevi.push(new User('Mladen', 'Jovanovic', '', '', ''));
-    this.zahtevi.push(new User('Luka', 'Ivanovic', '', '', ''));
-    this.zahtevi.push(new User('Luka', 'Jokic', '', '', ''));
-    this.zahtevi.push(new User('Nenad', 'Hajduk', '', '', ''));
+    this.zahtevi.push(new User('Luka', 'Jovanovic', '', '', 0, ''));
+    this.zahtevi.push(new User('Mladen', 'Jovanovic', '', '', 0, ''));
+    this.zahtevi.push(new User('Luka', 'Ivanovic', '', '', 0, ''));
+    this.zahtevi.push(new User('Luka', 'Jokic', '', '', 0, ''));
+    this.zahtevi.push(new User('Nenad', 'Hajduk', '', '', 0, ''));
   }
 
 }

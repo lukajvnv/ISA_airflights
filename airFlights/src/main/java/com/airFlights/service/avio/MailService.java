@@ -1,5 +1,8 @@
 package com.airFlights.service.avio;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
@@ -8,8 +11,10 @@ import org.springframework.core.env.Environment;
 import org.springframework.mail.MailException;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
+import com.airFlights.dto.ReservationDTO;
 import com.airFlights.model.user.User;
 
 @Service
@@ -25,6 +30,7 @@ public class MailService {
 	@Autowired
 	private Environment env;
 	
+	@Async
 	public void sendNotification(User user, String subject, String content) throws MessagingException {
 		MimeMessage mimeMessage = javamailsender.createMimeMessage();
 		MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, false, "utf-8");
@@ -35,6 +41,34 @@ public class MailService {
 		mimeMessage.setContent(mailMessage, "text/html");
 		helper.setTo("lukajvnv@gmail.com");
 		helper.setSubject(subject);
+		helper.setFrom(env.getProperty("spring.mail.username"));
+		javamailsender.send(mimeMessage);
+		System.out.println("saljem mejl");
+			
+	}
+	
+	@Async
+	public void sendFinishedReservationNotification(ReservationDTO reservation) throws MessagingException {
+		MimeMessage mimeMessage = javamailsender.createMimeMessage();
+		MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, false, "utf-8");
+		
+		
+		String nameOfUser = reservation.getUser().getFirstName();
+		String arrDestinaitonName = reservation.getTicket().getFlight().getDepartureDestination().getDestinationName();
+		
+		//SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd LLLL yyyy");
+		LocalDate depDate = reservation.getTicket().getFlight().getDepartureDate();
+		String formattedString = depDate.format(formatter);
+		// String depDate = reservation.getTicket().getFlight().getDepartureDate().toString();
+
+		
+		String mailMessage = "Postovani" + nameOfUser + "uspesno ste rezervisali putovanje za"+
+		                    arrDestinaitonName + formattedString + ". UZIVAJTE!" ; 
+				
+		mimeMessage.setContent(mailMessage, "text/html");
+		helper.setTo("lukajvnv@gmail.com");
+		helper.setSubject("Uspesna rezervacija");
 		helper.setFrom(env.getProperty("spring.mail.username"));
 		javamailsender.send(mimeMessage);
 		System.out.println("saljem mejl");
