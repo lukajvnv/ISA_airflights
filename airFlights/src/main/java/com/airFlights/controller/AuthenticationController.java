@@ -22,7 +22,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.airFlights.dto.UserDTO;
 import com.airFlights.model.user.User;
+import com.airFlights.model.user.UserAndTokenState;
 import com.airFlights.model.user.UserTokenState;
 import com.airFlights.repository.UserRepository;
 import com.airFlights.security.TokenUtils;
@@ -65,9 +67,11 @@ public class AuthenticationController {
 		User user = (User) authentication.getPrincipal();
 		String jwt = tokenUtils.generateToken(user.getUsername());
 		int expiresIn = tokenUtils.getExpiredIn();
+		String username = user.getUsername();
+		System.out.println("AAAA: " + username);
 
 		// Vrati token kao odgovor na uspesno autentifikaciju
-		return ResponseEntity.ok(new UserTokenState(jwt, expiresIn));
+		return ResponseEntity.ok(new UserAndTokenState(username, jwt, expiresIn));
 	}
 
 	@RequestMapping(value = "/refresh", method = RequestMethod.POST)
@@ -119,4 +123,22 @@ public class AuthenticationController {
 		
 		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 	}
+	
+	/*
+	@RequestMapping(value = "/getLoggedUser", method = RequestMethod.GET)
+	public ResponseEntity<UserDTO> getLoggedUser(HttpServletRequest request) {
+		UserDTO userDTO = new UserDTO();
+		String authToken = tokenUtils.getToken(request);
+		String username = tokenUtils.getUsernameFromToken(authToken);
+		
+		if(username != null) {
+			System.out.println("USERNMAE: " + username);
+			
+			userDTO.setUsername(username);
+			
+			return new ResponseEntity<>(userDTO, HttpStatus.FOUND);
+		}
+		
+		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+	}*/
 }
