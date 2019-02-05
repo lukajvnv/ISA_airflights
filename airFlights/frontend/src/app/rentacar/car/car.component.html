@@ -1,0 +1,29 @@
+<form (ngSubmit)="sendRegistration()">
+  <fieldset>
+      <div class="form-group">
+          <label for="InputName">Car Name</label>
+          <input [(ngModel)]="model.carName" name="carName" type="name" class="form-control" id="InputName" placeholder="Name">
+      </div>
+      <div class="form-group">
+          <label for="InputBrand">Brand</label>
+          <input [(ngModel)]="model.carBrand" name="carBrand" type="name" class="form-control" id="InputBrand" placeholder="Brand">
+      </div>
+      <div class="form-group">
+        <label for="InputModel">Model</label>
+        <input [(ngModel)]="model.carModel" name="carModel" type="name" class="form-control" id="InputModel" placeholder="Model">
+      </div>
+      <div class="form-group">
+        <label for="InputYear">Year</label>
+        <input [(ngModel)]="model.carYear" name="carYear" type="name" class="form-control" id="InputYear" placeholder="Year">
+      </div>
+      <div class="form-group">
+        <label for="InputNumberOfSeats">Number of Seats</label>
+        <input [(ngModel)]="model.numberOfSeats" name="numberOfSeats" type="name" class="form-control" id="InputNumberOfSeats" placeholder="Number of seats">
+      </div>
+      <div class="form-group">
+        <label for="InputPrice">Price</label>
+        <input [(ngModel)]="model.price" name="price" type="name" class="form-control" id="InputPrice" placeholder="Price">
+      </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+  </fieldset>
+</form>

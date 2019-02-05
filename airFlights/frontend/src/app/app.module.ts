@@ -45,6 +45,7 @@ import { UserReservationsComponent } from './user-reservations/user-reservations
 import { UserFriendsComponent } from './user-friends/user-friends.component';
 import { UserFriendRequestComponent } from './user-friend-request/user-friend-request.component';
 import { UserBasicInfoComponent } from './user-basic-info/user-basic-info.component';
+import { CarComponent } from './rentacar/car/car.component';
 
 @NgModule({
   declarations: [
@@ -78,7 +79,8 @@ import { UserBasicInfoComponent } from './user-basic-info/user-basic-info.compon
     UserReservationsComponent,
     UserFriendsComponent,
     UserFriendRequestComponent,
-    UserBasicInfoComponent
+    UserBasicInfoComponent,
+    CarComponent
   ],
   imports: [
     BrowserModule,
@@ -100,6 +102,10 @@ import { UserBasicInfoComponent } from './user-basic-info/user-basic-info.compon
       {
         path: 'user',
         component: UserProfileComponent
+      },
+      {
+        path: 'addCar',
+        component: CarComponent
       },
       {path : '', component : SearchFlightComponent},
       {path : 'analytics/:airlineId', component: AvioAnalyticsComponent,  },
