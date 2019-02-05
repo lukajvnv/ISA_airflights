@@ -18,7 +18,8 @@ export class AppComponent implements OnInit {
   constructor(private loggedUserService: LoggedUserService, private authToken: AuthTokenService) {}
 
   ngOnInit() {
-    if (this.authToken.getJwtToken() !== undefined) {
+
+    if (this.authToken.getJwtToken()) {
       this.isUserLogged = true;
       this.loggedUser = localStorage.getItem('currentUser');
     } else {
