@@ -2,7 +2,9 @@ package com.airFlights.model.user;
 
 import java.sql.Timestamp;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -14,12 +16,14 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.joda.time.DateTime;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.airFlights.model.Reservation;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
@@ -73,6 +77,18 @@ public class User implements UserDetails{
             inverseJoinColumns = @JoinColumn(name = "authority_id", referencedColumnName = "id"))
     private List<Authority> authorities;
     
+    @OneToMany(mappedBy = "userWhoInvite")
+	private Set<Friendship> friendships = new HashSet<Friendship>();
+	
+	@OneToMany(mappedBy = "userWhoAccept")
+	private Set<Friendship> requestedFriendships = new HashSet<Friendship>();
+	
+	@OneToMany(mappedBy = "user")
+	private Set<Reservation> reservations = new HashSet<Reservation>();
+    
+    public User() {
+		super();
+	}
     
     public Long getId() {
         return id;
@@ -199,5 +215,29 @@ public class User implements UserDetails{
     public boolean isCredentialsNonExpired() {
         return true;
     }
+
+	public Set<Friendship> getFriendships() {
+		return friendships;
+	}
+
+	public void setFriendships(Set<Friendship> friendships) {
+		this.friendships = friendships;
+	}
+
+	public Set<Friendship> getRequestedFriendships() {
+		return requestedFriendships;
+	}
+
+	public void setRequestedFriendships(Set<Friendship> requestedFriendships) {
+		this.requestedFriendships = requestedFriendships;
+	}
+
+	public Set<Reservation> getReservations() {
+		return reservations;
+	}
+
+	public void setReservations(Set<Reservation> reservations) {
+		this.reservations = reservations;
+	}
 
 }

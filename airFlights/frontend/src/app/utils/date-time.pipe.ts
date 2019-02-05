@@ -6,8 +6,8 @@ import {Pipe, PipeTransform} from '@angular/core';
 })
 export class DateTimePipe implements PipeTransform {
   transform(value: Flight, depOrArr: string) {
-    let time;
-    let date;
+    let time: string;
+    let date: string;
 
     if (value) {
       if ( depOrArr === 'd' ) {
@@ -18,11 +18,11 @@ export class DateTimePipe implements PipeTransform {
         date = value.arrivalDate.toString();
       }
 
-      const hour = time.split(',')[0];
-      const minute = time.split(',')[1];
+      /*const hour = time.split(',')[0];
+      const minute = time.split(',')[1];*/
 
       console.log(date);
-      return date + ' ' + hour + ':' + minute;
+      return date + ' ' + time /*+ hour + ':' + minute*/;
     } else {
       return;
     }

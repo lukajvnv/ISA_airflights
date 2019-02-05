@@ -10,7 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -40,6 +40,9 @@ public class FlightController {
 	@Autowired
 	private MailService mailService;
 	
+	@Autowired
+	private PasswordEncoder passwordEncoder;
+	
 	
 	@RequestMapping(path = "/all", method = RequestMethod.GET)
 	public ResponseEntity<List<FlightDTO>> getFlights(){
@@ -66,8 +69,9 @@ public class FlightController {
 	}*/
 	
 	@RequestMapping(path = "/new", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<String> addNewFlight(/*@RequestParam int  airlineId, */@RequestBody Flight flight){
-		flightService.saveNewFlight(flight);
+	public ResponseEntity<String> addNewFlight(/*@RequestParam int  airlineId, */@RequestBody FlightDTO flight){
+		Flight newFlight = new Flight(flight);
+		flightService.saveNewFlight(newFlight);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 	
@@ -100,6 +104,18 @@ public class FlightController {
 	@RequestMapping(path = "/search/oneWay", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<FlightDTO>> searchFlightsOneWay(@RequestBody SearchFlightParams flightParams){
 		List<Flight> flights = flightService.searchFlightsOneWayBasic(flightParams);
+				
+		List<FlightDTO> answer = new ArrayList<FlightDTO>();
+		for(Flight f: flights) {
+			answer.add(new FlightDTO(f));
+		}
+		
+		return new ResponseEntity<>(answer, HttpStatus.OK);
+	}
+	
+	@RequestMapping(path = "/search/oneWayComplex", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<FlightDTO>> searchFlightsOneWayComplex(@RequestBody SearchFlightParams flightParams){
+		List<Flight> flights = flightService.searchFlightsOneWayComplex(flightParams);
 				
 		List<FlightDTO> answer = new ArrayList<FlightDTO>();
 		for(Flight f: flights) {
@@ -157,6 +173,20 @@ public class FlightController {
 			mailService.sendNotification(new User(), "Potvrda rezervacije", "Proba");
 			return new ResponseEntity<>(HttpStatus.OK);
 		} catch (MessagingException e) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+	}
+	
+	@RequestMapping(path = "/pass", method = RequestMethod.GET)
+	public ResponseEntity<List<Destination>> getPass(){
+		try {
+			for(int i = 1; i <= 6; i++) {
+				String pass = passwordEncoder.encode("korisnik" + i);
+				System.out.println("Pass"+ i + ": " + pass);
+				
+			}
+			return new ResponseEntity<>(HttpStatus.OK);
+		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}

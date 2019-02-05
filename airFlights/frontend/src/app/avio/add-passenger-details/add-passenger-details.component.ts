@@ -26,16 +26,13 @@ export class AddPassengerDetailsComponent implements OnInit {
   constructor(private activatedRoute: ActivatedRoute, private flightService: FlightService) { }
 
   ngOnInit() {
+    /* if (!this.searchFlightObject.flightType) {
+      this.searchFlightObject = JSON.parse(sessionStorage.getItem('searchFilterObject'));
+    }*/
     this.activatedRoute.paramMap.subscribe(params => {
       const flightId: string = params.get('flightId');
       this.flightService.getFlight(flightId).subscribe(data => {
         this.currentFlight = data;
-        /*console.log('adding people:');
-        this.selectDiv = new Array<boolean>(this.currentFlight.numberOfSeats);
-        this.svaSedistaAviona = new Array<number>(this.currentFlight.numberOfSeats);
-        for (let i = 0; i < this.selectDiv.length; i++) {
-          this.selectDiv[i] = false;
-        }*/
       });
     });
     const user: User = new User('Luka', 'Jovanovic', 'Drage Spasic 7', 'lukajvnv@gmail.com', '064/449-86-28');
@@ -49,7 +46,8 @@ export class AddPassengerDetailsComponent implements OnInit {
 
   potvrdi() {
     if (!this.passengerForm.valid) {
-      throw new Error;
+      alert('Unesite broj pasosa');
+      return;
     } else {
       console.log('validno');
       // this.passengerName.disable();

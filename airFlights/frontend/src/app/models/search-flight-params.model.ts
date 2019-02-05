@@ -12,6 +12,8 @@ personNum: number;
 flightType: string;
 luggage: number;
 
+priceFilter: number;
+
 airlineFilter: Airline;
 flightDurationFilter: number;
 arrivalTimeFilterLower: string;
@@ -24,8 +26,7 @@ arrivalDestinations: Destination[];
 // departureDestinations: Destination;
 // arrivalDestinations: Destination;
 
-constructor(/*departureDate: Date, arrivalDate: Date, flightType: string,  ticketClass: string, personNum: number, luggage: number,
-  departureDest: Destination, arrivaDest: Destination*/) {
+constructor(/*searchFlightParams: SearchFlightParams*/) {
   /*this.departureDate = departureDate;
   this.arrivalDate = arrivalDate;
   this.flightType = flightType;
@@ -64,8 +65,9 @@ init ( departureDate: Date, arrivalDate: Date, flightType: string,  ticketClass:
 }
 
 initAdditionalFilter ( flightDurationFilter: number, departureFilterLower: NgbTimeStruct, departureFilterUpper: NgbTimeStruct,
-  arrivalFilterLower: NgbTimeStruct, arrivalFilterUpper: NgbTimeStruct) {
+  arrivalFilterLower: NgbTimeStruct, arrivalFilterUpper: NgbTimeStruct, price: number) {
     this.flightDurationFilter = flightDurationFilter;
+    this.priceFilter = price;
     console.log(this.departureDate);
 
     let trueHour = ('0' + departureFilterLower['hour']).slice(-2);

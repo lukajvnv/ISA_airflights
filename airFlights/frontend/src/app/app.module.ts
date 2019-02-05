@@ -46,6 +46,7 @@ import { UserFriendsComponent } from './user-friends/user-friends.component';
 import { UserFriendRequestComponent } from './user-friend-request/user-friend-request.component';
 import { UserBasicInfoComponent } from './user-basic-info/user-basic-info.component';
 import { CarComponent } from './rentacar/car/car.component';
+import { UserFlightInvitationComponent } from './user-flight-invitation/user-flight-invitation.component';
 
 @NgModule({
   declarations: [
@@ -80,7 +81,8 @@ import { CarComponent } from './rentacar/car/car.component';
     UserFriendsComponent,
     UserFriendRequestComponent,
     UserBasicInfoComponent,
-    CarComponent
+    CarComponent,
+    UserFlightInvitationComponent
   ],
   imports: [
     BrowserModule,

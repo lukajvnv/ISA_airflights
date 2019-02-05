@@ -1,8 +1,10 @@
+import { SearchFlightComponent } from './../search-flight/search-flight.component';
 import { Flight } from './../../models/flight.model';
 import { FlightService } from './../../services/flight.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { User } from './../../models/user.model';
 import { Component, OnInit } from '@angular/core';
+import { SearchFlightParams } from 'src/app/models/search-flight-params.model';
 
 @Component({
   selector: 'app-add-friend-to-flight',
@@ -16,9 +18,14 @@ export class AddFriendToFlightComponent implements OnInit {
   currentFlight: Flight;
 
   constructor(private activatedRoute: ActivatedRoute, private router: Router,
-    private flightService: FlightService) { }
+    private flightService: FlightService, private searchFlightObject: SearchFlightParams) { }
 
   ngOnInit() {
+    this.searchFlightObject = JSON.parse(sessionStorage.getItem('searchFilterObject'));
+    if (this.searchFlightObject.personNum === 1) {
+
+    }
+
     this.korisnici.push(new User('Luka', 'Jovanovic', '', '', ''));
     this.korisnici.push(new User('Mladen', 'Jovanovic', '', '', ''));
     this.korisnici.push(new User('Luka', 'Ivanovic', '', '', ''));
