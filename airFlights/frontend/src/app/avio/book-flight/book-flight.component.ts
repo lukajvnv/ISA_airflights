@@ -1,3 +1,4 @@
+import { FlightSeat } from './../../models/seat.model';
 import { Location } from '@angular/common';
 import { Flight } from './../../models/flight.model';
 import { FlightService } from './../../services/flight.service';
@@ -18,11 +19,18 @@ export class BookFlightComponent implements OnInit {
   @Input()
   currentFlight: Flight;
 
-  svaSedistaAviona: number[] = [];
-  brojeviZeljenihSedista: number[] = [];
+  // svaSedistaAviona: number[] = [];
+  // brojeviZeljenihSedista: number[] = [];
   selectDiv: boolean[] = [];
 
+  flightSeats: FlightSeat[] = [];
+  zeljenaSedista: FlightSeat[] = [];
+
+
   ngOnInit() {
+    if (!this.searchFlightObject.flightType) {
+      this.searchFlightObject = JSON.parse(sessionStorage.getItem('searchFilterObject'));
+    }
     this.activatedRoute.paramMap.subscribe(params => {
       const flightId: string = params.get('flightId');
       this.flightService.getFlight(flightId).subscribe(data => {
@@ -30,11 +38,21 @@ export class BookFlightComponent implements OnInit {
         console.log('booking:');
         console.log(this.currentFlight);
         console.log(this.searchFlightObject);
-        this.selectDiv = new Array<boolean>(this.currentFlight.numberOfSeats);
+        /*this.selectDiv = new Array<boolean>(this.currentFlight.numberOfSeats);
         this.svaSedistaAviona = new Array<number>(this.currentFlight.numberOfSeats);
+        for (let i = 0; i < this.selectDiv.length; i++) {
+          this.selectDiv[i] = false;
+        }*/
         /*this.selectDiv.forEach(function(value) {
           this.value = false;
         });*/
+
+      });
+      this.flightService.getAllSeats(flightId).subscribe(data => {
+        this.flightSeats = data;
+        console.log('booking: seats');
+        this.selectDiv = new Array<boolean>(this.flightSeats.length);
+        // this.svaSedistaAviona = new Array<number>(this.flightSeats.length);
         for (let i = 0; i < this.selectDiv.length; i++) {
           this.selectDiv[i] = false;
         }
@@ -46,24 +64,29 @@ export class BookFlightComponent implements OnInit {
     return new Array(this.currentFlight.numberOfSeats);
   }*/
 
-  selektuj(index: number) {
+  selektuj(index: number, seat: FlightSeat) {
     console.log('usao u selektuj');
 
     if (this.selectDiv[index]) {
-      const i = this.brojeviZeljenihSedista.indexOf(index + 1);
-      this.brojeviZeljenihSedista.splice(i, 1);
+      const i = this.zeljenaSedista.indexOf(seat);
+      this.zeljenaSedista.splice(i, 1);
     } else {
-      this.brojeviZeljenihSedista.push(index + 1);
+      this.zeljenaSedista.push(seat);
     }
     this.selectDiv[index] = !this.selectDiv[index];
   }
 
   rezervisi() {
-    if (this.brojeviZeljenihSedista.length !== this.searchFlightObject.personNum) {
+    if (this.zeljenaSedista.length !== this.searchFlightObject.personNum) {
       alert('Selektujte odgovarajuci broj sedista');
     } else {
       console.log('usao u rezervisi');
-      this.router.navigate(['/flight/addFriendToFlight',  this.currentFlight.flightId]);
+      sessionStorage.setItem('seats', JSON.stringify(this.zeljenaSedista));
+      if (this.searchFlightObject.personNum > 1) {
+        this.router.navigate(['/flight/addFriendToFlight',  this.currentFlight.flightId]);
+      } else {
+        this.router.navigate(['/flight/addPassengerDetails',  this.currentFlight.flightId]);
+      }
     }
   }
 

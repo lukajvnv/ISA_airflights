@@ -11,12 +11,17 @@ export class OneWayFlightResultComponent implements OnInit {
 
   @Input()
   flight?: Flight;
+
+  @Input()
   flightClass;
+
+  @Input()
+  disableView;
 
   constructor(private searchFlightObject: SearchFlightParams) { }
 
   ngOnInit() {
-    this.flightClass =  this.searchFlightObject.ticketClass;
+    // this.flightClass =  this.searchFlightObject.ticketClass;
   }
 
   renderFlightDuration(flight: Flight): string {

@@ -25,8 +25,7 @@ export class SearchFlightComponent implements OnInit {
    departureDestination: Destination;
    arrivalDestination: Destination;
    isArrivalDateDisabled: boolean;
-  flightTypes = [{id: 'ONE_WAY', name: 'One-way'}, {id: 'ROUND_TRIP', name: 'Round-trip'}, {id: 'MULTI_CITY', name: 'Multi-city'}];
-   // flightTypes = ['One-way', 'Round-trip', 'Multi-city'];
+   flightTypes = [{id: 'ONE_WAY', name: 'One-way'}, {id: 'ROUND_TRIP', name: 'Round-trip'}, {id: 'MULTI_CITY', name: 'Multi-city'}];
    flightClasses = [{id: 'ECONOMY', name: 'Economy'}, {id: 'BUSINESS', name: 'Business'}, {id: 'FIRST', name: 'First'}];
 
 
@@ -58,10 +57,11 @@ test(f) {// console.log(this.departureDate + this.type); const ps = this.destina
       return;
     }
     // provera da li je broj i ako jeste da li je int
-    /*if (!(Number(this.persons) === this.persons && this.persons % 1 === 0)) {
+    /* if (!(Number(this.persons) === this.persons && this.persons % 1 !== 0)) {
       console.log(this.persons);
       alert('Molimo unesite BROJ osoba');
-    }*/
+    } */
+
     console.log(this.arrivalDate);
     if (isNaN(Number(this.luggage)) && this.luggage) {
       console.log(this.luggage);
@@ -74,11 +74,14 @@ test(f) {// console.log(this.departureDate + this.type); const ps = this.destina
       return;
     }
 
+    this.type = this.type === 'MULTI_CITY' ? 'ONE_WAY' : this.type;
+
       // const searchFlightParams: SearchFlightParams = new SearchFlightParams();
     this.searchFlightObject.init(this.departureDate, this.arrivalDate, this.type, this.class,
     this.persons, this.luggage, this.departureDestination, this.arrivalDestination);
     console.log(this.searchFlightObject);
 
+    sessionStorage.setItem('searchFilterObject', JSON.stringify(this.searchFlightObject));
     this.router.navigate(['/viewFlightResults']);
 
     /* this.flightService.searchFlights(searchFlightParams).subscribe(data => {

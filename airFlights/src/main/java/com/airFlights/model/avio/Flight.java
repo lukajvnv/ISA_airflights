@@ -22,6 +22,7 @@ import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.ColumnDefault;
 
+import com.airFlights.dto.avio.DestinationDTO;
 import com.airFlights.dto.avio.FlightDTO;
 import com.airFlights.model.Pricelist;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -116,7 +117,7 @@ public class Flight {
 	private Airline airline;
 	
 	@OneToMany(mappedBy = "flight", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	private Set<AirlineTicket> tickets;
+	private Set<AirlineTicket> tickets = new HashSet<AirlineTicket>();;
 	
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "pricelist_id")
@@ -125,6 +126,52 @@ public class Flight {
 	
 	public Flight() {
 		super();
+	}
+	
+	public Flight(FlightDTO flightFront) {
+		this(flightFront.getDepartureDate(), flightFront.getArrivalDate(), flightFront.getDepartureTime(), flightFront.getArrivalTime(), flightFront.getFlightDuration(),
+				flightFront.getFlightDistance(), flightFront.getNumberOfSeats(), flightFront.getNumberOfEconomyAvailableSeats(), flightFront.getNumberOfBusinessAvailableSeats(),
+				flightFront.getNumberOfFirstAvailableSeats(), flightFront.getAirplaneName(), flightFront.getAdditionalService(), flightFront.getLuggage());
+
+		this.departureDestination = new Destination(flightFront.getDepartureDestination());
+		this.arrivalDestination = new Destination(flightFront.getArrivalDestination());
+		
+		Set<Destination> stops = new HashSet<Destination>();
+		for(DestinationDTO stop: flightFront.getStops()) {
+			Destination destination = new Destination(stop);
+			stops.add(destination);
+		}
+		this.stops = stops;
+		
+		this.airline = new Airline(flightFront.getAirline());
+		this.pricelist = new Pricelist(flightFront.getPricelist());
+	}
+
+	public Flight(LocalDate departureDate, LocalDate arrivalDate, LocalTime departureTime, LocalTime arrivalTime,
+			Float flightDuration, Float flightDistance, Integer numberOfSeats, Integer numberOfEconomyAvailableSeats,
+			Integer numberOfBusinessAvailableSeats, Integer numberOfFirstAvailableSeats, String airplaneName,
+			String additionalService, Float luggage) {
+		super();
+		this.departureDate = departureDate;
+		this.arrivalDate = arrivalDate;
+		this.departureTime = departureTime;
+		this.arrivalTime = arrivalTime;
+		this.flightDuration = flightDuration;
+		this.flightDistance = flightDistance;
+		this.numberOfSeats = numberOfSeats;
+		this.numberOfEconomyAvailableSeats = numberOfEconomyAvailableSeats;
+		this.numberOfBusinessAvailableSeats = numberOfBusinessAvailableSeats;
+		this.numberOfFirstAvailableSeats = numberOfFirstAvailableSeats;
+		this.airplaneName = airplaneName;
+		this.additionalService = additionalService;
+		this.luggage = luggage;
+		
+//		this.departureDestination = departureDestination;
+//		this.arrivalDestination = arrivalDestination;
+//		this.stops = stops;
+//		this.airline = airline;
+//		this.tickets = tickets;
+//		this.pricelist = pricelist;
 	}
 
 	public Integer getFlightId() {
@@ -176,11 +223,11 @@ public class Flight {
 	}
 
 	public int getRatingNum() {
-		return ratingNum;
+		return ratingNum  == null ? 0 : ratingNum;
 	}
 
 	public int getRatingSum() {
-		return ratingSum;
+		return ratingSum == null ? 0 : ratingSum ;
 	}
 
 	public void setRatingNum(Integer ratingNum) {

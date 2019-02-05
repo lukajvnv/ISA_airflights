@@ -64,6 +64,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 			.antMatchers("/api/registration").permitAll()
 			.antMatchers("/flight/**").permitAll() 
 			.antMatchers("/airline/**").permitAll()
+			.antMatchers("/seats/**").permitAll()
 			//namesti za svoju bazu	
 			.anyRequest().authenticated().and()
 			

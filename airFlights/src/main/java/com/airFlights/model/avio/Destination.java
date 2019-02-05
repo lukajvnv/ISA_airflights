@@ -11,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 
+import com.airFlights.dto.avio.DestinationDTO;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -50,6 +51,10 @@ public class Destination {
 	
 	public Destination() {
 		super();
+	}
+	
+	public Destination(DestinationDTO destDto) {
+		this.destinationId = destDto.getDestinationId();
 	}
 	
 	public Integer getDestinationId() {

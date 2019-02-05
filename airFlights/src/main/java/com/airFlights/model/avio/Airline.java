@@ -17,6 +17,7 @@ import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.ColumnDefault;
 
+import com.airFlights.dto.avio.AirlineDTO;
 import com.airFlights.model.Pricelist;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -101,6 +102,10 @@ public class Airline {
 		this.promoDescription = promoDescription;
 		this.luggageInfo = luggageInfo;
 		
+	}
+	
+	public Airline(AirlineDTO airlineDTO) {
+		this.airlineId = airlineDTO.getAirlineId();
 	}
 	
 	public Integer getAirlineId() {

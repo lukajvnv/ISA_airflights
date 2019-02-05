@@ -79,7 +79,7 @@
   </div>
   </div>
 </form> -->
-<h1>Putnik 1 od 2</h1>
+<h1>Putnik 1 od {{2}}</h1>
 <form [formGroup]="passengerForm" (ngSubmit) ="potvrdi()">
   <div class="row">
       <div class="col-md-2  mb-3">
@@ -102,25 +102,26 @@
     <div class="col-md-3 mb-3">
         <input id="passengerAddress" formControlName="passengerAddress" type="text" class="form-control" placeholder="Adresa putnika...">
     </div>
-    <div class="col-md-2 mb-3">
-      <label for="passengerPassportNum">Br. pasosa putnika:</label>
+    <div class="col-md-2  mb-3">
+      <label for="passengerTelephone">Telefon putnika:</label>
     </div>
     <div class="col-md-3 mb-3">
-        <input id="passengerPassportNum" formControlName="passengerPassportNum" type="text" class="form-control"  placeholder="Br. pasosa putnika...">
+        <input id="passengerTelephone" formControlName="passengerTelephone" type="text" class="form-control" placeholder="Telefon putnika...">
     </div>
+
   </div>
 <div class="row">
-  <div class="col-md-2  mb-3">
-    <label for="passengerTelephone">Telefon putnika:</label>
-  </div>
-  <div class="col-md-3 mb-3">
-      <input id="passengerTelephone" formControlName="passengerTelephone" type="text" class="form-control" placeholder="Telefon putnika...">
-  </div>
   <div class="col-md-2 mb-3">
-    <label for="passengerMail">Email putnika:</label>
+    <label for="passengerMail" >Email putnika:</label>
   </div>
   <div class="col-md-3 mb-3">
       <input id="passengerMail" formControlName="passengerMail" type="text" class="form-control"  placeholder="Email putnika...">
+  </div>
+  <div class="col-md-2 mb-3">
+    <label for="passengerPassportNum" style="color: red">Br. pasosa putnika:</label>
+  </div>
+  <div class="col-md-3 mb-3">
+      <input id="passengerPassportNum" formControlName="passengerPassportNum" type="text" class="form-control"  placeholder="Br. pasosa putnika...">
   </div>
   <div class="col-md-2 mb-3">
     <button type="submit" class="btn btn-primary btn-lg btn-block">Potvrdi</button>

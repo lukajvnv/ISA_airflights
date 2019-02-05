@@ -92,28 +92,40 @@ export class NewFlightComponent implements OnInit {
     this.arrivalDate = new Date();
     this.departureDate = new Date();
 
-    let day = flight.departureDate/* .split('-') */[2];
-    let month = flight.departureDate/* .split('-') */[1];
-    let year = flight.departureDate/* .split('-') */[0];
+    let day = flight.departureDate.split('-')[2];
+    let month = flight.departureDate.split('-')[1];
+    let year = flight.departureDate.split('-')[0];
+
+    /* let day = flight.departureDate[2];
+    let month = flight.departureDate[1];
+    let year = flight.departureDate[0]; */
 
     this.departureDate['year'] = +year;
     this.departureDate['month'] = +month;
     this.departureDate['day'] = +day;
 
-    day = flight.arrivalDate/* .split('-') */[2];
-    month = flight.arrivalDate/* .split('-') */[1];
-    year = flight.arrivalDate/* .split('-') */[0];
+    day = flight.arrivalDate.split('-')[2];
+    month = flight.arrivalDate.split('-')[1];
+    year = flight.arrivalDate.split('-')[0];
+
+    /* day = flight.arrivalDate[2];
+    month = flight.arrivalDate[1];
+    year = flight.arrivalDate[0]; */
 
     this.arrivalDate['year'] = +year;
     this.arrivalDate['month'] = +month;
     this.arrivalDate['day'] = +day;
 
-    let h = flight.departureTime/*.split(',')*/[0];
-    let min = flight.departureTime/*.split(',')*/[1];
+    let h = flight.departureTime.split(':')[0];
+    let min = flight.departureTime.split(':')[1];
+    /* let h = flight.departureTime[0];
+    let min = flight.departureTime[1]; */
     this.departureTime = {hour: +h, minute: +min, second: 0};
 
-    h = flight.arrivalTime/*.split(',')*/[0];
-    min = flight.arrivalTime/*.split(',')*/[1];
+    h = flight.arrivalTime.split(':')[0];
+    min = flight.arrivalTime.split(':')[1];
+    /* h = flight.arrivalTime[0];
+    min = flight.arrivalTime[1]; */
     this.arrivalTime = {hour: +h, minute: +min, second: 0};
 
     this.distance = flight.flightDistance;
@@ -170,7 +182,10 @@ export class NewFlightComponent implements OnInit {
     }
     // isNaN(Number(this.seatBusiness)) || isNaN(Number(this.seatEconomy)) || isNaN(Number(this.seatFirst))
     if ( this.seatFirst || this.seatBusiness || this.seatEconomy) {
-      const equal: boolean = +this.seatNum === +this.seatBusiness + +this.seatEconomy + +this.seatFirst;
+      const economy: number = this.seatEconomy ? +this.seatEconomy : 0 ;
+      const business: number = this.seatBusiness ? +this.seatBusiness : 0 ;
+      const first: number = this.seatFirst ? +this.seatFirst : 0 ;
+      const equal: boolean = +this.seatNum === economy + business + first;
       if (!equal) {
         alert('Ukupan broj sedista kao i sedista po kategorijama mora biti odgovarajuci');
         return;

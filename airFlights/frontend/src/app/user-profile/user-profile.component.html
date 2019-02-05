@@ -11,6 +11,9 @@
     <li class="nav-item" [class.active]="activeTab === 'request'">
         <a class="nav-link" (click)="activeTab = 'request'">Zahtevi</a>
     </li>
+    <li class="nav-item" [class.active]="activeTab === 'flightInvites'">
+      <a class="nav-link" (click)="activeTab = 'flightInvites'">Pozivi na let</a>
+  </li>
   </ul>
 
   <div [ngSwitch]="activeTab">
@@ -26,6 +29,9 @@
     <div *ngSwitchCase="'request'" >
         <app-user-friend-request [currentUser]="currentUser"></app-user-friend-request>
       </div>
+    <div *ngSwitchCase="'flightInvites'" >
+      <app-user-flight-invitation [currentUser]="currentUser"></app-user-flight-invitation>
+    </div>
     <div *ngSwitchDefault>
         <app-user-basic-info [currentUser]="currentUser"></app-user-basic-info>
       </div>

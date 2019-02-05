@@ -1,3 +1,4 @@
+import { FlightReturn } from './../../models/flight-return.model';
 import { DepTimeArrTimePipe } from './../../utils/dep-time-arr-time.pipe';
 import { Flight } from './../../models/flight.model';
 import { FormControl, MinLengthValidator } from '@angular/forms';
@@ -26,7 +27,13 @@ export class ViewFlightResultComponent implements OnInit {
   arrivalTimeLower: NgbTimeStruct;
   arrivalTimeUpper: NgbTimeStruct;
 
+  answer: any[];
   flightsResult: Flight[];
+  flightsResultReturn: FlightReturn[];
+
+  flightClass: string;
+  flightType: string;
+
 
   constructor(private searchFlightObject: SearchFlightParams, private activatedRoute: ActivatedRoute,
      private flightService: FlightService, private airlineService: AirlineService) {
@@ -36,13 +43,22 @@ export class ViewFlightResultComponent implements OnInit {
   ngOnInit() {
     console.log(this.searchFlightObject);
     if (!this.searchFlightObject.flightType) {
+      // const sessionObject: SearchFlightParams = JSON.parse(sessionStorage.getItem('searchFilterObject'));
       this.searchFlightObject = JSON.parse(sessionStorage.getItem('searchFilterObject'));
     }
     sessionStorage.setItem('searchFilterObject', JSON.stringify(this.searchFlightObject));
     this.flightService.searchFlights(this.searchFlightObject).subscribe(data => {
       console.log('prosao');
       console.log(data);
-      this.flightsResult = data;
+      this.flightClass = this.searchFlightObject.ticketClass;
+      this.flightType = this.searchFlightObject.flightType;
+
+      this.answer = data;
+      if (this.searchFlightObject.flightType === 'ONE_WAY') {
+        this.flightsResult = data;
+      } else {
+        this.flightsResultReturn = data;
+      }
     });
 
     this.airlineService.getAirlines().subscribe(airlines => {
@@ -60,7 +76,6 @@ export class ViewFlightResultComponent implements OnInit {
           s.selection = '#priceSlider';
        s.ticks  = [0, 100, 200, 300, 400];
         s.ticksLabels = ['$0', '$100', '$200', '$300', '$400'];*/
-
   }
 
   filterByAirline(airline: Airline) {
@@ -81,7 +96,13 @@ export class ViewFlightResultComponent implements OnInit {
     this.flightService.searchFlights(this.searchFlightObject).subscribe(data => {
       console.log('Nakon airline filtera');
       console.log(data);
-      this.flightsResult = data;
+      // this.flightsResult = data;
+      this.answer = data;
+      if (this.flightType === 'ONE_WAY') {
+        this.flightsResult = data;
+      } else {
+        this.flightsResultReturn = data;
+      }
     });
   }
 
@@ -100,13 +121,20 @@ export class ViewFlightResultComponent implements OnInit {
     // this.searchFlightObject.initAdditionalFilter();
 
     this.searchFlightObject.initAdditionalFilter(this.durationValue, this.departureTimeLower,
-      this.departureTimeUpper, this.arrivalTimeLower, this.arrivalTimeUpper);
+      this.departureTimeUpper, this.arrivalTimeLower, this.arrivalTimeUpper, this.priceValue);
 
 
-    this.flightService.searchFlights(this.searchFlightObject).subscribe(data => {
+    this.flightService.searchFlightsComplex(this.searchFlightObject).subscribe(data => {
       console.log('prosao');
       console.log(data);
-      this.flightsResult = data;
+      // this.flightsResult = data;
+
+      this.answer = data;
+      if (this.flightType === 'ONE_WAY') {
+        this.flightsResult = data;
+      } else {
+        this.flightsResultReturn = data;
+      }
     });
 
   }
@@ -118,23 +146,28 @@ export class ViewFlightResultComponent implements OnInit {
     return true;
   }
 
-  renderFlightDuration(flight: Flight): string {
+  /*renderFlightDuration(flight: Flight): string {
     const hour = Math.floor(flight.flightDuration);
     const decimal = flight.flightDuration - hour;
     const minutes = Math.round(decimal * 60);
     return hour + 'h '  + minutes + 'min';
-  }
-
-  /*renderFlightTime(flight: Flight): string {
-     console.log(flight.departureTime);
-    const dep = flight.departureTime.toString();
-    const arr = flight.arrivalTime.toString();
-
-     const hoursD = dep.split(':')[0];
-     const minutesD = dep.split(':')[1];
-     const hoursA = arr.split(':')[0];
-     const minutesA = arr.split(':')[1];
-     return hoursD + ':' + minutesD + ' - ' + hoursA + ':' + minutesA;
   }*/
 
+  reset() {
+    this.searchFlightObject.airlineFilter = null;
+    this.flightService.searchFlights(this.searchFlightObject).subscribe(data => {
+      console.log('prosao');
+      console.log(data);
+      // this.flightsResult = data;
+      // this.flightClass = this.searchFlightObject.ticketClass;
+
+      this.answer = data;
+      if (this.flightType === 'ONE_WAY') {
+        this.flightsResult = data;
+      } else {
+        this.flightsResultReturn = data;
+      }
+    });
+
+  }
 }

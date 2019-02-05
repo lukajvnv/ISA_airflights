@@ -28,6 +28,7 @@ public class SearchFlightParams {
 	private List<Destination> departureDestinations;
 	private List<Destination> arrivalDestinations;
 	
+	private float priceFilter;
 	
 	public SearchFlightParams() {
 		super();
@@ -140,5 +141,13 @@ public class SearchFlightParams {
 
 	public void setDepartureTimeFilterUpper(LocalTime departureTimeFilterUpper) {
 		this.departureTimeFilterUpper = departureTimeFilterUpper;
+	}
+
+	public float getPriceFilter() {
+		return priceFilter;
+	}
+
+	public void setPriceFilter(float priceFliiter) {
+		this.priceFilter = priceFliiter;
 	}	
 }

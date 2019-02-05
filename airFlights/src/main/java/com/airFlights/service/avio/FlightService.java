@@ -135,20 +135,57 @@ public class FlightService {
 		int seatNum = filterParams.getPersonNum();
 		
 		Airline airline = filterParams.getAirlineFilter();
+		Float luggage = filterParams.getLuggage() == 0 ? 100 : filterParams.getLuggage();
+//		LocalTime depFilterLower = filterParams.getDepartureTimeFilterLower();
+//		LocalTime depFilterUpper = filterParams.getDepartureTimeFilterUpper();
+//		LocalTime arrFilterLower = filterParams.getArrivalTimeFilterLower();
+//		LocalTime arrFilterUpper = filterParams.getArrivalTimeFilterUpper();
+		
+		switch (filterParams.getTicketClass()) {
+			case ECONOMY:
+				flights = flightRepository.searchFlightsOneWayEconomyBasic(departureDate, departureDestination, arrivalDestination, seatNum, luggage, airline);
+				break;
+			case BUSINESS:
+				flights = flightRepository.searchFlightsOneWayBusinessBasic(departureDate, departureDestination, arrivalDestination,seatNum, luggage, airline);
+				break;
+			case FIRST:
+				flights = flightRepository.searchFlightsOneWayFirstBasic(departureDate, departureDestination, arrivalDestination, seatNum, luggage, airline);
+				break;
+	
+			default:
+				return flights;
+			}
+		
+		return flights;
+	}
+	
+	public List<Flight> searchFlightsOneWayComplex(SearchFlightParams filterParams){
+		List<Flight> flights = new ArrayList<>();
+		
+		LocalDate departureDate = filterParams.getDepartureDate();		
+		Destination departureDestination = filterParams.getDepartureDestinations().get(0);
+		Destination arrivalDestination = filterParams.getArrivalDestinations().get(0);
+		int seatNum = filterParams.getPersonNum();
+		Float luggage = filterParams.getLuggage() == 0 ? 100 : filterParams.getLuggage();
+		
+		Airline airline = filterParams.getAirlineFilter();
 		LocalTime depFilterLower = filterParams.getDepartureTimeFilterLower();
 		LocalTime depFilterUpper = filterParams.getDepartureTimeFilterUpper();
 		LocalTime arrFilterLower = filterParams.getArrivalTimeFilterLower();
 		LocalTime arrFilterUpper = filterParams.getArrivalTimeFilterUpper();
 		
+		Float priceFilter = filterParams.getPriceFilter();
+		Float duration = filterParams.getFlightDurationFilter();
+		
 		switch (filterParams.getTicketClass()) {
 			case ECONOMY:
-				flights = flightRepository.searchFlightsOneWayEconomy(departureDate, departureDestination, arrivalDestination, seatNum, airline, depFilterLower, depFilterUpper, arrFilterLower, arrFilterUpper);
+				flights = flightRepository.searchFlightsOneWayEconomyComplex(departureDate, departureDestination, arrivalDestination, seatNum, luggage, airline, depFilterLower, depFilterUpper, arrFilterLower, arrFilterUpper, priceFilter, duration);
 				break;
 			case BUSINESS:
-				flights = flightRepository.searchFlightsOneWayBusiness(departureDate, departureDestination, arrivalDestination,seatNum, airline);
+				flights = flightRepository.searchFlightsOneWayBusinessComplex(departureDate, departureDestination, arrivalDestination, seatNum, luggage, airline, depFilterLower, depFilterUpper, arrFilterLower, arrFilterUpper, priceFilter, duration);
 				break;
 			case FIRST:
-				flights = flightRepository.searchFlightsOneWayEconomy(departureDate, departureDestination, arrivalDestination, seatNum, airline);
+				flights = flightRepository.searchFlightsOneWayFirstComplex(departureDate, departureDestination, arrivalDestination, seatNum, luggage, airline, depFilterLower, depFilterUpper, arrFilterLower, arrFilterUpper, priceFilter, duration);
 				break;
 	
 			default:
@@ -167,15 +204,18 @@ public class FlightService {
 		Destination arrivalDestination = filterParams.getArrivalDestinations().get(0);
 		int seatNum = filterParams.getPersonNum();
 		
+		Airline airline = filterParams.getAirlineFilter();
+
+		
 		switch (filterParams.getTicketClass()) {
 			case ECONOMY:
-				flights = flightRepository.searchFlightsRoundTripEconomy(departureDate, arrivalDate, departureDestination, arrivalDestination, seatNum);
+				flights = flightRepository.searchFlightsRoundTripEconomy(departureDate, arrivalDate, departureDestination, arrivalDestination, seatNum, airline);
 				break;
 			case BUSINESS:
-				flights = flightRepository.searchFlightsRoundTripBusiness(departureDate, arrivalDate, departureDestination, arrivalDestination,seatNum);
+				flights = flightRepository.searchFlightsRoundTripBusiness(departureDate, arrivalDate, departureDestination, arrivalDestination,seatNum, airline);
 				break;
 			case FIRST:
-				flights = flightRepository.searchFlightsRoundTripFirst(departureDate, arrivalDate, departureDestination, arrivalDestination, seatNum);
+				flights = flightRepository.searchFlightsRoundTripFirst(departureDate, arrivalDate, departureDestination, arrivalDestination, seatNum, airline);
 				break;
 			default:
 				return flights;

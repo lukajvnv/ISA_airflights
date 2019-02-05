@@ -6,6 +6,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import com.airFlights.dto.PricelistDTO;
+
 @Entity
 public class Pricelist {
 
@@ -25,6 +27,10 @@ public class Pricelist {
 	public Pricelist() {
 		super();
 		// TODO Auto-generated constructor stub
+	}
+	
+	public Pricelist(PricelistDTO pricelistDTO) {
+		this.pricelistId = pricelistDTO.getPricelistId();
 	}
 
 	public Integer getPricelistId() {

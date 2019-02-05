@@ -12,18 +12,24 @@
 
     <!--Centralni deo gde se prikazuju letovi-->
     <div class="col-lg-6 themed-grid-col" style="border:2px solid blue">
-      <div *ngIf="flightsResult?.length > 0; then flightsExist else noFlights"></div>
+      <div *ngIf="answer?.length > 0; then flightsExist else noFlights"></div>
       <ng-template #noFlights>
         <h2>Nema letove za unete parametre!</h2>
       </ng-template>
       <ng-template #flightsExist>
-        <div *ngFor="let oneFlight of flightsResult">
-
-<!--       <div class="row oneFlight" *ngFor="let oneFlight of flightsResult">
- -->        <app-one-way-flight-result [flight]="oneFlight"></app-one-way-flight-result>
+        <div *ngIf="flightType === 'ONE_WAY'">
+          <div *ngFor="let oneFlight of flightsResult">
+            <app-one-way-flight-result [flight]="oneFlight" [flightClass]="flightClass"></app-one-way-flight-result>
+          </div>
+        </div>
+        <div *ngIf="flightType !== 'ONE_WAY'">
+          <!-- <h2>Povratni letovi</h2> -->
+          <div *ngFor="let flight of flightsResultReturn" style="margin: 0px 0px 25px 0px; background-color: beige">
+            <app-one-way-flight-result [flight]="flight.flightAway" [flightClass]="flightClass"></app-one-way-flight-result>
+            <app-one-way-flight-result [flight]="flight.flightReturn" [flightClass]="flightClass" [disableView]="true"></app-one-way-flight-result>
+          </div>
         </div>
       </ng-template>
-
     </div>
 
     <!--Filteri sa desne strane-->
@@ -72,14 +78,21 @@
           <span>{{durationValue}}h</span>
         </div>
         <div class="row">
-          <div class="col-lg-6">
+          <div class="col-lg-6 mb-3">
             <button type="button" class="btn btn-primary btn-lg btn-block" [routerLink]="['']">
                   <fa name="angle-left" size="lg"></fa> Povratak
             </button>
           </div>
-          <div class="col-lg-6">
+          <div class="col-lg-6 mb-3">
             <button type="submit" class="btn btn-primary btn-lg btn-block" (click)="filter()">
                   <fa name="search" size="lg"></fa> Filtriraj
+            </button>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col mb-3">
+            <button type="submit" class="btn btn-info btn-lg btn-block" (click)="reset()">
+                  <fa name="sync" size="lg"></fa> Resetuj dodatne filtere
             </button>
           </div>
         </div>
