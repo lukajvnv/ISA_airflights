@@ -1,14 +1,16 @@
 package com.airFlights.dto.rentacar;
 
+import java.time.LocalDate;
+
 public class CarDTO {
 
 	private Long carId;
 
 	private Boolean reserved;
 	
-	private String pickupDate;
+	private LocalDate pickupDate;
 	
-	private String dropofDate;
+	private LocalDate dropofDate;
 	
 	private String pickupLocation;
 	
@@ -30,7 +32,7 @@ public class CarDTO {
 		
 	}
 
-	public CarDTO(Long carId, Boolean reserved, String pickupDate, String dropofDate, String pickupLocation,
+	public CarDTO(Long carId, Boolean reserved, LocalDate pickupDate, LocalDate dropofDate, String pickupLocation,
 			String dropofLocation, String carName, String carBrand, String carModel, Integer carYear,
 			Integer numberOfSeats, Float price) {
 		super();
@@ -64,19 +66,19 @@ public class CarDTO {
 		this.reserved = reserved;
 	}
 
-	public String getPickupDate() {
+	public LocalDate getPickupDate() {
 		return pickupDate;
 	}
 
-	public void setPickupDate(String pickupDate) {
+	public void setPickupDate(LocalDate pickupDate) {
 		this.pickupDate = pickupDate;
 	}
 
-	public String getDropofDate() {
+	public LocalDate getDropofDate() {
 		return dropofDate;
 	}
 
-	public void setDropofDate(String dropofDate) {
+	public void setDropofDate(LocalDate dropofDate) {
 		this.dropofDate = dropofDate;
 	}
 

@@ -9,7 +9,7 @@ import com.airFlights.model.rentacar.RentaService;
 
 public class RentacarDTO {
 	
-	private Long rentacarId;
+	private Integer rentacarId;
 	
 	private String name;
 	
@@ -23,17 +23,17 @@ public class RentacarDTO {
 	
 	private Float income;
 	
-	private Set<Car> cars = new HashSet<Car>();
+	private Set<CarDTO> cars = new HashSet<CarDTO>();
 
-	private Set<RentaBranch> branches = new HashSet<RentaBranch>();
+	private Set<RentaBranchDTO> branches = new HashSet<RentaBranchDTO>();
 	
-	private Set<RentaService> services = new HashSet<RentaService>();
+	private Set<RentaServiceDTO> services = new HashSet<RentaServiceDTO>();
 
 	public RentacarDTO() {
 	}
 
-	public RentacarDTO(Long rentacarId, String name, String adress, String promoDescription, Float avgRating,
-			Integer ratingNumber, Float income, Set<Car> cars, Set<RentaBranch> branches, Set<RentaService> services) {
+	public RentacarDTO(Integer rentacarId, String name, String adress, String promoDescription, Float avgRating,
+			Integer ratingNumber, Float income, Set<CarDTO> cars, Set<RentaBranchDTO> branches, Set<RentaServiceDTO> services) {
 		super();
 		this.rentacarId = rentacarId;
 		this.name = name;
@@ -47,11 +47,11 @@ public class RentacarDTO {
 		this.services = services;
 	}
 
-	public Long getRentacarId() {
+	public Integer getRentacarId() {
 		return rentacarId;
 	}
 
-	public void setRentacarId(Long rentacarId) {
+	public void setRentacarId(Integer rentacarId) {
 		this.rentacarId = rentacarId;
 	}
 
@@ -103,27 +103,27 @@ public class RentacarDTO {
 		this.income = income;
 	}
 
-	public Set<Car> getCars() {
+	public Set<CarDTO> getCars() {
 		return cars;
 	}
 
-	public void setCars(Set<Car> cars) {
+	public void setCars(Set<CarDTO> cars) {
 		this.cars = cars;
 	}
 
-	public Set<RentaBranch> getBranches() {
+	public Set<RentaBranchDTO> getBranches() {
 		return branches;
 	}
 
-	public void setBranches(Set<RentaBranch> branches) {
+	public void setBranches(Set<RentaBranchDTO> branches) {
 		this.branches = branches;
 	}
 
-	public Set<RentaService> getServices() {
+	public Set<RentaServiceDTO> getServices() {
 		return services;
 	}
 
-	public void setServices(Set<RentaService> services) {
+	public void setServices(Set<RentaServiceDTO> services) {
 		this.services = services;
 	}
 

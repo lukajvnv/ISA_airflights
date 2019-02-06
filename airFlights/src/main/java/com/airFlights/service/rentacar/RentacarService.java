@@ -1,18 +1,32 @@
 package com.airFlights.service.rentacar;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+import com.airFlights.dto.rentacar.RentaBranchDTO;
 import com.airFlights.dto.rentacar.RentacarDTO;
+import com.airFlights.model.rentacar.Car;
+import com.airFlights.model.rentacar.RentaBranch;
 import com.airFlights.model.rentacar.Rentacar;
+import com.airFlights.repository.rentacar.CarRepository;
+import com.airFlights.repository.rentacar.RentaBranchRepository;
 import com.airFlights.repository.rentacar.RentacarRepository;
 
-public class RentacarService {
+@Service
+public class RentacarService implements RentacarServ{
 
 	@Autowired
 	private RentacarRepository rentacarRepository;
 	
+	@Autowired
+	private RentaBranchRepository rentaBranchRepository;
+	
+	@Autowired
+	private CarRepository carRepository;
 	
 	public List<Rentacar> findAllRentacars() {
 		return rentacarRepository.findAllByOrderByName();
@@ -31,7 +45,14 @@ public class RentacarService {
 		rentacar.setAdress(rentacarDTO.getAdress());
 		rentacar.setPromoDescription(rentacarDTO.getPromoDescription());
 		
-		//filijale, kola i cene
+		Set<RentaBranch> rentaBranches = new HashSet<RentaBranch>();
+		for(RentaBranchDTO rbDTO : rentacarDTO.getBranches()) {
+			rentaBranches.add(rentaBranchRepository.findById(rbDTO.getBranchId()).get());
+		}
+		
+		//dodaj i kola
+		
+		rentacar.setBranches(rentaBranches);
 		
 		rentacarRepository.save(rentacar);
 	}
@@ -56,6 +77,22 @@ public class RentacarService {
 		}
 		return text;
 	}
+
+	@Override
+	public List<Rentacar> findAll() {
+		return rentacarRepository.findAll();
+	}
+
+	@Override
+	public Rentacar save(Rentacar rentacar) {
+		return rentacarRepository.save(rentacar);
+	}
 	
-	//dodaj novo vozilo
+	public void addNewCar(Car car) {
+		carRepository.save(car);
+	}
+	
+	public void addNewBranch(RentaBranch branch) {
+		rentaBranchRepository.save(branch);
+	}
 }

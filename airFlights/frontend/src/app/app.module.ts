@@ -47,6 +47,8 @@ import { UserFriendRequestComponent } from './user-friend-request/user-friend-re
 import { UserBasicInfoComponent } from './user-basic-info/user-basic-info.component';
 import { CarComponent } from './rentacar/car/car.component';
 import { UserFlightInvitationComponent } from './user-flight-invitation/user-flight-invitation.component';
+import { RentabranchComponent } from './rentacar/rentabranch/rentabranch.component';
+import { ViewRentacarComponent } from './rentacar/view-rentacar/view-rentacar.component';
 
 @NgModule({
   declarations: [
@@ -82,7 +84,9 @@ import { UserFlightInvitationComponent } from './user-flight-invitation/user-fli
     UserFriendRequestComponent,
     UserBasicInfoComponent,
     CarComponent,
-    UserFlightInvitationComponent
+    UserFlightInvitationComponent,
+    RentabranchComponent,
+    ViewRentacarComponent
   ],
   imports: [
     BrowserModule,
@@ -106,8 +110,16 @@ import { UserFlightInvitationComponent } from './user-flight-invitation/user-fli
         component: UserProfileComponent
       },
       {
-        path: 'addCar',
+        path: 'rentacar/addCar',
         component: CarComponent
+      },
+      {
+        path: 'rentacar/addRentaBranch',
+        component: RentabranchComponent
+      },
+      {
+        path: 'rentacar/:rentacarId',
+        component: ViewRentacarComponent
       },
       {path : '', component : SearchFlightComponent},
       {path : 'analytics/:airlineId', component: AvioAnalyticsComponent,  },
