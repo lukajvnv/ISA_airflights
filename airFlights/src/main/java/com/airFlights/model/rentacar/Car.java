@@ -1,28 +1,37 @@
 package com.airFlights.model.rentacar;
 
+import java.time.LocalDate;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+
+import org.hibernate.annotations.ColumnDefault;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Car {
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(updatable = false)
 	private Long carId;
 	
-	@Column(name = "reserved", nullable = false)
+	@JsonIgnore //columnDefinition = "boolean default false"
+	@Column(name = "reserved", columnDefinition = "boolean default false", nullable = false)
 	private Boolean reserved;
 	
 	@Column(name = "pickupDate", nullable = false)
-	private String pickupDate;
+	private LocalDate pickupDate;
 	
 	@Column(name = "dropofDate", nullable = false)
-	private String dropofDate;
+	private LocalDate dropofDate;
 	
 	@Column(name = "pickupLocation", nullable = false)
 	private String pickupLocation;
@@ -71,19 +80,19 @@ public class Car {
 		this.reserved = reserved;
 	}
 
-	public String getPickupDate() {
+	public LocalDate getPickupDate() {
 		return pickupDate;
 	}
 
-	public void setPickupDate(String pickupDate) {
+	public void setPickupDate(LocalDate pickupDate) {
 		this.pickupDate = pickupDate;
 	}
 
-	public String getDropofDate() {
+	public LocalDate getDropofDate() {
 		return dropofDate;
 	}
 
-	public void setDropofDate(String dropofDate) {
+	public void setDropofDate(LocalDate dropofDate) {
 		this.dropofDate = dropofDate;
 	}
 

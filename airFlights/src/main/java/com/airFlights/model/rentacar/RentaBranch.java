@@ -5,6 +5,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
@@ -12,8 +13,9 @@ import javax.persistence.ManyToOne;
 public class RentaBranch {
 
 	@Id
-	@GeneratedValue
-	private Long branchId;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(updatable = false)
+	private Integer branchId;
 	
 	@Column(name = "branchName", nullable = false)
 	private String name;
@@ -28,11 +30,11 @@ public class RentaBranch {
 		super();
 	}
 
-	public Long getBranchId() {
+	public Integer getBranchId() {
 		return branchId;
 	}
 
-	public void setBranchId(Long branchId) {
+	public void setBranchId(Integer branchId) {
 		this.branchId = branchId;
 	}
 

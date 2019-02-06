@@ -16,9 +16,6 @@ public class CarService implements CarServ{
 	@Autowired
 	private CarRepository carRepository;
 	
-	@Autowired
-	private CarService carService;
-	
 	public void removeCar(Integer id) {
 		carRepository.deleteById(id);
 	}
@@ -27,7 +24,7 @@ public class CarService implements CarServ{
 		return carRepository.save(car);
 	}
 	
-	public void updateCar(Car car, CarDTO carDTO) {
+	/*public void updateCar(Car car, CarDTO carDTO) {
 		car.setCarBrand(carDTO.getCarBrand());
 		car.setCarModel(carDTO.getCarModel());
 		car.setCarName(carDTO.getCarName());
@@ -36,12 +33,7 @@ public class CarService implements CarServ{
 		//filijale, kola i cene
 		
 		carRepository.save(car);
-	}
-
-	@Override
-	public Car findById(Long id) throws AccessDeniedException {
-		return carService.findById(id);
-	}
+	}*/
 
 	@Override
 	public List<Car> findAll() {

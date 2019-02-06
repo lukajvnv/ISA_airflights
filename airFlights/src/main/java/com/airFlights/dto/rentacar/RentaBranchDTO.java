@@ -2,7 +2,7 @@ package com.airFlights.dto.rentacar;
 
 public class RentaBranchDTO {
 
-	private Long branchId;
+	private Integer branchId;
 	
 	private String name;
 	
@@ -11,18 +11,18 @@ public class RentaBranchDTO {
 	public RentaBranchDTO() {
 	}
 
-	public RentaBranchDTO(Long branchId, String name, String location) {
+	public RentaBranchDTO(Integer branchId, String name, String location) {
 		super();
 		this.branchId = branchId;
 		this.name = name;
 		this.location = location;
 	}
 
-	public Long getBranchId() {
+	public Integer getBranchId() {
 		return branchId;
 	}
 
-	public void setBranchId(Long branchId) {
+	public void setBranchId(Integer branchId) {
 		this.branchId = branchId;
 	}
 

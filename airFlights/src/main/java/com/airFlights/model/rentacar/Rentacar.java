@@ -8,6 +8,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
@@ -19,8 +20,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class Rentacar {
 
 	@Id
-	@GeneratedValue
-	private Long rentacarId;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(updatable = false)
+	private Integer rentacarId;
 	
 	@Column(name = "rentacarName", nullable = false)
 	private String name;
@@ -57,11 +59,11 @@ public class Rentacar {
 		super();
 	}
 
-	public Long getRentacarId() {
+	public Integer getRentacarId() {
 		return rentacarId;
 	}
 
-	public void setRentacarId(Long rentacarId) {
+	public void setRentacarId(Integer rentacarId) {
 		this.rentacarId = rentacarId;
 	}
 

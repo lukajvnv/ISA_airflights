@@ -1,0 +1,72 @@
+<div class="row">
+  <div class="col-md-3" style="border: 2px solid blue">
+    <img src="../../../assets/car_icon3.png" alt="Nema slike">
+  </div>
+  <div class="col" style="border: 2px solid blue">
+    <h1>Info o rentacar kompaniji</h1>
+    <table class="table table-bordered">
+      <tr>
+        <th>Naziv rentacar</th>
+        <td>{{currentRentacar?.name}}</td>
+      </tr>
+      <tr>
+          <th>Adresa rentacar</th>
+          <td>{{currentRentacar?.adress}}</td>
+      </tr>
+      <tr>
+          <th>Promo opis</th>
+          <td>{{currentRentacar?.promoDescription}}</td>
+      </tr>
+    </table>
+  </div>
+</div>
+<div class="row">
+  <div class="col mb-3">
+    <!-- <button class="btn btn-lg btn-block btn-primary" (click)="prikaziDestinacije()">Destinacije</button> -->
+    <button type="button" class="btn btn-lg btn-block btn-primary" (click)="isCollapsed = !isCollapsed"
+        [attr.aria-expanded]="!isCollapsed" aria-controls="collapseExample">
+        Filijale
+      </button>
+  </div>
+  <div class="col mb-3">
+    <button class="btn btn-lg btn-block btn-success" (click)="showCars()">Automobili</button>
+  </div>
+</div>
+<div *ngIf="isRightAdmin">
+  <h2>Informacije za admina</h2>
+  <div  class="row">
+    <div class="col-md-3">
+      <button class="btn btn-lg btn-block btn-primary" >Analitika</button>
+    </div>
+    <div class="col-md-3">
+      <button class="btn btn-lg btn-block btn-info" >Nova filijala</button>
+    </div>
+    <div class="col-md-3">
+      <button class="btn btn-lg btn-block btn-primary" >Novi automobil</button>
+    </div>
+    <div class="col-md-3 mb-3">
+        <button class="btn btn-lg btn-block btn-info" >Izmeni podatke</button>
+    </div>
+  </div>
+</div>
+<div class="row" id="collapseExample" [ngbCollapse]="isCollapsed">
+    <div class="col-md-3 mb-3">
+      <label>Trenutne filijale:</label>
+    </div>
+    <div class="col-md-9 mb-3">
+      <table class="table table-bordered stopsTable">
+        <thead>
+          <tr>
+            <td>Ime filijale</td>
+            <td>Lokacija filijale</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let dest of currentAirline?.flightDestinations">
+            <td>{{dest.destinationName}}</td>
+            <td>{{dest.destinationCode}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
