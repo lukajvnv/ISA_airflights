@@ -24,6 +24,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.airFlights.dto.UserDTO;
@@ -115,6 +116,16 @@ public class UserController {
 		
 		user = userService.save(user);
 		return new ResponseEntity<>(HttpStatus.CREATED);
+	}
+	
+	@RequestMapping(method = RequestMethod.PUT, value = "/updateBasicInfo", consumes = "application/json")
+	public ResponseEntity<UserDTO> updateUser(@RequestBody UserDTO userDTO) {		
+		try {
+			userService.updateUser(userDTO);
+			return new ResponseEntity<>(HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
 	}
 
 }

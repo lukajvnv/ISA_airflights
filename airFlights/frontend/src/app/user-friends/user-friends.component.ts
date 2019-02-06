@@ -1,3 +1,5 @@
+import { FriendShip } from './../models/friendship.model';
+import { BookingService } from './../services/booking.service';
 import { Component, OnInit, Input } from '@angular/core';
 import { User } from '../models/user.model';
 
@@ -15,16 +17,23 @@ export class UserFriendsComponent implements OnInit {
   filtriraniKorisnici: User[] = [];
 
 
-  constructor(/*private activatedRoute: ActivatedRoute, private router: Router,
-    private flightService: FlightService*/) { }
+  constructor(private bookingService: BookingService) { }
 
   ngOnInit() {
-    this.prijatelji.push(new User('Luka', 'Jovanovic', '', '', 0, ''));
+    this.currentUser = new User('Luka', 'Jovanovic', '', '', 0, 'pass1');
+    /*this.prijatelji.push(new User('Luka', 'Jovanovic', '', '', 0, 'pass1'));
     this.prijatelji.push(new User('Mladen', 'Jovanovic', '', '', 0, ''));
     this.prijatelji.push(new User('Luka', 'Ivanovic', '', '', 0, ''));
     this.prijatelji.push(new User('Luka', 'Jokic', '', '', 0, ''));
     this.prijatelji.push(new User('Nenad', 'Hajduk', '', '', 0, ''));
-    this.filtriraniKorisnici = this.prijatelji;
+    this.filtriraniKorisnici = this.prijatelji;*/
+
+    this.bookingService.getFriends(this.currentUser).subscribe(data => {
+      this.prijatelji = data;
+    });
+    this.bookingService.getAllUsers().subscribe(data => {
+      this.filtriraniKorisnici = data;
+    });
 
   }
 
@@ -45,11 +54,25 @@ export class UserFriendsComponent implements OnInit {
   }
 
   dodajPrijatelja(prijatelj: User) {
-
+    if (this.currentUser.username === prijatelj.username) {
+      return;
+    }
+    this.bookingService.addFriend(this.currentUser.username, prijatelj).subscribe(() => {
+      alert('Osoba kojoj ste uspesno poslali zahtev za prijateljstvo:' + prijatelj.firstName);
+    },
+    err => {
+      alert('Selektovana osoba vec postoji u prijateljima');
+    });
   }
 
   ukloniPrijatelja(prijatelj: User) {
-
+    this.bookingService.addFriend(this.currentUser.username, prijatelj).subscribe(data => {
+      alert(prijatelj.firstName + 'uspesno uklonjen iz prijatelja');
+      this.prijatelji = data;
+    },
+    err => {
+      alert('Greska prilikom uklanjanja prijatelja');
+    });
   }
 
 }

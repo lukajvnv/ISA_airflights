@@ -38,6 +38,15 @@ public class FlightSeat {
 		@JoinColumn(name = "flight_id")
 		private Flight flight;
 
+		public FlightSeat(boolean reserved, boolean discountTicket, int seatNumber, Flight flight) {
+			super();
+			this.reserved = reserved;
+			this.discountTicket = discountTicket;
+			this.seatNumber = seatNumber;
+			
+			this.flight = flight;
+		}
+
 		public FlightSeat() {
 			super();
 		}

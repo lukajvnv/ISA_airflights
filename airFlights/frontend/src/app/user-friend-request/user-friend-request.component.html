@@ -12,8 +12,8 @@
       <tr *ngFor="let korisnik of zahtevi">
         <td>{{korisnik.firstName}}</td>
         <td>{{korisnik.lastName}}  </td>
-        <td><button class="btn btn-lg btn-block btn-warning">Odbij</button></td>
-        <td><button class="btn btn-lg btn-block btn-success">Prihvati</button></td>
+        <td><button class="btn btn-lg btn-block btn-warning" (click)="odbijPrijatelja(korisnik)">Odbij</button></td>
+        <td><button class="btn btn-lg btn-block btn-success" (click)="prihvatiPrijatelja(korisnik)">Prihvati</button></td>
       </tr>
     </tbody>
 </table>

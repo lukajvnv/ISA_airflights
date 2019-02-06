@@ -36,10 +36,16 @@ public class BookingService {
 	@Autowired 
 	private AirlineTicketRepository airlineTicketRepository;
 	
+	public List<User> getAllUsers() {
+		return userRepository.findAll();
+	}
+	
 	public List<FlightSeat> getSeatsByFlight(Integer flightId){
 		Flight flight = flightRepository.findById(flightId).get();
 		return seatRepository.findByFlightOrderBySeatNumber(flight);
 	}
+	
+	
 	
 	public void makeReservation(ReservationDTO reservationFront) {
 		

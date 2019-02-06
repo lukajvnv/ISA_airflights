@@ -60,7 +60,6 @@ public class AirlineTicket {
 	private Float discount;
 	private Float sellingPrice;
 	
-	
 	private Boolean markedFlight;
 	 	
 	public AirlineTicket() {

@@ -1,9 +1,9 @@
 package com.airFlights.model.user;
 
-import java.util.Date;
-
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -12,8 +12,9 @@ import javax.persistence.ManyToOne;
 public class Friendship {
 
 	@Id
-	@GeneratedValue
-	private Long friendshipId;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name="id")
+	private Integer friendshipId;
 	
 	@ManyToOne
 	@JoinColumn(name = "inviter_id")
@@ -23,15 +24,26 @@ public class Friendship {
 	@JoinColumn(name = "accepter_id")
 	private User userWhoAccept;
 	
-	private Date dateOfRequest;
+	// private Date dateOfRequest;
 	
 	private Boolean established;
+	
+	public Friendship() {
+		super();
+	}
 
-	public Long getFriendshipId() {
+	public Friendship(User userWhoInvite, User userWhoAccept, Boolean established) {
+		super();
+		this.userWhoInvite = userWhoInvite;
+		this.userWhoAccept = userWhoAccept;
+		this.established = established;
+	}
+
+	public Integer getFriendshipId() {
 		return friendshipId;
 	}
 
-	public void setFriendshipId(Long friendshipId) {
+	public void setFriendshipId(Integer friendshipId) {
 		this.friendshipId = friendshipId;
 	}
 
@@ -51,13 +63,13 @@ public class Friendship {
 		this.userWhoAccept = userWhoAccept;
 	}
 
-	public Date getDateOfRequest() {
-		return dateOfRequest;
-	}
-
-	public void setDateOfRequest(Date dateOfRequest) {
-		this.dateOfRequest = dateOfRequest;
-	}
+//	public Date getDateOfRequest() {
+//		return dateOfRequest;
+//	}
+//
+//	public void setDateOfRequest(Date dateOfRequest) {
+//		this.dateOfRequest = dateOfRequest;
+//	}
 
 	public Boolean getEstablished() {
 		return established;
@@ -67,8 +79,5 @@ public class Friendship {
 		this.established = established;
 	}
 
-	public Friendship() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
+	
 }

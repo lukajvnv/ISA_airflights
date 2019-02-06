@@ -11,7 +11,7 @@
       <tr *ngFor="let korisnik of prijatelji">
         <td>{{korisnik.firstName}}</td>
         <td>{{korisnik.lastName}}  </td>
-        <td><button class="btn btn-lg btn-block btn-warning">Ukloni</button></td>
+        <td><button class="btn btn-lg btn-block btn-warning" (click)="ukloniPrijatelja(korisnik)">Ukloni</button></td>
       </tr>
     </tbody>
 </table>
@@ -50,7 +50,7 @@
             <td>{{korisnik.firstName}}</td>
             <td>{{korisnik.lastName}}  </td>
             <!-- <td><input type="checkbox" value="dodajOsobu"/></td> -->
-            <td><button class="btn btn-lg btn-block btn-primary">Dodaj</button></td>
+            <td><button class="btn btn-lg btn-block btn-primary" (click)="dodajPrijatelja(korisnik)">Dodaj</button></td>
           </tr>
         </tbody>
     </table>

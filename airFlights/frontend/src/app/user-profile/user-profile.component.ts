@@ -15,7 +15,7 @@ export class UserProfileComponent implements OnInit {
   currentUser: User;
 
   ngOnInit() {
-    this.currentUser = new User('Luka', 'Jovanovic', 'Drage Spasic', 'lukajvnv@gmail.com', 4454, '');
+    this.currentUser = new User('Luka', 'Jovanovic', 'Drage Spasic', 'lukajvnv@gmail.com', 4454, 'pass1');
   }
 
 }

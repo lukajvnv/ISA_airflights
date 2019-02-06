@@ -17,6 +17,7 @@ import com.airFlights.model.avio.Airline;
 import com.airFlights.model.avio.Destination;
 import com.airFlights.model.avio.Flight;
 import com.airFlights.model.avio.FlightReturn;
+import com.airFlights.model.avio.FlightSeat;
 import com.airFlights.model.avio.SearchFlightParams;
 import com.airFlights.repository.avio.AirlineRepository;
 import com.airFlights.repository.avio.DestinationRepository;
@@ -102,6 +103,14 @@ public class FlightService {
 			flight.setAirline(airline);
 			
 			flight.setFlightDuration();
+			
+			Set<FlightSeat> flightSeats = new HashSet<FlightSeat>();
+			for(int i = 0; i < flight.getNumberOfSeats(); i++) {
+				flightSeats.add(new FlightSeat(false, false, i + 1, flight));
+			}
+			flight.setSeats(flightSeats);
+			
+			
 			flightRepository.save(flight);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

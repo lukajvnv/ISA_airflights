@@ -56,15 +56,16 @@
               <label for="telephone">Telefon*:</label>
             </div>
             <div class="col mb-3">
-                <input [(ngModel)]="currentUser.phone_number" id="telephone" name="telephone" type="text" class="form-control" required>
+                <input [(ngModel)]="currentUser.phone_number" id="telephone" name="telephone" type="text"
+                 class="form-control" pattern="[0-9]+" required placeholder="Dozvoljene samo cifre">
             </div>
           </div>
           <div class="row">
               <div class="col-md-3 mb-3">
-                <label for="address">Adresa*:</label>
+                <label for="address">Adresa(Grad)*:</label>
               </div>
               <div class="col mb-3">
-                  <input [(ngModel)]="currentUser.address" id="address" name="address" type="text" class="form-control" required>
+                  <input [(ngModel)]="currentUser.city" id="address" name="address" type="text" class="form-control" required>
               </div>
             </div>
 

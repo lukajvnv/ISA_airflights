@@ -17,6 +17,7 @@ export class FlightTicket {
 
   ticketClass: string;
   ticketStatus: string;
+
   ticketId: number;
 
   // airline: Airline;

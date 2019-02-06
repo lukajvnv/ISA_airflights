@@ -1,3 +1,4 @@
+import { LoggedUserService } from './../services/logged-user.service';
 import { Component, OnInit, Input, Output } from '@angular/core';
 import { User } from '../models/user.model';
 import { NgForm } from '@angular/forms';
@@ -16,7 +17,7 @@ export class UserBasicInfoComponent implements OnInit {
  /*  @Output()
   change: EventEmitter; */
 
-  constructor() { }
+  constructor(private userService: LoggedUserService) { }
 
   ngOnInit() {
   }
@@ -27,6 +28,9 @@ export class UserBasicInfoComponent implements OnInit {
       return;
     }
 
+    this.userService.updateUser(this.currentUser).subscribe(() => {
+      console.log('Azuriran korisnik');
+    });
   }
 
 }

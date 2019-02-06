@@ -117,13 +117,17 @@ public class Flight {
 	private Airline airline;
 	
 	@OneToMany(mappedBy = "flight", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	private Set<AirlineTicket> tickets = new HashSet<AirlineTicket>();;
+	private Set<AirlineTicket> tickets = new HashSet<AirlineTicket>();
 	
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "pricelist_id")
 	private Pricelist pricelist;
 	
+	@OneToMany(mappedBy = "flight", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private Set<FlightSeat> seats = new HashSet<FlightSeat>();
 	
+	
+
 	public Flight() {
 		super();
 	}
@@ -398,5 +402,13 @@ public class Flight {
 
 	public void setLuggage(Float luggage) {
 		this.luggage = luggage;
+	}
+	
+	public Set<FlightSeat> getSeats() {
+		return seats;
+	}
+
+	public void setSeats(Set<FlightSeat> seats) {
+		this.seats = seats;
 	}
 }
