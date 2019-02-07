@@ -21,7 +21,7 @@ public class Car {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(updatable = false)
-	private Long carId;
+	private Integer carId;
 	
 	@JsonIgnore //columnDefinition = "boolean default false"
 	@Column(name = "reserved", columnDefinition = "boolean default false", nullable = false)
@@ -64,11 +64,11 @@ public class Car {
 		super();
 	}
 
-	public Long getCarId() {
+	public Integer getCarId() {
 		return carId;
 	}
 
-	public void setCarId(Long carId) {
+	public void setCarId(Integer carId) {
 		this.carId = carId;
 	}
 

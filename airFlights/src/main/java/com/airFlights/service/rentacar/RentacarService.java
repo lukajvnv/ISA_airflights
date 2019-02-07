@@ -1,6 +1,5 @@
 package com.airFlights.service.rentacar;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -8,6 +7,7 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.airFlights.dto.rentacar.CarDTO;
 import com.airFlights.dto.rentacar.RentaBranchDTO;
 import com.airFlights.dto.rentacar.RentacarDTO;
 import com.airFlights.model.rentacar.Car;
@@ -64,9 +64,26 @@ public class RentacarService implements RentacarServ{
 			}	
 		}
 		
-		//dodaj i kola
+		Set<Car> rentaCars = new HashSet<Car>();
+		for(CarDTO carDTO: rentacarDTO.getCars()) {
+			rentaCars.add(carRepository.findById(carDTO.getCarId()).get());
+		}
+		List<Car> cars = carRepository.findAll();
+		
+		for(Car car : cars) {
+			if(car.getRentacar() != null) {
+				if(car.getRentacar().getRentacarId() == rentacarDTO.getRentacarId())
+				{
+					if(!rentaCars.contains(car)) {
+						car.setRentacar(null);
+						carRepository.save(car);
+					}
+				}
+			}	
+		}
 		
 		rentacar.setBranches(rentaBranches);
+		rentacar.setCars(rentaCars);
 		
 		rentacarRepository.save(rentacar);
 	}

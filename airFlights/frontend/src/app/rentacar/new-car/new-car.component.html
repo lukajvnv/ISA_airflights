@@ -1,0 +1,62 @@
+<h2>Dodavanje novog vozila</h2>
+<form [formGroup]="carForm" (ngSubmit) ="confirm()">
+  <div class="row">
+      <div class="col-md-3  mb-3">
+        <label for="carName">Ime vozila:</label>
+      </div>
+      <div class="col mb-3">
+          <input  formControlName="carName" id="carName" type="text" class="form-control" placeholder="Naziv">
+      </div>
+  </div>
+  <div class="row">
+    <div class="col-md-3 mb-3">
+      <label for="carBrand">Marka vozila:</label>
+    </div>
+    <div class="col mb-3">
+        <input id="carBrand" formControlName="carBrand" type="text" class="form-control"  placeholder="Brand">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-3  mb-3">
+      <label for="carModel">Model vozila:</label>
+    </div>
+    <div class="col mb-3">
+        <input  formControlName="carModel" id="carModel" type="text" class="form-control" placeholder="Model">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-3  mb-3">
+      <label for="carYear">Godina proizvodnje:</label>
+    </div>
+    <div class="col mb-3">
+        <input  formControlName="carYear" id="carYear" type="text" class="form-control" placeholder="Godiste">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-3  mb-3">
+      <label for="carNumberOfSeats">Broj sedista:</label>
+    </div>
+    <div class="col mb-3">
+        <input  formControlName="carNumberOfSeats" id="carNumberOfSeats" type="text" class="form-control" placeholder="Broj sedista">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-3  mb-3">
+      <label for="carPrice">Cena:</label>
+    </div>
+    <div class="col mb-3">
+        <input  formControlName="carPrice" id="carPrice" type="text" class="form-control" placeholder="Price">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-4">
+      <button type="button" class="btn btn-danger btn-lg btn-block" (click)="backToProfileRentacar()">
+        <fa name="angle-left" size="lg"></fa> Povratak na profil rentacar-a
+      </button>
+    </div>
+    <div class="col-md-4">
+        <button class="btn btn-lg btn-block btn-primary">Dodaj</button>
+    </div>
+
+  </div>
+</form>

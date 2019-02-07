@@ -12,6 +12,7 @@ export class ViewRentacarComponent implements OnInit {
 
   isRightAdmin: boolean;
   isCollapsed: true;
+  isCollapsed2: true;
 
   @Input()
   currentRentacar: Rentacar;
@@ -21,6 +22,7 @@ export class ViewRentacarComponent implements OnInit {
   ngOnInit() {
     this.isRightAdmin = true;
     this.isCollapsed = true;
+    this.isCollapsed2 = true;
     this.activatedRoute.paramMap.subscribe(
       params => {
         const rentacarId = params.get('rentacarId');
@@ -41,6 +43,10 @@ export class ViewRentacarComponent implements OnInit {
 
   updateRentacar() {
     this.router.navigate(['rentacar/update', this.currentRentacar.rentacarId]);
+  }
+
+  newCar() {
+    this.router.navigate(['rentacar/newCar', this.currentRentacar.rentacarId]);
   }
 
 }

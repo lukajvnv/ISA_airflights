@@ -5,6 +5,8 @@ import { Rentacar } from 'src/app/models/rentacar.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RentacarService } from 'src/app/services/rentacar.service';
 import { RentabranchService } from 'src/app/services/rentabranch.service';
+import { Car } from 'src/app/models/car.model';
+import { CarService } from 'src/app/services/car.service';
 
 @Component({
   selector: 'app-update-rentacar',
@@ -15,6 +17,8 @@ export class UpdateRentacarComponent implements OnInit {
 
   rentaBranches: Rentabranch[] = [];
   nonAssignedBranches: Rentabranch[] = [];
+  rentaCars: Car[] = [];
+  nonAssignedCars: Car[] = [];
 
   rentacarForm = new FormGroup({
     rentacarName: new FormControl('',
@@ -25,14 +29,16 @@ export class UpdateRentacarComponent implements OnInit {
   });
 
   isCollapsed: boolean;
+  isCollapsed2: boolean;
   rentacar: Rentacar;
   rentacarId: string;
 
   constructor(private activatedRoute: ActivatedRoute, private rentacarService: RentacarService,
-    private router: Router, private rentaBranchService: RentabranchService) { }
+    private router: Router, private rentaBranchService: RentabranchService, private carService: CarService) { }
 
   ngOnInit() {
     this.isCollapsed = true;
+    this.isCollapsed2 = true;
 
     this.activatedRoute.paramMap.subscribe(
       params => {
@@ -69,6 +75,7 @@ export class UpdateRentacarComponent implements OnInit {
     this.rentacarAdress.setValue(rentacar.adress);
     this.rentacarDescription.setValue(rentacar.promoDescription);
     this.rentaBranches = this.rentacar.branches;
+    this.rentaCars = this.rentacar.cars;
   }
 
   confirm() {
@@ -82,6 +89,7 @@ export class UpdateRentacarComponent implements OnInit {
     this.rentacar.adress = this.rentacarAdress.value;
     this.rentacar.promoDescription = this.rentacarDescription.value;
     this.rentacar.branches = this.rentaBranches;
+    this.rentacar.cars = this.rentaCars;
 
     this.rentacarService.updateRentacar(this.rentacar).subscribe(
       () => {
@@ -105,5 +113,14 @@ export class UpdateRentacarComponent implements OnInit {
     }
     const id = this.rentaBranches.indexOf(rentabranch);
     this.rentaBranches.splice(id,1);
+  }
+
+  removeCar(car: Car) {
+    const filter: Car[] = this.nonAssignedCars.filter(s => s.carId === car.carId);
+    if(filter.length === 0) {
+      this.nonAssignedCars.push(car);
+    }
+    const id = this.rentaCars.indexOf(car);
+    this.rentaCars.splice(id,1);
   }
 }

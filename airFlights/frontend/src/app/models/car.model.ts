@@ -13,11 +13,7 @@ export class Car {
 	numberOfSeats: number;
 	price: number;
   
-    constructor(carId:number, res: boolean, pickupLoc: string, dropofLoc: string) { 
-        this.carId = carId;
-        this.reserved = res;
-        this.pickupLocation = pickupLoc;
-        this.dropofLocation = dropofLoc;
+    constructor() { 
     }
 
     initComplexData(pickDate: Date, dropDate: Date) {

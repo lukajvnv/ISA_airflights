@@ -49,7 +49,7 @@ export class LoginComponent implements OnInit {
 
     this.http.post(url, this.model).subscribe(
       (res : LoginStatus) => {
-        this.authToken.setJwtToken(res.accessToken);
+        this.authToken.setJwtToken(res.jwt);
         localStorage.setItem(this.currentUser, res.username);
         alert("Logged in!");
         location.reload();
@@ -71,5 +71,4 @@ export interface LoginStatus {
   username : string;
   jwt : string;
   expiresIn: number;
-  accessToken: string;
 }

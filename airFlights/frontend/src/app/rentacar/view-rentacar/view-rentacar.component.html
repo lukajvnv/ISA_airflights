@@ -22,14 +22,16 @@
 </div>
 <div class="row">
   <div class="col mb-3">
-    <!-- <button class="btn btn-lg btn-block btn-primary" (click)="prikaziDestinacije()">Destinacije</button> -->
     <button type="button" class="btn btn-lg btn-block btn-primary" (click)="isCollapsed = !isCollapsed"
         [attr.aria-expanded]="!isCollapsed" aria-controls="collapseExample">
         Filijale
       </button>
   </div>
   <div class="col mb-3">
-    <button class="btn btn-lg btn-block btn-success" (click)="showCars()">Automobili</button>
+    <button type="button" class="btn btn-lg btn-block btn-primary" (click)="isCollapsed2 = !isCollapsed2"
+        [attr.aria-expanded]="!isCollapsed2" aria-controls="collapseExample">
+        Automobili
+      </button>
   </div>
 </div>
 <div *ngIf="isRightAdmin">
@@ -42,7 +44,7 @@
       <button class="btn btn-lg btn-block btn-info" (click)="newBranch()">Nova filijala</button>
     </div>
     <div class="col-md-3">
-      <button class="btn btn-lg btn-block btn-primary" >Novi automobil</button>
+      <button class="btn btn-lg btn-block btn-primary" (click)="newCar()" >Novi automobil</button>
     </div>
     <div class="col-md-3 mb-3">
         <button class="btn btn-lg btn-block btn-info" (click)="updateRentacar()">Izmeni podatke</button>
@@ -65,6 +67,35 @@
           <tr *ngFor="let fil of currentRentacar?.branches">
             <td>{{fil.name}}</td>
             <td>{{fil.location}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="row" id="collapseExample" [ngbCollapse]="isCollapsed2">
+    <div class="col-md-3 mb-3">
+      <label>Trenutna vozila:</label>
+    </div>
+    <div class="col-md-9 mb-3">
+      <table class="table table-bordered stopsTable">
+        <thead>
+          <tr>
+            <td>Naziv</td>
+            <td>Marka</td>
+            <td>Model</td>
+            <td>Godiste</td>
+            <td>Broj sedista</td>
+            <td>Cena</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let car of currentRentacar?.cars">
+            <td>{{car.carName}}</td>
+            <td>{{car.carBrand}}</td>
+            <td>{{car.carModel}}</td>
+            <td>{{car.carYear}}</td>
+            <td>{{car.numberOfSeats}}</td>
+            <td>{{car.price}}</td>
           </tr>
         </tbody>
       </table>

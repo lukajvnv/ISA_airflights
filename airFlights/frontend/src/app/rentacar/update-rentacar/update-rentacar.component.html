@@ -61,31 +61,49 @@
     </div>
   </div>
   <hr />
-    <!--div class="row">
-      <div class="col-md-3 mb-3">
-        <label>Izaberite filijalu:</label>
-      </div>
-      <div class="col-md-9 mb-3">
-        <table class="table table-bordered stopsTable">
-          <thead>
-            <tr>
-              <td>Ime filijale</td>
-              <td>Lokacija filijale</td>
-              <td>Dodaj</td>
-             </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let fil of nonAssignedBranches">
-              <td>{{fil.name}}</td>
-              <td>{{fil.location}}</td>
-              <td>
-                <button class="btn btn-lg btn-block btn-success" (click)="addRentaBranch(fil)">Dodaj</button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div-->
+  <div class="row">
+    <div class="col-md-2 mb-3">
+      <label for="cars">Vozila:</label>
+    </div>
+    <div class="col-md-3 mb-3">
+      <button type="button" class="btn btn-outline-primary" (click)="isCollapsed2 = !isCollapsed2"
+        [attr.aria-expanded]="!isCollapsed2" aria-controls="collapseExample">
+        Prikazi trenutna vozila
+      </button>
+    </div>
+  </div>
+  <div class="row" id="collapseExample" [ngbCollapse]="isCollapsed2">
+    <div class="col-md-3 mb-3">
+      <label>Trenutna vozila servisa:</label>
+    </div>
+    <div class="col-md-9 mb-3">
+      <table class="table table-bordered stopsTable">
+        <thead>
+          <tr>
+            <td>Naziv</td>
+            <td>Marka</td>
+            <td>Model</td>
+            <td>Godiste</td>
+            <td>Broj sedista</td>
+            <td>Cena</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let car of rentaCars">
+            <td>{{car.carName}}</td>
+            <td>{{car.carBrand}}</td>
+            <td>{{car.carModel}}</td>
+            <td>{{car.carYear}}</td>
+            <td>{{car.numberOfSeats}}</td>
+            <td>{{car.price}}</td>
+            <td>
+            <button class="btn btn-lg btn-block btn-danger" (click)="removeCar(car)">Ukloni</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
   <div class="row">
     <div class="col-md-4">
 

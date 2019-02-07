@@ -66,6 +66,7 @@ public class RentacarDTO {
 		for(Car car : rentacar.getCars()) {
 			rentacarCars.add(new CarDTO(car));
 		}
+		this.cars = rentacarCars;
 		
 	}
 

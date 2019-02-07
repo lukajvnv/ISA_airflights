@@ -168,4 +168,32 @@ public class RentacarController {
 		rentacarServ.addNewBranch(rentaBranch);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
+	
+	@RequestMapping(value="/cars/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<CarDTO>> getRentaCars(@PathVariable("id") Integer index){
+		
+		Rentacar rentacar = rentacarServ.findRentacarById(index);
+		if(rentacar == null) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+		
+		Set<Car> rentaCars = rentacar.getCars();
+		
+		List<CarDTO> cars = new ArrayList<CarDTO>();
+		for(Car car: rentaCars) {	
+			cars.add(new CarDTO(car));
+		}
+		
+		return new ResponseEntity<>(cars, HttpStatus.OK);
+	}
+	
+	@RequestMapping(value = "/newCar/{id}", method = RequestMethod.POST)
+	public ResponseEntity<String> addCarToRentacar(@RequestBody Car rentaCar, @PathVariable("id") Integer index){
+		Rentacar rentacar = rentacarServ.findRentacarById(index);
+		rentaCar.setRentacar(rentacar);
+		rentaCar.setReserved(false);
+		rentacarServ.addNewCar(rentaCar);;
+		return new ResponseEntity<>(HttpStatus.OK);
+	}
+	
 }

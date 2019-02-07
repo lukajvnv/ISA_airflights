@@ -55,6 +55,7 @@ import { UpdateRentacarComponent } from './rentacar/update-rentacar/update-renta
 import { UserFlightComfirmationComponent } from './user-flight-comfirmation/user-flight-comfirmation.component';
 import { ViewAirlineFlightConfigureComponent } from './avio/view-airline-flight-configure/view-airline-flight-configure.component';
 import { ViewAirlineTicketsComponent } from './avio/view-airline-tickets/view-airline-tickets.component';
+import { NewCarComponent } from './rentacar/new-car/new-car.component';
 
 
 @NgModule({
@@ -98,7 +99,8 @@ import { ViewAirlineTicketsComponent } from './avio/view-airline-tickets/view-ai
     UpdateRentacarComponent,
     UserFlightComfirmationComponent,
     ViewAirlineFlightConfigureComponent,
-    ViewAirlineTicketsComponent
+    ViewAirlineTicketsComponent,
+    NewCarComponent
   ],
   imports: [
     BrowserModule,
@@ -136,6 +138,10 @@ import { ViewAirlineTicketsComponent } from './avio/view-airline-tickets/view-ai
       {
         path: 'rentacar/newBranch/:rentacarId',
         component: NewRentabranchComponent
+      },
+      {
+        path: 'rentacar/newCar/:rentacarId',
+        component: NewCarComponent
       },
       {
         path: 'rentacar/update/:rentacarId',

@@ -6,7 +6,7 @@ import com.airFlights.model.rentacar.Car;
 
 public class CarDTO {
 
-	private Long carId;
+	private Integer carId;
 
 	private Boolean reserved;
 	
@@ -34,7 +34,7 @@ public class CarDTO {
 		
 	}
 
-	public CarDTO(Long carId, Boolean reserved, LocalDate pickupDate, LocalDate dropofDate, String pickupLocation,
+	public CarDTO(Integer carId, Boolean reserved, LocalDate pickupDate, LocalDate dropofDate, String pickupLocation,
 			String dropofLocation, String carName, String carBrand, String carModel, Integer carYear,
 			Integer numberOfSeats, Float price) {
 		super();
@@ -67,11 +67,11 @@ public class CarDTO {
 		this.price = car.getPrice();
 	}
 
-	public Long getCarId() {
+	public Integer getCarId() {
 		return carId;
 	}
 
-	public void setCarId(Long carId) {
+	public void setCarId(Integer carId) {
 		this.carId = carId;
 	}
 
