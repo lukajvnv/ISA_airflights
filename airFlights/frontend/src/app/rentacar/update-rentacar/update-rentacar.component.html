@@ -1,0 +1,98 @@
+<h2>Azuriranje avio kompanije</h2>
+<form [formGroup]="rentacarForm" (ngSubmit) ="confirm()">
+  <div class="row">
+      <div class="col-md-3  mb-3">
+        <label for="rentacarName">Ime rentacar-a:</label>
+      </div>
+      <div class="col-md-3 mb-3">
+          <input  formControlName="rentacarName" id="rentacarName" type="text" class="form-control" placeholder="Ime rentacar-a">
+      </div>
+  </div>
+  <div class="row">
+    <div class="col-md-3 mb-3">
+      <label for="rentacarAdress">Adresa rentacar-a:</label>
+    </div>
+    <div class="col-md-3 mb-3">
+        <input id="rentacarAdress" formControlName="rentacarAdress" type="text" class="form-control"  placeholder="Adresa rentacar-a">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-3  mb-3">
+      <label for="rentacarDescription">Promo opis:</label>
+    </div>
+    <div class="col-md-9 mb-3">
+        <input id="rentacarDescription" formControlName="rentacarDescription" type="text" class="form-control" placeholder="Promo opis">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-2 mb-3">
+      <label for="branches">Filijale:</label>
+    </div>
+    <div class="col-md-3 mb-3">
+      <button type="button" class="btn btn-outline-primary" (click)="isCollapsed = !isCollapsed"
+        [attr.aria-expanded]="!isCollapsed" aria-controls="collapseExample">
+        Prikazi trenutne filijale
+      </button>
+    </div>
+  </div>
+  <div class="row" id="collapseExample" [ngbCollapse]="isCollapsed">
+    <div class="col-md-3 mb-3">
+      <label>Trenutne filijale servisa:</label>
+    </div>
+    <div class="col-md-9 mb-3">
+      <table class="table table-bordered stopsTable">
+        <thead>
+          <tr>
+            <td>Ime filijale</td>
+            <td>Lokacija filijale</td>
+            <td>Ukloni</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let fil of rentaBranches">
+            <td>{{fil.name}}</td>
+            <td>{{fil.location}}</td>
+            <td>
+            <button class="btn btn-lg btn-block btn-danger" (click)="removeRentaBranch(fil)">Ukloni</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <hr />
+    <!--div class="row">
+      <div class="col-md-3 mb-3">
+        <label>Izaberite filijalu:</label>
+      </div>
+      <div class="col-md-9 mb-3">
+        <table class="table table-bordered stopsTable">
+          <thead>
+            <tr>
+              <td>Ime filijale</td>
+              <td>Lokacija filijale</td>
+              <td>Dodaj</td>
+             </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let fil of nonAssignedBranches">
+              <td>{{fil.name}}</td>
+              <td>{{fil.location}}</td>
+              <td>
+                <button class="btn btn-lg btn-block btn-success" (click)="addRentaBranch(fil)">Dodaj</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div-->
+  <div class="row">
+    <div class="col-md-4">
+
+    </div>
+    <div class="col-md-4">
+        <button class="btn btn-lg btn-block btn-primary">Izmeni</button>
+    </div>
+
+  </div>
+</form>

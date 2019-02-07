@@ -1,5 +1,6 @@
 package com.airFlights.service.rentacar;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -48,6 +49,19 @@ public class RentacarService implements RentacarServ{
 		Set<RentaBranch> rentaBranches = new HashSet<RentaBranch>();
 		for(RentaBranchDTO rbDTO : rentacarDTO.getBranches()) {
 			rentaBranches.add(rentaBranchRepository.findById(rbDTO.getBranchId()).get());
+		}	
+		List<RentaBranch> rbs = rentaBranchRepository.findAll();
+		
+		for(RentaBranch rb : rbs) {
+			if(rb.getRentacar() != null) {
+				if(rb.getRentacar().getRentacarId() == rentacarDTO.getRentacarId())
+				{
+					if(!rentaBranches.contains(rb)) {
+						rb.setRentacar(null);
+						rentaBranchRepository.save(rb);
+					}
+				}
+			}	
 		}
 		
 		//dodaj i kola

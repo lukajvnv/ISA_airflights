@@ -1,5 +1,7 @@
 package com.airFlights.dto.rentacar;
 
+import com.airFlights.model.rentacar.RentaBranch;
+
 public class RentaBranchDTO {
 
 	private Integer branchId;
@@ -7,6 +9,7 @@ public class RentaBranchDTO {
 	private String name;
 	
 	private String location;
+	
 	
 	public RentaBranchDTO() {
 	}
@@ -16,6 +19,12 @@ public class RentaBranchDTO {
 		this.branchId = branchId;
 		this.name = name;
 		this.location = location;
+	}
+	
+	public RentaBranchDTO(RentaBranch rentaBranch) {
+		this.branchId = rentaBranch.getBranchId();
+		this.name = rentaBranch.getName();
+		this.location = rentaBranch.getLocation();
 	}
 
 	public Integer getBranchId() {

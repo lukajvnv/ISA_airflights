@@ -49,9 +49,14 @@ import { CarComponent } from './rentacar/car/car.component';
 import { UserFlightInvitationComponent } from './user-flight-invitation/user-flight-invitation.component';
 import { RentabranchComponent } from './rentacar/rentabranch/rentabranch.component';
 import { ViewRentacarComponent } from './rentacar/view-rentacar/view-rentacar.component';
+<<<<<<< HEAD
 import { UserFlightComfirmationComponent } from './user-flight-comfirmation/user-flight-comfirmation.component';
 import { ViewAirlineFlightConfigureComponent } from './avio/view-airline-flight-configure/view-airline-flight-configure.component';
 import { ViewAirlineTicketsComponent } from './avio/view-airline-tickets/view-airline-tickets.component';
+=======
+import { NewRentabranchComponent } from './rentacar/new-rentabranch/new-rentabranch.component';
+import { UpdateRentacarComponent } from './rentacar/update-rentacar/update-rentacar.component';
+>>>>>>> 141a5c7f7b10aee81f86d4f084c24ea61a9be366
 
 @NgModule({
   declarations: [
@@ -90,9 +95,14 @@ import { ViewAirlineTicketsComponent } from './avio/view-airline-tickets/view-ai
     UserFlightInvitationComponent,
     RentabranchComponent,
     ViewRentacarComponent,
+<<<<<<< HEAD
     UserFlightComfirmationComponent,
     ViewAirlineFlightConfigureComponent,
     ViewAirlineTicketsComponent
+=======
+    NewRentabranchComponent,
+    UpdateRentacarComponent
+>>>>>>> 141a5c7f7b10aee81f86d4f084c24ea61a9be366
   ],
   imports: [
     BrowserModule,
@@ -126,6 +136,14 @@ import { ViewAirlineTicketsComponent } from './avio/view-airline-tickets/view-ai
       {
         path: 'rentacar/:rentacarId',
         component: ViewRentacarComponent
+      },
+      {
+        path: 'rentacar/newBranch/:rentacarId',
+        component: NewRentabranchComponent
+      },
+      {
+        path: 'rentacar/update/:rentacarId',
+        component: UpdateRentacarComponent
       },
       {path : '', component : SearchFlightComponent},
       {path : 'analytics/:airlineId', component: AvioAnalyticsComponent,  },

@@ -105,5 +105,4 @@ public class AirlineController {
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 	
-	
 }
