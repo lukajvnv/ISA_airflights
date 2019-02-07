@@ -11,7 +11,7 @@ export class RentacarService {
   private getAllRentacarUrl = 'http://localhost:8836/rentacar/all';
   private getRentacarUrl = 'http://localhost:8836/rentacar/';
   private updateRentacarUrl = 'http://localhost:8836/rentacar/update';
-  private getRentacarBranchesUrl = 'http://localhost:8836/rentacar/branches/';
+  private getRentacarBranchesUrl = 'http://localhost:8836/rentacar/branches';
 
   constructor(private http: HttpClient) { 
   }
@@ -31,4 +31,5 @@ export class RentacarService {
   updateRentacar(rentacar: Rentacar): Observable<any> {
     return this.http.put(this.updateRentacarUrl, rentacar);
   }
+  
 }

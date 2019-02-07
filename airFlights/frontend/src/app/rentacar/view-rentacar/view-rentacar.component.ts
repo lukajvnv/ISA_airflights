@@ -35,4 +35,12 @@ export class ViewRentacarComponent implements OnInit {
     return this.router.navigate(['rentacar/branches', this.currentRentacar.rentacarId])
   }
 
+  newBranch() {
+    this.router.navigate(['rentacar/newBranch', this.currentRentacar.rentacarId]);
+  }
+
+  updateRentacar() {
+    this.router.navigate(['rentacar/update', this.currentRentacar.rentacarId]);
+  }
+
 }

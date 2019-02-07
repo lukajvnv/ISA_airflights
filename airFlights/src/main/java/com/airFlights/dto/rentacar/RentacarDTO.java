@@ -5,7 +5,7 @@ import java.util.Set;
 
 import com.airFlights.model.rentacar.Car;
 import com.airFlights.model.rentacar.RentaBranch;
-import com.airFlights.model.rentacar.RentaService;
+import com.airFlights.model.rentacar.Rentacar;
 
 public class RentacarDTO {
 	
@@ -45,6 +45,28 @@ public class RentacarDTO {
 		this.cars = cars;
 		this.branches = branches;
 		this.services = services;
+	}
+	
+	public RentacarDTO(Rentacar rentacar) {
+		this.rentacarId = rentacar.getRentacarId();
+		this.name = rentacar.getName();
+		this.adress = rentacar.getAdress();
+		this.promoDescription = rentacar.getPromoDescription();
+		this.avgRating = rentacar.getAvgRating();
+		this.ratingNumber = rentacar.getRatingNumber();
+		this.income = rentacar.getIncome();
+		
+		Set<RentaBranchDTO> rentacarBranches = new HashSet<RentaBranchDTO>();
+		for(RentaBranch branch : rentacar.getBranches()) {
+			rentacarBranches.add(new RentaBranchDTO(branch));
+		}
+		this.branches = rentacarBranches;
+		
+		Set<CarDTO> rentacarCars = new HashSet<CarDTO>();
+		for(Car car : rentacar.getCars()) {
+			rentacarCars.add(new CarDTO(car));
+		}
+		
 	}
 
 	public Integer getRentacarId() {

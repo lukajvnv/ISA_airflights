@@ -1,0 +1,30 @@
+<h2>Dodavanje nove filijale</h2>
+<form [formGroup]="rentabranchForm" (ngSubmit) ="confirm()">
+  <div class="row">
+      <div class="col-md-3  mb-3">
+        <label for="rentabranchName">Ime filijale:</label>
+      </div>
+      <div class="col mb-3">
+          <input  formControlName="rentabranchName" id="rentabranchName" type="text" class="form-control" placeholder="Name">
+      </div>
+  </div>
+  <div class="row">
+    <div class="col-md-3 mb-3">
+      <label for="rentabranchLocation">Lokacija filijale:</label>
+    </div>
+    <div class="col mb-3">
+        <input id="rentabranchLocation" formControlName="rentabranchLocation" type="text" class="form-control"  placeholder="Location">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-4">
+      <button type="button" class="btn btn-danger btn-lg btn-block" (click)="backToProfileRentacar()">
+        <fa name="angle-left" size="lg"></fa> Povratak na profil rentacar-a
+      </button>
+    </div>
+    <div class="col-md-4">
+        <button class="btn btn-lg btn-block btn-primary">Dodaj</button>
+    </div>
+
+  </div>
+</form>

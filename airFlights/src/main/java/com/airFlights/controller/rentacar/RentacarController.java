@@ -80,7 +80,7 @@ public class RentacarController {
 		
 		List<RentacarDTO> answer = new ArrayList<RentacarDTO>();
 		for(Rentacar rentacar : rentacars) {
-			RentacarDTO rentacarDTO = new RentacarDTO();
+			/*RentacarDTO rentacarDTO = new RentacarDTO();
 			rentacarDTO.setName(rentacar.getName());
 			rentacarDTO.setAdress(rentacar.getAdress());
 			rentacarDTO.setPromoDescription(rentacar.getPromoDescription());
@@ -89,9 +89,9 @@ public class RentacarController {
 			rentacarDTO.setRatingNumber(rentacar.getRatingNumber());
 			rentacarDTO.setIncome(rentacar.getIncome());
 			//rentacarDTO.setCars(rentacar.getCars());
-			//rentacarDTO.setBranches(rentacar.getBranches());
+			rentacarDTO.setBranches(rentacar.getBranches());*/
 			
-			answer.add(rentacarDTO);
+			answer.add(new RentacarDTO(rentacar));
 		}
 		
 		return new ResponseEntity<>(answer, HttpStatus.OK);
@@ -105,7 +105,7 @@ public class RentacarController {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 		
-		RentacarDTO rentacarDTO = new RentacarDTO();
+		/*RentacarDTO rentacarDTO = new RentacarDTO();
 		rentacarDTO.setName(rentacar.getName());
 		rentacarDTO.setAdress(rentacar.getAdress());
 		rentacarDTO.setPromoDescription(rentacar.getPromoDescription());
@@ -114,9 +114,9 @@ public class RentacarController {
 		rentacarDTO.setRatingNumber(rentacar.getRatingNumber());
 		rentacarDTO.setIncome(rentacar.getIncome());
 		//rentacarDTO.setCars(rentacar.getCars());
-		//rentacarDTO.setBranches(rentacar.getBranches());
+		//rentacarDTO.setBranches(rentacar.getBranches());*/
 		
-		return new ResponseEntity<>(rentacarDTO , HttpStatus.OK);
+		return new ResponseEntity<>(new RentacarDTO(rentacar) , HttpStatus.OK);
 	}
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
@@ -154,20 +154,17 @@ public class RentacarController {
 		Set<RentaBranch> rentaBranches = rentacar.getBranches();
 		
 		List<RentaBranchDTO> branches = new ArrayList<RentaBranchDTO>();
-		for(RentaBranch rb: rentaBranches) {
-			RentaBranchDTO rbDTO = new RentaBranchDTO();
-			rbDTO.setBranchId(rb.getBranchId());
-			rbDTO.setName(rb.getName());
-			rbDTO.setLocation(rb.getLocation());
-			
-			branches.add(rbDTO);
+		for(RentaBranch rb: rentaBranches) {	
+			branches.add(new RentaBranchDTO(rb));
 		}
 		
 		return new ResponseEntity<>(branches, HttpStatus.OK);
 	}
 	
-	@RequestMapping(value = "/newBranch", method = RequestMethod.POST)
-	public ResponseEntity<String> addBranchToRentacar(@RequestBody RentaBranch rentaBranch){
+	@RequestMapping(value = "/newBranch/{id}", method = RequestMethod.POST)
+	public ResponseEntity<String> addBranchToRentacar(@RequestBody RentaBranch rentaBranch, @PathVariable("id") Integer index){
+		Rentacar rentacar = rentacarServ.findRentacarById(index);
+		rentaBranch.setRentacar(rentacar);
 		rentacarServ.addNewBranch(rentaBranch);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}

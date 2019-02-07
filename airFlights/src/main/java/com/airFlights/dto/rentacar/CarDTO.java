@@ -2,6 +2,8 @@ package com.airFlights.dto.rentacar;
 
 import java.time.LocalDate;
 
+import com.airFlights.model.rentacar.Car;
+
 public class CarDTO {
 
 	private Long carId;
@@ -48,6 +50,21 @@ public class CarDTO {
 		this.carYear = carYear;
 		this.numberOfSeats = numberOfSeats;
 		this.price = price;
+	}
+	
+	public CarDTO(Car car) {
+		this.carId = car.getCarId();
+		this.reserved = car.getReserved();
+		this.pickupDate = car.getPickupDate();
+		this.dropofDate = car.getDropofDate();
+		this.pickupLocation = car.getPickupLocation();
+		this.dropofLocation = car.getDropofLocation();
+		this.carName = car.getCarName();
+		this.carBrand = car.getCarBrand();
+		this.carModel = car.getCarModel();
+		this.carYear = car.getCarYear();
+		this.numberOfSeats = car.getNumberOfSeats();
+		this.price = car.getPrice();
 	}
 
 	public Long getCarId() {

@@ -49,6 +49,8 @@ import { CarComponent } from './rentacar/car/car.component';
 import { UserFlightInvitationComponent } from './user-flight-invitation/user-flight-invitation.component';
 import { RentabranchComponent } from './rentacar/rentabranch/rentabranch.component';
 import { ViewRentacarComponent } from './rentacar/view-rentacar/view-rentacar.component';
+import { NewRentabranchComponent } from './rentacar/new-rentabranch/new-rentabranch.component';
+import { UpdateRentacarComponent } from './rentacar/update-rentacar/update-rentacar.component';
 
 @NgModule({
   declarations: [
@@ -86,7 +88,9 @@ import { ViewRentacarComponent } from './rentacar/view-rentacar/view-rentacar.co
     CarComponent,
     UserFlightInvitationComponent,
     RentabranchComponent,
-    ViewRentacarComponent
+    ViewRentacarComponent,
+    NewRentabranchComponent,
+    UpdateRentacarComponent
   ],
   imports: [
     BrowserModule,
@@ -120,6 +124,14 @@ import { ViewRentacarComponent } from './rentacar/view-rentacar/view-rentacar.co
       {
         path: 'rentacar/:rentacarId',
         component: ViewRentacarComponent
+      },
+      {
+        path: 'rentacar/newBranch/:rentacarId',
+        component: NewRentabranchComponent
+      },
+      {
+        path: 'rentacar/update/:rentacarId',
+        component: UpdateRentacarComponent
       },
       {path : '', component : SearchFlightComponent},
       {path : 'analytics/:airlineId', component: AvioAnalyticsComponent,  },
