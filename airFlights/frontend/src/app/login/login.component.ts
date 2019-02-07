@@ -49,9 +49,10 @@ export class LoginComponent implements OnInit {
 
     this.http.post(url, this.model).subscribe(
       (res : LoginStatus) => {
-        this.authToken.setJwtToken(res);
+        this.authToken.setJwtToken(res.accessToken);
         localStorage.setItem(this.currentUser, res.username);
         alert("Logged in!");
+        location.reload();
       },
       err => {
         alert("Error has occured while logging in!");
@@ -70,4 +71,5 @@ export interface LoginStatus {
   username : string;
   jwt : string;
   expiresIn: number;
+  accessToken: string;
 }

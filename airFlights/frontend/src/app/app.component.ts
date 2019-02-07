@@ -28,7 +28,7 @@ export class AppComponent implements OnInit {
   }
 
   logout(): void {
-    localStorage.removeItem('currentUser');
+    localStorage.clear();
     this.authToken.removeJwtToken();
     location.reload();
   }
