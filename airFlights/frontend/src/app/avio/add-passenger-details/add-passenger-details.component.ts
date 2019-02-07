@@ -5,7 +5,7 @@ import { SearchFlightParams } from './../../models/search-flight-params.model';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Flight } from './../../models/flight.model';
 import { FlightService } from './../../services/flight.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/models/user.model';
 import { Reservation } from 'src/app/models/reservation.model';
@@ -32,7 +32,8 @@ export class AddPassengerDetailsComponent implements OnInit {
   seats: FlightSeat[] = [];
 
   constructor(private activatedRoute: ActivatedRoute, private flightService: FlightService,
-    private searchFlightObject: SearchFlightParams, private bookingService: BookingService) { }
+    private searchFlightObject: SearchFlightParams, private bookingService: BookingService,
+    private router: Router) { }
 
   ngOnInit() {
     this.seats = JSON.parse(sessionStorage.getItem('seats'));
@@ -82,6 +83,7 @@ export class AddPassengerDetailsComponent implements OnInit {
 
       this.bookingService.makeReservation(reservation).subscribe( () => {
         alert('Uspesno uradjeno rezervacija');
+        this.router.navigate(['']);
       });
 
     }

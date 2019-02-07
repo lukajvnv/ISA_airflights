@@ -1,3 +1,68 @@
-<p>
-  user-reservations works!
-</p>
+<h2>Pozivnice</h2>
+<div  class="stopsTable">
+<div *ngFor="let reservation of reservations">
+  <div class="row oneFlight">
+    <div class="col-lg-9">
+      <div class="row">
+        <div class="col-lg-4">
+          <p><b>{{reservation?.ticket.flight | timeFilter}}</b></p>
+        </div>
+        <div class="col-lg-5">
+          <p><b>{{reservation?.ticket.flight.stops.length}} presedanja</b></p>
+        </div>
+        <div class="col-lg-3">
+          <p><b>{{reservation?.ticket.flight.flightDistance}}km</b></p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-4">
+          <p><b>{{reservation?.ticket.flight.airline.name}}</b></p>
+        </div>
+        <div class="col-lg-5">
+          <p><b>{{reservation?.ticket.flight.stops | stopDestinationsFilter}}</b></p>
+        </div>
+        <div class="col-lg-3"  style="font-size: 17px">
+          <p><b>{{reservation?.ticket.flight.departureDestination.destinationCode}}-{{reservation?.ticket.flight.arrivalDestination.destinationCode}}</b></p>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-3 priceDiv">
+      <!-- <div class="w-100">fdfd</div> -->
+      <div style="text-align: center">
+        <button type="submit" class="btn btn-primary btn-block detail" (click)="detail(reservation)">
+          Detalji
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+<!-- Dodati ostale podatke -->
+<app-view-airline-flight [currentFlight]="selectedReservation?.ticket.flight"></app-view-airline-flight>
+<div class="row">
+  <div class="col-md-3 mb-3">
+
+  </div>
+  <div class="col-md-6 mb-3">
+
+  </div>
+  <div class="col-md-3 mb-3">
+      <button type="button" class="btn btn-lg btn-block btn-success" (click)="isCollapsed = !isCollapsed"
+        [attr.aria-expanded]="!isCollapsed" aria-controls="collapseExample">
+        Oceni
+      </button>
+  </div>
+</div>
+<div class="row" id="collapseExample" [ngbCollapse]="isCollapsed">
+    <div class="col-md-3 mb-3">
+        <label for="passportNum">Ocena:</label>
+    </div>
+    <div class="col-md-6 mb-3">
+        <input id="passportNum" name="passportNum" [(ngModel)]="mark" type="text" class="form-control">
+    </div>
+    <div class="col-md-3 mb-3">
+        <button type="submit" class="btn btn-success btn-block btn-lg" (click)="evaluate()">
+            Potvrda
+        </button>
+    </div>
+</div>

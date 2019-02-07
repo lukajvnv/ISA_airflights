@@ -14,11 +14,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 import org.hibernate.annotations.ColumnDefault;
 
 import com.airFlights.dto.avio.AirlineDTO;
 import com.airFlights.model.Pricelist;
+import com.airFlights.model.user.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -70,6 +72,10 @@ public class Airline {
 	@OneToMany(mappedBy = "airline", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JsonIgnoreProperties("airline")
 	private Set<AirlineTicket> discountTickets = new HashSet<AirlineTicket>();
+	
+	@OneToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "admin_id")
+	private User adminForThisAirline;
 	
 	public Airline() {
 		super();
@@ -180,14 +186,6 @@ public class Airline {
 		this.airlineFlights = airlineFlights;
 	}
 
-	public Set<AirlineTicket> getDiscountTicket() {
-		return discountTickets;
-	}
-
-	public void setDiscountTicket(Set<AirlineTicket> discountTicket) {
-		this.discountTickets = discountTicket;
-	}
-
 	public void setRatingSum(Integer ratingSum) {
 		this.ratingSum = ratingSum;
 	}
@@ -210,6 +208,14 @@ public class Airline {
 
 	public void setDiscountTickets(Set<AirlineTicket> discountTickets) {
 		this.discountTickets = discountTickets;
+	}
+
+	public User getAdminForThisAirline() {
+		return adminForThisAirline;
+	}
+
+	public void setAdminForThisAirline(User adminForThisAirline) {
+		this.adminForThisAirline = adminForThisAirline;
 	}
 	
 }

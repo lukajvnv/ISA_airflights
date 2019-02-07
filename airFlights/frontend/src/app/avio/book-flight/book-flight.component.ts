@@ -79,7 +79,7 @@ export class BookFlightComponent implements OnInit {
   }
 
   rezervisi() {
-    if (this.zeljenaSedista.length !== this.searchFlightObject.personNum) {
+    if (this.zeljenaSedista.length !== +this.searchFlightObject.personNum) {
       alert('Selektujte odgovarajuci broj sedista');
     } else {
       console.log('usao u rezervisi');

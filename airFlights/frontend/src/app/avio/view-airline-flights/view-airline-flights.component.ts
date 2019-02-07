@@ -2,6 +2,7 @@ import { Flight } from './../../models/flight.model';
 import { AirlineService } from './../../services/airline.service';
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import { User } from 'src/app/models/user.model';
 
 @Component({
   selector: 'app-view-airline-flights',
@@ -19,12 +20,24 @@ export class ViewAirlineFlightsComponent implements OnInit {
 
   selectedFlight: Flight;
 
+  currentUser: User;
+
   ngOnInit() {
     this.isRightAdmin = true;
+
+    this.currentUser = new User('Luka', 'Airline', 'lukajvnv@gmail.com', 'Novi Sad', 0, 'airSerbia');
+
+
     this.activatedRoute.paramMap.subscribe(params => {
       this.airlineId = params.get('airlineId');
       this.airlineService.getAirlineFlights(this.airlineId).subscribe(data => {
         this.airlineFlights = data;
+      });
+      this.airlineService.getAirline(this.airlineId).subscribe(data => {
+        const currentAirline = data;
+        if (currentAirline.adminForThisAirline.username === this.currentUser.username) {
+          this.isRightAdmin = true;
+        }
       });
     });
   }
@@ -35,6 +48,10 @@ export class ViewAirlineFlightsComponent implements OnInit {
 
   noviLet() {
     this.router.navigate(['airline/newFlight', this.airlineId]);
+  }
+
+  konfigurisi() {
+    this.router.navigate(['airline/flight/configure/', this.selectedFlight.flightId]);
   }
 
   izmeniLet() {

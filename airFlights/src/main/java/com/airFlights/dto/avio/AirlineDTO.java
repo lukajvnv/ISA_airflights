@@ -5,8 +5,10 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import com.airFlights.dto.UserDTO;
 import com.airFlights.model.avio.Airline;
 import com.airFlights.model.avio.Destination;
+import com.airFlights.model.user.User;
 
 public class AirlineDTO {
 
@@ -25,6 +27,8 @@ public class AirlineDTO {
 	private Set<FlightDTO> airlineFlights = new HashSet<FlightDTO>();
 	
 	private Set<AirlineTicketDTO> discountTickets = new HashSet<AirlineTicketDTO>();
+	
+	private UserDTO adminForThisAirline;
 	
 	public AirlineDTO () {
 		super();
@@ -47,6 +51,11 @@ public class AirlineDTO {
 			flightDest.add(new DestinationDTO(dest));
 		}
 		this.flightDestinations = flightDest;
+		
+		User admin = airline.getAdminForThisAirline();
+		if(admin != null) {
+			this.adminForThisAirline = new UserDTO(admin.getId(), admin.getUsername(), admin.getFirstName(), admin.getLastName(), admin.getEmail(), admin.getCity(), admin.getPhone_number());
+		}
 		
 		// this.airlineFlights = airlineFlights;       //!!!!!!!!!!!!!!!!!
 		// this.discountTickets = discountTickets;
@@ -140,5 +149,17 @@ public class AirlineDTO {
 
 	public void setDiscountTickets(Set<AirlineTicketDTO> discountTickets) {
 		this.discountTickets = discountTickets;
+	}
+
+
+
+	public UserDTO getAdminForThisAirline() {
+		return adminForThisAirline;
+	}
+
+
+
+	public void setAdminForThisAirline(UserDTO adminForThisAirline) {
+		this.adminForThisAirline = adminForThisAirline;
 	}
 }

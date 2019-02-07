@@ -11,5 +11,7 @@ import com.airFlights.model.avio.FlightSeat;
 public interface FlightSeatRepository extends JpaRepository<FlightSeat, Integer> {
 
 	List<FlightSeat> findByFlightOrderBySeatNumber(Flight flight);
-
+	
+	FlightSeat findBySeatNumber(Integer seatNum);
+	
 }

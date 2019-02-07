@@ -1,0 +1,65 @@
+<h2>Konfigurisi let kao i brze karte</h2>
+<div class="container">
+    <h2>Oznacite zeljeno mesto</h2>
+    <ng-container *ngFor="let seat of flightSeats; let i = index;">
+      <span *ngIf="seat.reserved" class="borderCannotBook">{{seat.seatNumber}}</span>
+      <span *ngIf="!seat.reserved" (mouseup)="selektuj(i, seat)" [ngClass]="{'border': !selectDiv[i], 'borderSelected': selectDiv[i]}">{{i+1}}</span>
+      <div *ngIf="(i + 1) % 4 === 0" class="w-100"></div>
+    </ng-container>
+    <div class="w-100"></div>
+</div>
+
+<div class="row">
+    <div class="col-md-3 mb-3">
+        <button type="submit" class="btn btn-lg btn-block btn-primary" (click)="backClick()">
+            <fa name="arrow-left" size="lg"></fa>Povratak
+         </button>
+    </div>
+    <div class="col-md-3 mb-3" >
+        <button class="btn btn-lg btn-block btn-danger" (click)="ukloni()">
+          Ukloni
+        </button>
+      </div>
+      <div class="col-md-3 mb-3">
+          <button type="submit" class="btn btn-success btn-block btn-lg" (click)="dodaj()">
+              Dodaj novo mesto
+          </button>
+      </div>
+      <div class="col-md-3 mb-3">
+          <button type="submit" class="btn btn-info btn-block btn-lg" (click)="brzaKarta()">
+              Proglasi za brzu kartu
+          </button>
+    </div>
+</div>
+<div *ngIf="brzaKartaForm" class="row" margin="15px 0px 0px 0px">
+    <div class="col-md-2 mb-3">
+        <label>Redovna cena:</label>
+    </div>
+    <div class="col-md-2 mb-3">
+        <label>{{selectedSeat?.flight.pricelist.economyPrice}}</label>
+    </div>
+    <div class="col-md-2 mb-3">
+        <label for="passportNum">Popust:</label>
+    </div>
+    <div class="col-md-3 mb-3">
+        <input id="passportNum" name="passportNum" [(ngModel)]="popust" type="text" class="form-control">
+    </div>
+    <div class="col-md-3 mb-3">
+        <button type="submit" class="btn btn-success btn-block btn-lg" (click)="brzaKartaPotvrda()">
+            Potvrda
+        </button>
+    </div>
+  </div>
+  <div *ngIf="novoSedisteForm" class="row" margin="15px 0px 0px 0px">
+      <div class="col-md-3 mb-3">
+          <label for="passportNum">Broj sedista:</label>
+      </div>
+      <div class="col-md-6 mb-3">
+          <input id="passportNum" name="passportNum" [(ngModel)]="brojSedista" type="text" class="form-control">
+      </div>
+      <div class="col-md-3 mb-3">
+          <button type="submit" class="btn btn-success btn-block btn-lg" (click)="dodajPotvrda()">
+              Potvrda
+          </button>
+      </div>
+    </div>

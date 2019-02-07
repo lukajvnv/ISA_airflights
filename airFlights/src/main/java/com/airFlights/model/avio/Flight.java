@@ -123,7 +123,7 @@ public class Flight {
 	@JoinColumn(name = "pricelist_id")
 	private Pricelist pricelist;
 	
-	@OneToMany(mappedBy = "flight", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "flight", fetch = FetchType.LAZY)
 	private Set<FlightSeat> seats = new HashSet<FlightSeat>();
 	
 	

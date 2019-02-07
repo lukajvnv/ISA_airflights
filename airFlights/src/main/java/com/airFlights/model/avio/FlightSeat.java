@@ -34,7 +34,7 @@ public class FlightSeat {
 //		@Column
 //		private String columnn;
 		
-		@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+		@ManyToOne(fetch = FetchType.EAGER)
 		@JoinColumn(name = "flight_id")
 		private Flight flight;
 

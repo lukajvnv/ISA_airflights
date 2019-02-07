@@ -37,11 +37,8 @@ public class FlightController {
 	@Autowired
 	private FlightService flightService;
 	
-	@Autowired
-	private MailService mailService;
-	
-	@Autowired
-	private PasswordEncoder passwordEncoder;
+	/*@Autowired
+	private PasswordEncoder passwordEncoder;*/
 	
 	
 	@RequestMapping(path = "/all", method = RequestMethod.GET)
@@ -61,13 +58,7 @@ public class FlightController {
 		Flight flight = flightService.getFlight(flightId);
 		return new ResponseEntity<>(new FlightDTO(flight), HttpStatus.OK);
 	}
-	
-	/*@RequestMapping(path = "/new", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<String> addNewFlight(@RequestParam int  airlineId, @RequestBody Flight flight){
-		flightService.saveNewFlight(flight, airlineId);
-		return new ResponseEntity<>("Uspesno dodat", HttpStatus.OK);
-	}*/
-	
+		
 	@RequestMapping(path = "/new", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<String> addNewFlight(/*@RequestParam int  airlineId, */@RequestBody FlightDTO flight){
 		Flight newFlight = new Flight(flight);
@@ -80,26 +71,6 @@ public class FlightController {
 		flightService.updateFlight(flight);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
-	
-//	@RequestMapping(path = "/{flightId}", method = RequestMethod.DELETE)
-//	public ResponseEntity<String> removeFlight(@PathVariable("flightId") Integer flightId){
-//		flightService.deleteFlight(flightId);
-//		return new ResponseEntity<>("Uspesno dodat", HttpStatus.OK);
-//	}
-	
-	/*@RequestMapping(path = "/{DEP}-{ARI}/{depDate}", method = RequestMethod.GET)
-	public ResponseEntity<List<Flight>> searchFlights(@PathVariable("DEP") String dep_dest, @PathVariable("ARI") String ari_dest, 
-			@PathVariable("depDate") String depDate){
-		List<Flight> flights = flightService.searchFlights(dep_dest, ari_dest, depDate);
-		return new ResponseEntity<>(flights, HttpStatus.OK);
-	}*/
-	
-	/*@RequestMapping(path = "/{DEP}-{ARI}/{depDate}", method = RequestMethod.GET)
-	public ResponseEntity<List<Flight>> searchFlights(@PathVariable("DEP") int dep_dest, @PathVariable("ARI") int ari_dest, 
-			@PathVariable("depDate") String depDate){
-		List<Flight> flights = flightService.searchFlights(dep_dest, ari_dest, depDate);
-		return new ResponseEntity<>(flights, HttpStatus.OK);
-	}*/
 	
 	@RequestMapping(path = "/search/oneWay", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<FlightDTO>> searchFlightsOneWay(@RequestBody SearchFlightParams flightParams){
@@ -167,17 +138,7 @@ public class FlightController {
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 	
-	@RequestMapping(path = "/sendMail", method = RequestMethod.GET)
-	public ResponseEntity<List<Destination>> sendMail(){
-		try {
-			mailService.sendNotification(new User(), "Potvrda rezervacije", "Proba");
-			return new ResponseEntity<>(HttpStatus.OK);
-		} catch (MessagingException e) {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
-	}
-	
-	@RequestMapping(path = "/pass", method = RequestMethod.GET)
+	/*@RequestMapping(path = "/pass", method = RequestMethod.GET)
 	public ResponseEntity<List<Destination>> getPass(){
 		try {
 			for(int i = 1; i <= 6; i++) {
@@ -189,6 +150,6 @@ public class FlightController {
 		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
-	}
+	}*/
 	
 }

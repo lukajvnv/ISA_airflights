@@ -1,0 +1,90 @@
+<h2>Brze  rezervacije</h2>
+<div  class="stopsTable">
+<div *ngFor="let ticket of quickTickets">
+  <div class="row oneFlight">
+    <div class="col-lg-9">
+      <div class="row">
+        <div class="col-lg-4">
+          <p><b>{{ticket?.flight | timeFilter}}</b></p>
+        </div>
+        <div class="col-lg-5">
+          <p><b>{{ticket?.flight.stops.length}} presedanja</b></p>
+        </div>
+        <div class="col-lg-3">
+          <p><b>{{ticket?.flight.flightDistance}}km</b></p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-4">
+          <p><b>{{ticket?.flight.airline.name}}</b></p>
+        </div>
+        <div class="col-lg-5">
+          <p><b>{{ticket?.flight.stops | stopDestinationsFilter}}</b></p>
+        </div>
+        <div class="col-lg-3"  style="font-size: 17px">
+          <p><b>{{ticket?.flight.departureDestination.destinationCode}}-{{ticket?.flight.arrivalDestination.destinationCode}}</b></p>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-3 priceDiv">
+      <!-- <div class="w-100">fdfd</div> -->
+      <div style="text-align: center">
+        <button type="submit" class="btn btn-primary btn-block detail" (click)="detail(ticket)">
+          Detalji
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+<!-- Dodati ostale podatke -->
+<app-view-airline-flight [currentFlight]="selectedTicket?.flight"></app-view-airline-flight>
+<table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Broj sedista:</th>
+        <th>Klasa:</th>
+        <th>Stvarna cena:</th>
+        <th>Popust:</th>
+        <th>Prodajna cena:</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="info">
+        <td>{{selectedTicket?.seat.seatNumber}}</td>
+        <td>{{selectedTicket?.ticketClass}}</td>
+        <td>{{selectedTicket?.basePrice}}</td>
+        <td>{{selectedTicket?.discount}}</td>
+        <td>{{selectedTicket?.sellingPrice}}</td>
+      </tr>
+    </tbody>
+  </table>
+<div class="row">
+  <div class="col-md-3 mb-3">
+    <!-- <button class="btn btn-lg btn-block btn-danger" (click)="decline()">
+      Odbij poziv
+    </button> -->
+  </div>
+  <div class="col-md-6 mb-3">
+
+  </div>
+  <div class="col-md-3 mb-3">
+      <button type="button" class="btn btn-lg btn-block btn-success" (click)="isCollapsed = !isCollapsed"
+        [attr.aria-expanded]="!isCollapsed" aria-controls="collapseExample">
+        Prihvati
+      </button>
+  </div>
+</div>
+<div class="row" id="collapseExample" [ngbCollapse]="isCollapsed">
+    <div class="col-md-3 mb-3">
+        <label for="passportNum">Broj pasosa:</label>
+    </div>
+    <div class="col-md-6 mb-3">
+        <input id="passportNum" name="passportNum" [(ngModel)]="passportInfo" type="text" class="form-control">
+    </div>
+    <div class="col-md-3 mb-3">
+        <button type="submit" class="btn btn-success btn-block btn-lg" (click)="makeReservation()">
+            Potvrda
+        </button>
+    </div>
+</div>

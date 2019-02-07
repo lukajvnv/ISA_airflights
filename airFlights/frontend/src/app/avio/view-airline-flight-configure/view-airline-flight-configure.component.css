@@ -1,0 +1,33 @@
+.border {
+  display: inline-block;
+  width: 70px;
+  height: 70px;
+  margin: 10px;
+  font-size: 45px;
+  vertical-align: center;
+  text-align: center;
+  cursor: pointer;
+  background-color: lightgreen;
+}
+.borderSelected {
+  display: inline-block;
+  width: 70px;
+  height: 70px;
+  margin: 10px;
+  font-size: 45px;
+  vertical-align: center;
+  text-align: center;
+  cursor: pointer;
+  border: 5px dotted blue;
+  background-color: lightgreen;
+}
+.borderCannotBook {
+  display: inline-block;
+  width: 70px;
+  height: 70px;
+  margin: 10px;
+  font-size: 45px;
+  vertical-align: center;
+  text-align: center;
+  background-color: lightcoral;
+}

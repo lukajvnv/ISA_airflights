@@ -55,23 +55,6 @@
               <input name="prezimePrijatelja" #prezimeP (keyup)="filterPrezime(prezimeP.value)" type="text" class="form-control" id="zip" placeholder="Prezime prijatelja...">
             </div>
           </div>
-          <div class="col-md-2 mb-3">
-              <label>Prijatelji:</label>
-              <input type="checkbox" class="form-check-input" value="">
-          </div>
-          <!-- <div class="col-md-1 mb-3">
-              <div class="form-check-inline">
-                  <label class="form-check-label">
-                    Option 1<input type="checkbox" class="form-check-input" value="">
-                  </label>
-              </div>
-          </div> -->
-          <!-- <div class="form-check-inline">
-              <label class="form-check-label">
-                Option 1<input type="checkbox" class="form-check-input" value="">
-              </label>
-          </div> -->
-
       </div>
       <table class="table table-bordered">
           <thead>
@@ -85,7 +68,11 @@
             <tr *ngFor="let korisnik of filtriraniKorisnici">
               <td>{{korisnik.firstName}}</td>
               <td>{{korisnik.lastName}}  </td>
-              <td><input type="checkbox" value="dodajOsobu"/></td>
+              <td>
+                <button type="submit" class="btn btn-primary btn-lg btn-info" (click)="dodajPrijateljaNaLet(korisnik)" >
+                  Pozovi <fa name="arrow-up" size="lg"></fa>
+                </button>
+              </td>
             </tr>
           </tbody>
       </table>

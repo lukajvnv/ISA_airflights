@@ -49,6 +49,9 @@ import { CarComponent } from './rentacar/car/car.component';
 import { UserFlightInvitationComponent } from './user-flight-invitation/user-flight-invitation.component';
 import { RentabranchComponent } from './rentacar/rentabranch/rentabranch.component';
 import { ViewRentacarComponent } from './rentacar/view-rentacar/view-rentacar.component';
+import { UserFlightComfirmationComponent } from './user-flight-comfirmation/user-flight-comfirmation.component';
+import { ViewAirlineFlightConfigureComponent } from './avio/view-airline-flight-configure/view-airline-flight-configure.component';
+import { ViewAirlineTicketsComponent } from './avio/view-airline-tickets/view-airline-tickets.component';
 
 @NgModule({
   declarations: [
@@ -86,7 +89,10 @@ import { ViewRentacarComponent } from './rentacar/view-rentacar/view-rentacar.co
     CarComponent,
     UserFlightInvitationComponent,
     RentabranchComponent,
-    ViewRentacarComponent
+    ViewRentacarComponent,
+    UserFlightComfirmationComponent,
+    ViewAirlineFlightConfigureComponent,
+    ViewAirlineTicketsComponent
   ],
   imports: [
     BrowserModule,
@@ -128,6 +134,8 @@ import { ViewRentacarComponent } from './rentacar/view-rentacar/view-rentacar.co
       {path : 'analytics/income/:airlineId', component: AvioAnalyticsIncomeComponent },
       {path : 'airline/:airlineId', component: ViewAirlineComponent},
       {path : 'airline/flights/:airlineId', component: ViewAirlineFlightsComponent},
+      {path : 'airline/tickets/:airlineId', component: ViewAirlineTicketsComponent},
+      {path : 'airline/flight/configure/:flightId', component: ViewAirlineFlightConfigureComponent},
       {path : 'airline/update/:airlineId', component: UpdateAirlineComponent},
       {path : 'airline/newFlight/:airlineId', component: NewFlightComponent},
       {path : 'airline/newFlight/update/:airlineId/:flightId', component: NewFlightComponent},
@@ -141,6 +149,7 @@ import { ViewRentacarComponent } from './rentacar/view-rentacar/view-rentacar.co
       {path : 'flight/addPassengerDetails/:flightId', component : AddPassengerDetailsComponent},
       {path: 'destination/new/:airlineId', component: NewDestinationComponent},
       {path: 'pricelist/new/:airlineId', component: NewPricelistComponent},
+      {path:  'invitation/:reservationId', component: UserFlightComfirmationComponent},
       {
         path: '**',
         component: PageNotFoundComponent

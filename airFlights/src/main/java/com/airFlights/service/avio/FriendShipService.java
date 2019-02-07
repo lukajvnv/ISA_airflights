@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-import org.assertj.core.internal.Throwables;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -110,6 +109,10 @@ public class FriendShipService {
 		
 		
 		return getAllFriendsRequestByUser(currentUsserUsername);
+	}
+	
+	public User getUserWhoInviteToFlight(String username) {
+		return userRepository.findByUsername(username);
 	}
 	
 

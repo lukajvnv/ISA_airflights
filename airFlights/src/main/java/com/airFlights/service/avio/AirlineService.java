@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.airFlights.dto.avio.AirlineDTO;
 import com.airFlights.dto.avio.DestinationDTO;
 import com.airFlights.model.avio.Airline;
+import com.airFlights.model.avio.AirlineTicket;
 import com.airFlights.model.avio.Destination;
 import com.airFlights.repository.avio.AirlineRepository;
 import com.airFlights.repository.avio.DestinationRepository;
@@ -23,9 +24,6 @@ public class AirlineService {
 	@Autowired
 	private DestinationRepository destinationRepository;
 	
-	/*@Autowired
-	private EntityManager manager;*/
-	
 	public List<Airline> findAllAirlines() {
 		return airlineRepository.findAllByOrderByName();
 	}
@@ -34,9 +32,14 @@ public class AirlineService {
 		return airlineRepository.findById(index).get(); 
 	}
 	
-	public void removeAirline(Integer index) {
-		airlineRepository.deleteById(index);
+	public Set<AirlineTicket> getQuickTickets(Integer id) {
+		Airline airline = airlineRepository.findById(id).get();
+		return airline.getDiscountTickets();
 	}
+	
+//	public void removeAirline(Integer index) {
+//		airlineRepository.deleteById(index);
+//	}
 	
 	public void updateAirline(Airline persistAirline, AirlineDTO airline) {
 		persistAirline.setName(airline.getName());
@@ -53,45 +56,7 @@ public class AirlineService {
 		
 		airlineRepository.save(persistAirline);
 	}
-	
-//	@Transactional
-//	public void addDestinationToAirline(int airlineId, int destinationId) {
-//		Query query = manager.createNativeQuery("INSERT INTO flight_destinations (airline_id, destination_id) VALUES (?, ?)");
-//		//Query query2 = manager.createQuery("");
-//		
-//		query.setParameter(1, airlineId);
-//		query.setParameter(2, destinationId);
-//		try {
-//			//manager.getTransaction().begin();
-//			query.executeUpdate();
-//			//manager.getTransaction().commit();
-//		} catch (Exception e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}		
-//	}
-//	
-//	@Transactional
-//	public void removeDestinationFromAirline(int airlineId, int destinationId) {
-//		Query query = manager.createNativeQuery("DELETE FROM flight_destinations WHERE airline_id=? and destination_id=?");
-//		/*List<Tuple> l =  manager.createNativeQuery("DELETE FROM flight_destinations WHERE airline_id=? and destination_id=?").getResultList();
-//		Tuple lo =  (Tuple) manager.createNativeQuery("DELETE FROM flight_destinations WHERE airline_id=? and destination_id=?").getSingleResult();
-//		lo.get(0);*/
-//		
-//		//Query query2 = manager.createQuery("");
-//		
-//		query.setParameter(1, airlineId);
-//		query.setParameter(2, destinationId);
-//		try {
-//			//manager.getTransaction().begin();
-//			query.executeUpdate();
-//			//manager.getTransaction().commit();
-//		} catch (Exception e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}		
-//	}
-	
+		
 	public String getAverageMark(Integer index) {
 		Airline airline = findAirlineById(index);
 		

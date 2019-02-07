@@ -2,6 +2,7 @@ package com.airFlights.dto;
 
 import com.airFlights.dto.avio.AirlineTicketDTO;
 import com.airFlights.model.Reservation;
+import com.airFlights.model.user.User;
 
 public class ReservationDTO {
 
@@ -22,7 +23,8 @@ public class ReservationDTO {
 		this.passportNum = reservation.getPassportNum();
 		
 		this.ticket = new AirlineTicketDTO(reservation.getTicket());
-		this.user = new UserDTO(user.getId(), user.getUsername(), user.getFirstName(), user.getLastName(), user.getEmail(), user.getCity(), user.getPhone_number());	
+		User u = reservation.getUser();
+		this.user = new UserDTO(u.getId(), u.getUsername(), u.getFirstName(), u.getLastName(), u.getEmail(), u.getCity(), u.getPhone_number());	
 	}
 
 	public Integer getReservationId() {
