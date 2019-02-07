@@ -1,6 +1,9 @@
+import { AirlineService } from './../../services/airline.service';
+import { AirlineAnalyticsQuery } from './../../models/airline-analytics-query.model';
 import { Component, OnInit, Input } from '@angular/core';
 import { Airline } from 'src/app/models/airline.model';
 import { Router } from '@angular/router';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-avio-analytics-income',
@@ -15,9 +18,9 @@ export class AvioAnalyticsIncomeComponent implements OnInit {
   from: Date;
   to: Date;
 
-  income: number;
+  income: string;
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private airlineService: AirlineService) { }
 
   ngOnInit() {
   }
@@ -26,8 +29,17 @@ export class AvioAnalyticsIncomeComponent implements OnInit {
     this.router.navigate(['airline', this.currentAirline.airlineId]);
   }
 
-  generisiIzvestaj() {
-    this.income = 500000;
-  }
+  generisiIzvestaj(f: NgForm) {
+    console.log(f);
+    if (f.form.status === 'INVALID') {
+      alert('Molimo popunite obavezne paremetre[NEADEKVATAN UNOS]');
+      return;
+    }
 
+    const id: string = this.currentAirline.airlineId.toString();
+    const query: AirlineAnalyticsQuery = new AirlineAnalyticsQuery(this.from, this.to, 'DEFAULT');
+    this.airlineService.getAirlineProfit(id, query).subscribe(data => {
+      this.income = data;
+    });
+  }
 }

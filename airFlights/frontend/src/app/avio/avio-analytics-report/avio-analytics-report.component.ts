@@ -1,7 +1,11 @@
+import { AirlineAnalyticsOneValue } from './../../models/airline-analytics-one-value.model';
+import { AirlineService } from './../../services/airline.service';
 import { Chart } from 'chart.js';
 import { Component, OnInit, Input } from '@angular/core';
 import { Airline } from 'src/app/models/airline.model';
 import { Router } from '@angular/router';
+import { NgForm } from '@angular/forms';
+import { AirlineAnalyticsQuery } from 'src/app/models/airline-analytics-query.model';
 
 @Component({
   selector: 'app-avio-analytics-report',
@@ -23,17 +27,62 @@ export class AvioAnalyticsReportComponent implements OnInit {
   BarWeekChart = [];
   BarMonthChart = [];
 
-  constructor(private router: Router) {}
+  graphLabels: any[] = [];
+  graphData: number[] = [];
+
+  answer: AirlineAnalyticsOneValue[] = [];
+
+  constructor(private router: Router, private airlineService: AirlineService) {}
 
   ngOnInit() {
      // Line chart:
-    this.LineDayChart = new Chart('lineDayChart', {
+     this.LineDayChart = [];
+     this.BarWeekChart = [];
+     this.BarMonthChart = [];
+  }
+
+  povratakNaProfilAvioKompanije() {
+    this.router.navigate(['airline', this.currentAirline.airlineId]);
+  }
+
+  generisiIzvestaj(f: NgForm) {
+    if (f.form.status === 'INVALID') {
+      alert('Molimo popunite obavezne paremetre[NEADEKVATAN UNOS]');
+      return;
+    }
+
+    const id: string = this.currentAirline.airlineId.toString();
+    const query: AirlineAnalyticsQuery = new AirlineAnalyticsQuery(this.from, this.to, this.reportType);
+    this.airlineService.getAirlineReport(id, query).subscribe(data => {
+      this.answer = data;
+      switch (this.reportType) {
+        case 'DAILY': this.createDailyGraph(this.answer); break;
+        case 'WEEKLY': this.createWeeklyGraph(this.answer); break;
+        case 'MONTHLY': this.createMonthlyGraph(this.answer); break;
+
+      }
+
+    });
+  }
+
+  createDailyGraph(data: AirlineAnalyticsOneValue[]) {
+    const graphLabels: string[] = new Array<string>(data.length);
+    const graphData: number[] = new Array<number>(data.length);
+    let oneValue: AirlineAnalyticsOneValue;
+    for (let i = 0; i < data.length; i++) {
+      oneValue = data[i];
+      graphLabels[i] = oneValue.label;
+      graphData[i] = oneValue.value;
+    }
+
+    this.LineDayChart = [];
+     this.LineDayChart = new Chart('lineDayChart', {
       type: 'line',
     data: {
-     labels: ['Jan', 'Feb', 'March', 'April', 'May', 'June', 'July', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+     labels: graphLabels,
      datasets: [{
-         label: 'Number of Items Sold in Months',
-         data: [9, 7 , 3, 5, 2, 10, 15, 16, 19, 3, 1, 9],
+         label: '# broj prodatih karata',
+         data: graphData,
          fill: true,
          lineTension: 0.4,
          borderColor: 'blue',
@@ -54,15 +103,26 @@ export class AvioAnalyticsReportComponent implements OnInit {
      }
     }
     });
+  }
 
-    // Bar chart:
+  createWeeklyGraph(data: AirlineAnalyticsOneValue[]) {
+    const graphLabels: string[] = new Array<string>(data.length);
+    const graphData: number[] = new Array<number>(data.length);
+    let oneValue: AirlineAnalyticsOneValue;
+    for (let i = 0; i < data.length; i++) {
+      oneValue = data[i];
+      graphLabels[i] = oneValue.label;
+      graphData[i] = oneValue.value;
+    }
+
+    this.BarWeekChart = [];
     this.BarWeekChart = new Chart('barWeekChart', {
       type: 'bar',
     data: {
-     labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+     labels: graphLabels,
      datasets: [{
-         label: '# of Votes',
-         data: [9, 7 , 3, 5, 2, 10],
+         label: '# broj prodatih karata',
+         data: graphData, /*
          backgroundColor: [
              'rgba(255, 99, 132, 0.2)',
              'rgba(54, 162, 235, 0.2)',
@@ -78,7 +138,7 @@ export class AvioAnalyticsReportComponent implements OnInit {
              'rgba(75, 192, 192, 1)',
              'rgba(153, 102, 255, 1)',
              'rgba(255, 159, 64, 1)'
-         ],
+         ], */
          borderWidth: 1
      }]
     },
@@ -96,16 +156,27 @@ export class AvioAnalyticsReportComponent implements OnInit {
      }
     }
     });
+  }
+
+  createMonthlyGraph(data: AirlineAnalyticsOneValue[]) {
+    const graphLabels: string[] = new Array<string>(data.length);
+    const graphData: number[] = new Array<number>(data.length);
+    let oneValue: AirlineAnalyticsOneValue;
+    for (let i = 0; i < data.length; i++) {
+      oneValue = data[i];
+      graphLabels[i] = oneValue.label;
+      graphData[i] = oneValue.value;
+    }
 
     // Bar chart:
     this.BarMonthChart = new Chart('barMonthChart', {
       type: 'bar',
     data: {
-     labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+     labels: graphLabels,
      datasets: [{
-         label: '# of Votes',
-         data: [9, 7 , 3, 5, 2, 10],
-         backgroundColor: [
+         label: '# broj prodatih karata',
+         data: graphData,
+         /* backgroundColor: [
              'rgba(255, 99, 132, 0.2)',
              'rgba(54, 162, 235, 0.2)',
              'rgba(255, 206, 86, 0.2)',
@@ -120,7 +191,7 @@ export class AvioAnalyticsReportComponent implements OnInit {
              'rgba(75, 192, 192, 1)',
              'rgba(153, 102, 255, 1)',
              'rgba(255, 159, 64, 1)'
-         ],
+         ], */
          borderWidth: 1
      }]
     },
@@ -138,90 +209,6 @@ export class AvioAnalyticsReportComponent implements OnInit {
      }
     }
     });
-    /* // pie chart:
-    this.PieChart = new Chart('pieChart', {
-      type: 'pie',
-    data: {
-     labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-     datasets: [{
-         label: '# of Votes',
-         data: [9, 7 , 3, 5, 2, 10],
-         backgroundColor: [
-             'rgba(255, 99, 132, 0.2)',
-             'rgba(54, 162, 235, 0.2)',
-             'rgba(255, 206, 86, 0.2)',
-             'rgba(75, 192, 192, 0.2)',
-             'rgba(153, 102, 255, 0.2)',
-             'rgba(255, 159, 64, 0.2)'
-         ],
-         borderColor: [
-             'rgba(255,99,132,1)',
-             'rgba(54, 162, 235, 1)',
-             'rgba(255, 206, 86, 1)',
-             'rgba(75, 192, 192, 1)',
-             'rgba(153, 102, 255, 1)',
-             'rgba(255, 159, 64, 1)'
-         ],
-         borderWidth: 1
-     }]
-    },
-    options: {
-     title: {
-         text: 'Bar Chart',
-         display: true
-     },
-     scales: {
-         yAxes: [{
-             ticks: {
-                 beginAtZero: true
-             }
-         }]
-     }
-    }
-    }); */
-  }
-
-  test() {
-    this.LineDayChart = [];
-    this.LineDayChart = new Chart('lineChart', {
-      type: 'line',
-    data: {
-     labels: ['Jan', 'Feb', 'March', 'April', 'May', 'June', 'July', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-     datasets: [{
-         label: 'Number of Items Sold in Months',
-         data: [9, 7 , 3, 5, 2, 10, 15, 16, 19, 3, 1, 9],
-         fill: false,
-         lineTension: 0.4,
-         borderColor: 'red',
-         borderWidth: 2,
-     }]
-    },
-    options: {
-     title: {
-         text: 'Line Chart',
-         display: true
-     },
-     scales: {
-         yAxes: [{
-             ticks: {
-                 beginAtZero: true
-             }
-         }]
-     }
-    }
-    });
-  }
-
-  povratakNaProfilAvioKompanije() {
-    this.router.navigate(['airline', this.currentAirline.airlineId]);
-  }
-
-  generisiIzvestaj() {
-    if (this.reportType) {
-
-    }
-    console.log(this.reportType);
-  }
-
+}
 
 }

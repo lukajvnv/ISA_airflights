@@ -81,4 +81,5 @@ public class AirlineService {
 	public void addNewDestination(Destination destination) {
 		destinationRepository.saveAndFlush(destination);
 	}
+	
 }

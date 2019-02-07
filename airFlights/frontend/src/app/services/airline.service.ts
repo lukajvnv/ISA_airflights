@@ -1,3 +1,4 @@
+import { AirlineAnalyticsQuery } from './../models/airline-analytics-query.model';
 import { FlightTicket } from './../models/flight-ticket';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -24,6 +25,12 @@ export class AirlineService {
   private getQuickTicketUrlBase = 'http://localhost:8836/airline/tickets/';
 
   private bookQuickTicketUrl = 'http://localhost:8836/book/buy/quickTicket';
+
+  private getAirlineRatingUrlBase = 'http://localhost:8836/airline/getRating/';
+  private getFlightRatingUrlBase = 'http://localhost:8836/airline/getFlightRating/';
+
+  private getAirlineProitUrlBase = 'http://localhost:8836/airline/getProfit/';
+  private getAirlineSellingTicketUrlBase = 'http://localhost:8836/airline/getReport/';
 
   constructor(private http: HttpClient) { }
 
@@ -61,6 +68,22 @@ export class AirlineService {
 
   bookQuickTicket(reservation: Reservation): Observable<any> {
     return this.http.post(this.bookQuickTicketUrl, reservation);
+  }
+
+  getAirlineRating(airlineId: string): Observable<any> {
+    return this.http.get(this.getAirlineRatingUrlBase + airlineId, {responseType: 'text'});
+  }
+
+  getFliightRating(flightId: string): Observable<any> {
+    return this.http.get(this.getFlightRatingUrlBase + flightId, {responseType: 'text'});
+  }
+
+  getAirlineProfit(airlineId: string, query: AirlineAnalyticsQuery): Observable<any> {
+    return this.http.post(this.getAirlineProitUrlBase + airlineId, query, {responseType: 'text'});
+  }
+
+  getAirlineReport(airlineId: string, query: AirlineAnalyticsQuery): Observable<any> {
+    return this.http.post(this.getAirlineSellingTicketUrlBase + airlineId, query);
   }
 
 }

@@ -1,4 +1,5 @@
 <!--The content below is only a placeholder and can be replaced.-->
+<form #f ="ngForm" (ngSubmit) = "generisiIzvestaj(f)">
 <div class="row" style="margin: 15px 0px 0px 0px; border: 1px solid lightblue">
   <div class="col-md-1">
     <b>Od</b>
@@ -18,7 +19,7 @@
   <div class="col-md-2 mb-3">
     <div class="input-group">
       <input class="form-control" placeholder="yyyy-mm-dd"
-             name="dp2" [(ngModel)]="to"  ngbDatepicker #arrivalPicker="ngbDatepicker">
+             name="dp2" [(ngModel)]="to"  ngbDatepicker #arrivalPicker="ngbDatepicker" required>
       <div class="input-group-append">
         <button class="btn btn-outline-secondary calendar" (click)="arrivalPicker.toggle()" type="button"><fa name="calendar-alt" style="color:red" size="lg"></fa></button>
       </div>
@@ -28,19 +29,20 @@
       <b>Izvestaj</b>
     </div>
   <div class="col">
-      <select [(ngModel)]="reportType" name="reportType" class="form-control" id="reportType">
+      <select [(ngModel)]="reportType" name="reportType" class="form-control" id="reportType" required>
           <!-- <option *ngFor="let flightType of flightTypes; let s = first" [selected]="s" [ngValue]="flightType.id">{{flightType.name}}</option> -->
-          <option value="Dnevni">Dnevni</option>
-          <option value="Nedeljni">Nedeljni</option>
-          <option value="Mesecni">Mesecni</option>
+          <option value="DAILY">Dnevni</option>
+          <option value="WEEKLY">Nedeljni</option>
+          <option value="MONTHLY">Mesecni</option>
       </select>
   </div>
   <div class="col">
-    <button class="btn btn-lg btn-block btn-primary" (click)="generisiIzvestaj()">
+    <button class="btn btn-lg btn-block btn-primary">
       Pogledaj
     </button>
   </div>
 </div>
+</form>
 <div style="text-align:center">
   <!-- <button class="btn btn-primary" (click)="test()">Promena</button> -->
   <canvas id="lineDayChart" height="100px"></canvas>

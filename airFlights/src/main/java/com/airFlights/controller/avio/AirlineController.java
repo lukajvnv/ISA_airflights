@@ -18,10 +18,13 @@ import com.airFlights.dto.avio.AirlineDTO;
 import com.airFlights.dto.avio.AirlineTicketDTO;
 import com.airFlights.dto.avio.FlightDTO;
 import com.airFlights.model.avio.Airline;
+import com.airFlights.model.avio.AirlineAnalyticsOneValue;
+import com.airFlights.model.avio.AirlineAnalyticsQuery;
 import com.airFlights.model.avio.AirlineTicket;
 import com.airFlights.model.avio.Destination;
 import com.airFlights.model.avio.Flight;
 import com.airFlights.service.avio.AirlineService;
+import com.airFlights.service.avio.RatingService;
 
 
 
@@ -32,6 +35,9 @@ public class AirlineController {
 
 	@Autowired
 	private AirlineService airlineService;
+	
+	@Autowired
+	private RatingService ratingService;
 	
 	@RequestMapping(value="/all", method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<AirlineDTO>> getAllAirlines() {
@@ -104,5 +110,41 @@ public class AirlineController {
 		airlineService.addNewDestination(newDestination);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
+	
+	@RequestMapping(value="/getRating/{airlineId}", method = RequestMethod.GET, produces = MediaType.TEXT_PLAIN_VALUE)
+	public ResponseEntity<String> getAirlineRating(@PathVariable("airlineId") Integer airlineId){
+		
+		String rating = ratingService.getAirlineRating(airlineId);
+		return new ResponseEntity<>(rating, HttpStatus.OK);
+	}
+	
+	@RequestMapping(value="/getFlightRating/{flightId}", method = RequestMethod.GET, produces = MediaType.TEXT_PLAIN_VALUE)
+	public ResponseEntity<String> getFlightRating(@PathVariable("flightId") Integer flightId){
+		
+		String rating = ratingService.getFlightRating(flightId);
+		return new ResponseEntity<>(rating, HttpStatus.OK);
+	}
+	
+	@RequestMapping(value="/getProfit/{airlineId}", method = RequestMethod.POST, produces = MediaType.TEXT_PLAIN_VALUE)
+	public ResponseEntity<String> getAirlineProfit(@PathVariable("airlineId") Integer airlineId, @RequestBody AirlineAnalyticsQuery query){
+		
+		String profit = ratingService.getAirlineProfit(airlineId, query);
+		return new ResponseEntity<>(profit, HttpStatus.OK);
+	}
+	
+	@RequestMapping(value="/getReport/{airlineId}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<AirlineAnalyticsOneValue>> getAirlineReport(@PathVariable("airlineId") Integer airlineId, @RequestBody AirlineAnalyticsQuery query){
+		
+		List<AirlineAnalyticsOneValue> answer = null;
+		try {
+			answer = ratingService.getAirlineReport(airlineId, query);
+			return new ResponseEntity<>(answer, HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.CONFLICT);
+
+		}
+		
+	}
+	
 	
 }

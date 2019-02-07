@@ -1,5 +1,7 @@
 package com.airFlights.model.avio;
 
+import java.util.Date;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,6 +13,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 
 
@@ -62,6 +66,10 @@ public class AirlineTicket {
 	private Float sellingPrice;
 	
 	private Boolean markedFlight;
+	
+	
+	@Temporal(TemporalType.DATE)
+	private Date sellingDate;
 	 	
 	public AirlineTicket() {
 		super();
@@ -77,6 +85,8 @@ public class AirlineTicket {
 		this.discount = discount;
 		this.sellingPrice = sellingPrice;
 		this.markedFlight = markedFlight;
+		
+		// this.sellingDate = new Date();
 	}
 
 
@@ -175,6 +185,16 @@ public class AirlineTicket {
 
 	public void setSeat(FlightSeat seat) {
 		this.seat = seat;
+	}
+
+
+	public Date getSellingDate() {
+		return sellingDate;
+	}
+
+
+	public void setSellingDate(Date sellingDate) {
+		this.sellingDate = sellingDate;
 	}
 
 

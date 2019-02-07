@@ -18,6 +18,9 @@ export class AvioAnalyticsMarksComponent implements OnInit {
 
   airlineFlights: Flight[];
 
+  airlineRating: string;
+  flightRating: string;
+
   ngOnInit() {
     /* this.activatedRoute.paramMap.subscribe(params => {
       const airlineId = params.get('airlineId');
@@ -40,7 +43,18 @@ export class AvioAnalyticsMarksComponent implements OnInit {
   }
 
   pogledajOcenu( selectedFlight: Flight) {
-    console.log('usao');
+    const id: string = selectedFlight.flightId.toString();
+    this.airlineService.getFliightRating(id).subscribe(data => {
+      this.flightRating = data;
+    });
+
+  }
+
+  rejtingAviokompanije() {
+    const id: string = this.currentAirline.airlineId.toString();
+    this.airlineService.getAirlineRating(id).subscribe(data => {
+      this.airlineRating = data;
+    });
   }
 
   povratakNaProfilAvioKompanije() {

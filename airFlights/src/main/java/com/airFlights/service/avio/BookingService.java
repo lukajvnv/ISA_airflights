@@ -1,5 +1,6 @@
 package com.airFlights.service.avio;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,9 +65,12 @@ public class BookingService {
 		return getSeatsByFlight(flight.getFlightId());
 	}
 	
-	public List<FlightSeat> removeSeat(FlightSeatDTO seat){
+	public List<FlightSeat> removeSeat(FlightSeatDTO seat) throws Exception{
+		FlightSeat s = seatRepository.findById(seat.getId()).get();
+		if(s.isReserved()) {
+			throw new Exception("Nije moguce obrisati zelljeno sediste, jer je rezervisaano");
+		}
 		
-		//seatRepository.deleteById(seat.getId());
 		seatRepository.deleteById(seat.getId());
 		
 		Flight flight = flightRepository.findById(seat.getFlight().getFlightId()).get();
@@ -76,11 +80,19 @@ public class BookingService {
 		return getSeatsByFlight(flight.getFlightId());
 	}
 	
-	public List<FlightSeat> quickTicket(AirlineTicketDTO ticket){
+	public List<FlightSeat> quickTicket(AirlineTicketDTO ticket) throws Exception{
 		
 		Flight flight = flightRepository.findById(ticket.getFlight().getFlightId()).get();
 		Airline airline = flight.getAirline();
 		FlightSeat seat = seatRepository.findById(ticket.getSeat().getId()).get();
+		if(seat == null) {
+			throw new Exception("Nije moguce rezervisati zelljeno sediste");
+		}
+		if(seat.isReserved()) {
+			throw new Exception("Nije moguce rezervisati zelljeno sediste");
+		}
+		
+		
 		seat.setReserved(true);
 		seat.setDiscountTicket(true);
 		
@@ -96,7 +108,7 @@ public class BookingService {
 	
 	
 	
-	public Reservation makeReservation(ReservationDTO reservationFront) {
+	public Reservation makeReservation(ReservationDTO reservationFront) throws Exception {
 		
 		String userUsername = reservationFront.getUser().getUsername();
 		User user = userRepository.findByUsername(userUsername);
@@ -104,8 +116,17 @@ public class BookingService {
 		AirlineTicketDTO ticketFront = reservationFront.getTicket();
 		AirlineTicket ticket = new AirlineTicket(ticketFront.getTicketClass(), ticketFront.getTicketStatus(), ticketFront.getBasePrice(), ticketFront.getDiscount(),
 				ticketFront.getSellingPrice(), ticketFront.getMarkedFlight());
+		ticket.setSellingDate(new Date());
 		
 		FlightSeat seat = seatRepository.findById(ticketFront.getSeat().getId()).get();
+		if(seat == null) {
+			throw new Exception("Nije moguce rezervisati zelljeno sediste");
+		}
+		if(seat.isReserved()) {
+			throw new Exception("Nije moguce rezervisati zelljeno sediste");
+		}
+		
+		
 		Flight flight = flightRepository.findById(ticketFront.getFlight().getFlightId()).get();
 		seat.setReserved(true);
 		//seatRepository.saveAndFlush(seat);
@@ -131,6 +152,7 @@ public class BookingService {
 		
 		AirlineTicketDTO ticketFront = reservationFront.getTicket();
 		AirlineTicket persistTicket = airlineTicketRepository.findById(ticketFront.getTicketId()).get();
+		persistTicket.setSellingDate(new Date());
 		persistTicket.setAirline(null);
 				
 		airlineTicketRepository.saveAndFlush(persistTicket);
