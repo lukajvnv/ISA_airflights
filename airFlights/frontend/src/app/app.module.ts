@@ -49,14 +49,13 @@ import { CarComponent } from './rentacar/car/car.component';
 import { UserFlightInvitationComponent } from './user-flight-invitation/user-flight-invitation.component';
 import { RentabranchComponent } from './rentacar/rentabranch/rentabranch.component';
 import { ViewRentacarComponent } from './rentacar/view-rentacar/view-rentacar.component';
-<<<<<<< HEAD
+import { NewRentabranchComponent } from './rentacar/new-rentabranch/new-rentabranch.component';
+import { UpdateRentacarComponent } from './rentacar/update-rentacar/update-rentacar.component';
+
 import { UserFlightComfirmationComponent } from './user-flight-comfirmation/user-flight-comfirmation.component';
 import { ViewAirlineFlightConfigureComponent } from './avio/view-airline-flight-configure/view-airline-flight-configure.component';
 import { ViewAirlineTicketsComponent } from './avio/view-airline-tickets/view-airline-tickets.component';
-=======
-import { NewRentabranchComponent } from './rentacar/new-rentabranch/new-rentabranch.component';
-import { UpdateRentacarComponent } from './rentacar/update-rentacar/update-rentacar.component';
->>>>>>> 141a5c7f7b10aee81f86d4f084c24ea61a9be366
+
 
 @NgModule({
   declarations: [
@@ -95,14 +94,11 @@ import { UpdateRentacarComponent } from './rentacar/update-rentacar/update-renta
     UserFlightInvitationComponent,
     RentabranchComponent,
     ViewRentacarComponent,
-<<<<<<< HEAD
+    NewRentabranchComponent,
+    UpdateRentacarComponent,
     UserFlightComfirmationComponent,
     ViewAirlineFlightConfigureComponent,
     ViewAirlineTicketsComponent
-=======
-    NewRentabranchComponent,
-    UpdateRentacarComponent
->>>>>>> 141a5c7f7b10aee81f86d4f084c24ea61a9be366
   ],
   imports: [
     BrowserModule,
