@@ -53,7 +53,7 @@
 <button type="submit" class="btn btn-primary btn-lg" (click)="backClick()">
    <fa name="arrow-left" size="lg"></fa>Povratak
 </button>
-<button type="submit" class="btn btn-primary btn-lg" style="float: right;" [routerLink]="['bookFlight', currentFlight?.flightId]">
+<button *ngIf="loggedUser" type="submit" class="btn btn-primary btn-lg" style="float: right;" [routerLink]="['bookFlight', currentFlight?.flightId]">
   Rezervisi <fa name="arrow-right" size="lg"></fa>
 </button>
 

@@ -19,7 +19,10 @@ export class ViewFlightComponent implements OnInit {
   @Input()
   currentFlight: Flight;
 
+  loggedUser: boolean;
+
   ngOnInit() {
+    this.loggedUser = true;
     this.activatedRoute.paramMap.subscribe(params => {
       const flightId: string = params.get('flightId');
       this.flightService.getFlight(flightId).subscribe(data => {

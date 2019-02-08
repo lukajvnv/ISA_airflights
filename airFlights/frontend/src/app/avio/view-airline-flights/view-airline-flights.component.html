@@ -1,3 +1,10 @@
+<div class="row">
+  <div class="col-md-5">
+    <button class="btn btn-primary btn-block btn-lg" (click)="profilKompanije()">
+      <fa name="angle-left" size="lg"></fa>Povratak na profil kompanije
+    </button>
+</div>
+</div>
 <h2>Letovi kompanije</h2>
 <div  class="stopsTable">
 <div *ngFor="let flight of airlineFlights">
@@ -39,17 +46,17 @@
 </div>
 <app-view-airline-flight [currentFlight]="selectedFlight"></app-view-airline-flight>
 <div *ngIf="isRightAdmin" class="row">
-  <div class="col-md-3">
+  <div class="col-md-4">
     <button class="btn btn-lg btn-block btn-primary" (click)="noviLet()">
       Dodaj novi let
     </button>
   </div>
-  <div class="col-md-3">
+  <div class="col-md-4">
       <button type="submit" class="btn btn-info btn-block btn-lg" (click)="konfigurisi()">
           Konfigurisi let
       </button>
   </div>
-  <div class="col-md-3">
+  <div class="col-md-4">
       <button type="submit" class="btn btn-warning btn-block btn-lg" (click)="izmeniLet()">
           Izmeni postojeci let
       </button>

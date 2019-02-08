@@ -56,6 +56,7 @@ import { UserFlightComfirmationComponent } from './user-flight-comfirmation/user
 import { ViewAirlineFlightConfigureComponent } from './avio/view-airline-flight-configure/view-airline-flight-configure.component';
 import { ViewAirlineTicketsComponent } from './avio/view-airline-tickets/view-airline-tickets.component';
 import { NewCarComponent } from './rentacar/new-car/new-car.component';
+import { ViewAllAirlinesComponent } from './avio/view-all-airlines/view-all-airlines.component';
 
 
 @NgModule({
@@ -100,7 +101,8 @@ import { NewCarComponent } from './rentacar/new-car/new-car.component';
     UserFlightComfirmationComponent,
     ViewAirlineFlightConfigureComponent,
     ViewAirlineTicketsComponent,
-    NewCarComponent
+    NewCarComponent,
+    ViewAllAirlinesComponent,
   ],
   imports: [
     BrowserModule,
@@ -152,6 +154,7 @@ import { NewCarComponent } from './rentacar/new-car/new-car.component';
       {path : 'analytics/marks/:airlineId', component: AvioAnalyticsMarksComponent },
       {path : 'analytics/report/:airlineId', component: AvioAnalyticsReportComponent },
       {path : 'analytics/income/:airlineId', component: AvioAnalyticsIncomeComponent },
+      {path: 'airline/all', component: ViewAllAirlinesComponent},
       {path : 'airline/:airlineId', component: ViewAirlineComponent},
       {path : 'airline/flights/:airlineId', component: ViewAirlineFlightsComponent},
       {path : 'airline/tickets/:airlineId', component: ViewAirlineTicketsComponent},

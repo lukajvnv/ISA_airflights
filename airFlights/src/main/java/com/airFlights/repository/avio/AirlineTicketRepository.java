@@ -9,8 +9,6 @@ import com.airFlights.model.avio.Airline;
 import com.airFlights.model.avio.AirlineTicket;
 
 public interface AirlineTicketRepository extends JpaRepository<AirlineTicket, Integer> {
-
-	// List<AirlineTicket> getAirlineTicket
 	
 	@Query("select SUM(t.sellingPrice) from AirlineTicket t where t.flight.airline = ?1 and t.sellingDate >= ?2 and t.sellingDate < ?3")
 	Float getAirlineProfitBetween(Airline airline, Date from, Date to);

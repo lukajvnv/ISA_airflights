@@ -1,6 +1,5 @@
 package com.airFlights.model.avio;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -10,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Version;
 
 @Entity
 @Table(name = "seat")
@@ -38,6 +38,10 @@ public class FlightSeat {
 		@JoinColumn(name = "flight_id")
 		private Flight flight;
 
+		@Version
+	    @Column(name = "optlock", columnDefinition = "integer DEFAULT 0", nullable = false)
+		private Integer version;
+		
 		public FlightSeat(boolean reserved, boolean discountTicket, int seatNumber, Flight flight) {
 			super();
 			this.reserved = reserved;

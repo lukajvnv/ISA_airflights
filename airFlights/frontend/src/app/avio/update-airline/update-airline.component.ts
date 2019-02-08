@@ -52,6 +52,10 @@ export class UpdateAirlineComponent implements OnInit {
     });
   }
 
+  profilKompanije() {
+    this.router.navigate(['airline', this.airline.airlineId]);
+  }
+
   get airlineName() {
     return this.airlineForm.get('airlineName');
   }

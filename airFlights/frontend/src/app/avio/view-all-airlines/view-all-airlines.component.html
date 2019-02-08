@@ -1,0 +1,37 @@
+<h2 style="text-align: center">Aviokompanije</h2>
+<div class="row">
+  <div class="col-md-2">
+    <h3>Sortiraj po:</h3>
+  </div>
+  <div class="col-md-2">
+    <select [(ngModel)]="sortType" (ngModelChange)="sortTypeChanged()" name="sortType" class="form-control" id="sortType">
+      <option value="ByName">Po nazivu</option>
+      <option value="ByCity">Po gradu</option>
+    </select>
+  </div>
+</div>
+
+<div *ngFor="let airline of airlines" row>
+  <div class="col-md-2">
+      <img src="../../../assets/airplane-icon 32.png" alt="Nema slike">
+  </div>
+  <div class="col-md-10">
+    <table class="table table-info">
+      <thead>
+        <tr>
+          <th>Naziv</th>
+          <th>Adresa</th>
+          <th>Grad</th>
+          <th>Detalji</th>
+        </tr>
+      </thead>
+      <tbody>
+        <td width="25%">{{airline.name}}</td>
+        <td width="25%">{{airline.address}}</td>
+        <td width="25%">{{airline.city}}</td>
+        <td width="25%"><button class="btn btn-lg btn-primary btn-block" (click)="viewAirline(airline.airlineId)">Detalji<fa name="angle-right" size="lg"></fa></button></td>
+      </tbody>
+    </table>
+
+  </div>
+</div>

@@ -8,14 +8,5 @@ import com.airFlights.model.avio.Airline;
 
 public interface AirlineRepository extends JpaRepository<Airline,Integer>{
 
-	/*@Autowired
-	public EntityManager manager;
-	
-	
-	boolean addDestinationToAirline(int airlineId, int destinationId) {
-		
-		return true;
-	}*/
-	
 	List<Airline> findAllByOrderByName();
 }
