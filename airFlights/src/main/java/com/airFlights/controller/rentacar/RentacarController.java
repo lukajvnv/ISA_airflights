@@ -192,7 +192,7 @@ public class RentacarController {
 		Rentacar rentacar = rentacarServ.findRentacarById(index);
 		rentaCar.setRentacar(rentacar);
 		rentaCar.setReserved(false);
-		rentacarServ.addNewCar(rentaCar);;
+		rentacarServ.addNewCar(rentaCar);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 	

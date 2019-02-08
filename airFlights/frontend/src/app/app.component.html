@@ -7,17 +7,18 @@
 </div> -->
 
 <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
-  <a class="navbar-brand" href="#">Navbar</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-
   <div class="collapse navbar-collapse" id="navbarsExampleDefault">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
-        <a class="nav-link" routerLink = "/flight">Flight <span class="sr-only">(current)</span></a>
+        <a class="nav-link" routerLink = "/airline/all">Airlines <span class="sr-only">(current)</span></a>
       </li>
-      <li class="nav-item">
+      <li class="nav-item active">
+        <a class="nav-link" routerLink = "/searchRentacar">Rentacars <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" routerLink = "/user">Profile <span class="sr-only">(current)</span></a>
+      </li>
+      <!--li class="nav-item">
         <a class="nav-link" href="#">Link</a>
       </li>
       <li class="nav-item">
@@ -30,19 +31,22 @@
           <a class="dropdown-item" href="#">Another action</a>
           <a class="dropdown-item" href="#">Something else here</a>
         </div>
-      </li>
+      </li-->
       <li>
         <button *ngIf="!isUserLogged" routerLink="/login" class="btn btn-secondary my-2 my-sm-0" type="submit">Login</button>
-        <a *ngIf="isUserLogged" class="nav-link" routerLink="/">{{loggedUser}}</a>
+        <a *ngIf="isUserLogged" class="nav-link" routerLink="/user">{{loggedUser}}</a>
       </li>
       <li>
         <button *ngIf="isUserLogged" (click)="logout()" class="btn btn-secondary my-2 my-sm-0" type="submit">Logout</button>
       </li>
+      <li class="nav-item active">
+        <a class="nav-link" *ngIf="!isUserLogged" routerLink = "/registration">Registration <span class="sr-only">(current)</span></a>
+      </li>
     </ul>
-    <form class="form-inline my-2 my-lg-0">
+    <!--form class="form-inline my-2 my-lg-0">
       <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
       <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
-    </form>
+    </form-->
   </div>
 </nav>
 

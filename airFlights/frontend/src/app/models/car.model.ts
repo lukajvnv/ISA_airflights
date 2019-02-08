@@ -11,7 +11,8 @@ export class Car {
 	carModel: string;
     carYear: number;
 	numberOfSeats: number;
-	price: number;
+    price: number;
+    tip: string;
   
     constructor() { 
     }
