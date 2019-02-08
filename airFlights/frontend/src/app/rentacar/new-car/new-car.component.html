@@ -49,6 +49,16 @@
     </div>
   </div>
   <div class="row">
+    <div class="col-md-3 mb-3">
+      <label for="class">Tip vozila:</label>
+    </div>
+    <div class="col mb-3">
+      <select formControlName="carType" name="carType" class="form-control" id="carType">
+        <option *ngFor="let type of types; let s = first" [selected]="s" [ngValue]="type">{{type}}</option>
+      </select>
+    </div>
+  </div>
+  <div class="row">
     <div class="col-md-4">
       <button type="button" class="btn btn-danger btn-lg btn-block" (click)="backToProfileRentacar()">
         <fa name="angle-left" size="lg"></fa> Povratak na profil rentacar-a

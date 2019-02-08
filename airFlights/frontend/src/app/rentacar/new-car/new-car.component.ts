@@ -18,9 +18,12 @@ export class NewCarComponent implements OnInit {
     carYear: new FormControl('', Validators.required),
     carNumberOfSeats: new FormControl(),
     carPrice: new FormControl('', Validators.required),
+    carType: new FormControl('', Validators.required)
   });
 
   rentacarId: string;
+
+  types = ['Karavan','Kombi','Kupe'];
 
   constructor(private carService: CarService, private router: Router, private activatedRoute: ActivatedRoute) { }
 
@@ -48,6 +51,7 @@ export class NewCarComponent implements OnInit {
     newCar.pickupDate = '1111-11-11';
     newCar.pickupLocation = 'lok1';
     newCar.dropofLocation = 'lok1';
+    newCar.tip = this.carType.value;
 
     this.carService.getRentaCarId(this.rentacarId);
 
@@ -83,5 +87,9 @@ export class NewCarComponent implements OnInit {
 
   get carPrice() {
     return this.carForm.get('carPrice');
+  }
+
+  get carType() {
+    return this.carForm.get('carType');
   }
 }

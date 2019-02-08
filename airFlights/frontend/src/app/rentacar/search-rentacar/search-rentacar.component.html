@@ -1,3 +1,4 @@
+<h2 style="text-align: center">Rentacar servisi</h2>
 <form>
     <div>
         <div class="form-group col-md-3 mb-3">
@@ -12,22 +13,22 @@
         </div>
     </div>
 </form>
-    <div class="row">
+    <div class="container">
       <div class="row">
           <div class="col-md-3 mb-3">
             <label>Rentacar servisi:</label>
           </div>
           <div class="col-md-9 mb-3">
-            <table class="table table-bordered stopsTable">
+            <table class="table table-info">
               <thead>
-                <tr>
+                <tr class="success">
                   <td>Ime servisa</td>
                   <td>Lokacije filijala</td>
                   <td>Ocena</td>
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let rc of filteredRentacars">
+                <tr class="info" *ngFor="let rc of filteredRentacars">
                   <td>{{rc.name}}</td>
                   <td>
                       <ul class="list-group" *ngFor="let br of rc.branches">

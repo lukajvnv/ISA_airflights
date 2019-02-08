@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AuthTokenService } from '../services/auth-token.service';
 
 @Component({
@@ -18,7 +18,8 @@ export class LoginComponent implements OnInit {
   paramActivated: string;
   currentUser: string = "currentUser";
 
-  constructor(private http: HttpClient, private route: ActivatedRoute, private authToken: AuthTokenService) {
+  constructor(private http: HttpClient, private route: ActivatedRoute, private authToken: AuthTokenService,
+    private router: Router) {
   }
 
   ngOnInit() {
@@ -52,7 +53,7 @@ export class LoginComponent implements OnInit {
         this.authToken.setJwtToken(res.jwt);
         localStorage.setItem(this.currentUser, res.username);
         alert("Logged in!");
-        location.reload();
+        this.router.navigate(['/']);
       },
       err => {
         alert("Error has occured while logging in!");

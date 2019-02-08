@@ -118,7 +118,10 @@ import { ViewAllAirlinesComponent } from './avio/view-all-airlines/view-all-airl
     HttpClientModule,
     RouterModule.forRoot([
       {
-      path: 'registration', component: RegistrationComponent
+        path: 'registration', component: RegistrationComponent
+      },
+      {
+        path: '', component: AppComponent
       },
       {
         path: 'login',
@@ -156,7 +159,7 @@ import { ViewAllAirlinesComponent } from './avio/view-all-airlines/view-all-airl
         path: 'searchRentacar',
         component: SearchRentacarComponent
       },
-      {path : '', component : SearchFlightComponent},
+      {path : 'flights/search', component : SearchFlightComponent},
       {path : 'analytics/:airlineId', component: AvioAnalyticsComponent,  },
       {path : 'analytics/marks/:airlineId', component: AvioAnalyticsMarksComponent },
       {path : 'analytics/report/:airlineId', component: AvioAnalyticsReportComponent },
