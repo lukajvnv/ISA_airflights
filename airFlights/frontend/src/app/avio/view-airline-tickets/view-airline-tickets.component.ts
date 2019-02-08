@@ -29,9 +29,18 @@ export class ViewAirlineTicketsComponent implements OnInit {
 
   airlineId: string;
 
+  loggedUser: boolean;
+
   ngOnInit() {
     this.isCollapsed = true;
-    this.currentUser = new User('Luka', 'Jovanovic', 'Novi SAd', 'lukajvnv@gmail.com', 45, 'pass1');
+    // this.loggedUser = true;
+    // this.currentUser = new User('Luka', 'Jovanovic', 'Novi SAd', 'lukajvnv@gmail.com', 45, 'pass1');
+    const username: string = localStorage.getItem('currentUser');
+    if (username) {
+      this.currentUser =  new User(username);
+      this.loggedUser = true;
+    }
+
     this.activatedRoute.paramMap.subscribe(params => {
       this.airlineId = params.get('airlineId');
       this.airlineService.getQuickTickets(this.airlineId).subscribe(data => {

@@ -146,5 +146,12 @@ public class AirlineController {
 		
 	}
 	
+	@RequestMapping(value="/pass", method = RequestMethod.GET)
+	public ResponseEntity<String> getAirlineProfit(){
+		
+		ratingService.genPass();
+		return new ResponseEntity<>(HttpStatus.OK);
+	}
+	
 	
 }

@@ -33,6 +33,8 @@ export class BookingService {
 
   private getReservationByIdUrlBase = 'http://localhost:8836/book/getReservation/';
 
+  private getUserUrlBase = 'http://localhost:8836/book/user/';
+
   constructor(private http: HttpClient) { }
 
   getAllSeats(flightId: string): Observable<any> {
@@ -95,4 +97,7 @@ export class BookingService {
     return this.http.get(this.getReservationByIdUrlBase + reservationId);
   }
 
+  getUser(username: string): Observable<any> {
+    return this.http.get(this.getUserUrlBase + username);
+  }
 }

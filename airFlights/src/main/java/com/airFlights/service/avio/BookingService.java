@@ -196,6 +196,7 @@ public class BookingService {
 	
 	public List<Reservation> acceptFlight(ReservationDTO res){
 		Reservation reservation = reservationRepository.findById(res.getReservationId()).get();
+		reservation.setPassportNum(res.getPassportNum());
 		AirlineTicket ticket = reservation.getTicket();
 		ticket.setTicketStatus(TicketStatus.RESERVED);
 		
@@ -215,6 +216,10 @@ public class BookingService {
 		reservationRepository.deleteById(res.getReservationId());
 
 		return getFlightInvitation(res.getUser());
+	}
+	
+	public User getUserByUsername(String username) {
+		return userRepository.findByUsername(username);
 	}
 	
 }

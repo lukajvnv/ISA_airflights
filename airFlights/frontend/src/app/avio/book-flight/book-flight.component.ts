@@ -93,15 +93,7 @@ export class BookFlightComponent implements OnInit {
   }
 
   backClick() {
-    // this.router.navigate(['../viewFlightResults'], { relativeTo: this.activatedRoute });
     this.location.back();
  }
-
-  /*getDestinationsa(): any {
-    this.flightService.getDestinations().subscribe(data => data.pipe(x => x.filter(ddestinationId)));
-    return this.flightService.getDestinations().pipe(map(x => x.filter(dest => dest.destinationId === 5)));
-  }*/
-
-
 
 }

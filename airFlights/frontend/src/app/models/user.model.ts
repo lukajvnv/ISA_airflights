@@ -12,7 +12,7 @@ export class User {
 
     pozvan: boolean;
 
-    constructor(ime: string, prezime: string, adresa: string, mail: string,
+    /*constructor(ime: string, prezime: string, adresa: string, mail: string,
       telefon: number, username: string) {
       this.firstName = ime;
       this.lastName = prezime;
@@ -24,5 +24,9 @@ export class User {
       this.city = 'Stevana supljikca';
 
       this.pozvan = false;
+    }*/
+
+    constructor(username: string) {
+      this.username = username;
     }
 }

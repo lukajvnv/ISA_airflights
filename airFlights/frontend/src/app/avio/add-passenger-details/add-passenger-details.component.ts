@@ -21,11 +21,11 @@ export class AddPassengerDetailsComponent implements OnInit {
   currentUser: User;
 
   passengerForm = new FormGroup({
-    passengerName: new FormControl('', Validators.required),
-    passengerLastName: new FormControl('', Validators.required),
-    passengerAddress: new FormControl('', Validators.required),
-    passengerTelephone: new FormControl('', Validators.required),
-    passengerMail: new FormControl('', Validators.required),
+    passengerName: new FormControl(''),
+    passengerLastName: new FormControl(''),
+    passengerAddress: new FormControl(''),
+    passengerTelephone: new FormControl(''),
+    passengerMail: new FormControl(''),
     passengerPassportNum: new FormControl('', Validators.required)
   });
 
@@ -37,7 +37,7 @@ export class AddPassengerDetailsComponent implements OnInit {
 
   ngOnInit() {
     this.seats = JSON.parse(sessionStorage.getItem('seats'));
-    if (!this.seats || this.seats.length !== 1) {
+    if (!this.seats || this.seats.length > 1) {
       console.log('greska');
       return;
     }
@@ -50,14 +50,23 @@ export class AddPassengerDetailsComponent implements OnInit {
         this.currentFlight = data;
       });
     });
-    const user: User = new User('Luka', 'Jovanovic', 'Drage Spasic 7', 'lukajvnv@gmail.com', 644498628, 'pass1');
-    this.currentUser = user;
-    this.passengerName.setValue(user.firstName);
-    this.passengerLastName.setValue(user.lastName);
-    this.passengerAddress.setValue(user.city);
-    this.passengerMail.setValue(user.email);
-    this.passengerTelephone.setValue(user.phone_number);
-    // this.passengerName.setValue(user.ime);
+    const username: string = localStorage.getItem('currentUser');
+    if (username) {
+      // this.currentUser =  new User(username);
+      this.bookingService.getUser(username).subscribe(data => {
+        this.currentUser = data;
+        this.passengerName.setValue(this.currentUser.firstName);
+        this.passengerLastName.setValue(this.currentUser.lastName);
+        this.passengerAddress.setValue(this.currentUser.city);
+        this.passengerMail.setValue(this.currentUser.email);
+        this.passengerTelephone.setValue(this.currentUser.phone_number);
+      });
+    }
+    /* this.passengerName.setValue(this.currentUser.firstName);
+    this.passengerLastName.setValue(this.currentUser.lastName);
+    this.passengerAddress.setValue(this.currentUser.city);
+    this.passengerMail.setValue(this.currentUser.email);
+    this.passengerTelephone.setValue(this.currentUser.phone_number); */
   }
 
   potvrdi() {
@@ -66,17 +75,8 @@ export class AddPassengerDetailsComponent implements OnInit {
       return;
     } else {
       console.log('validno');
-      // this.passengerName.disable();
-      /*this.passengerForm = new FormGroup({
-        passengerName: new FormControl({value: 'a', disabled: true}, Validators.required),
-        passengerLastName: new FormControl('b', Validators.required),
-        passengerAddress: new FormControl('c', Validators.required),
-        passengerTelephone: new FormControl('d', Validators.required),
-        passengerMail: new FormControl('f', Validators.required),
-        passengerPassportNum: new FormControl('g', Validators.required)
-      });*/
 
-      const seat = this.seats[0];
+      const seat: FlightSeat = this.seats[0];
       const ticket = new FlightTicket(this.currentFlight, seat, this.searchFlightObject.ticketClass);
       const passport = this.passengerPassportNum.value;
       const reservation = new Reservation(ticket, this.currentUser, passport);
@@ -85,7 +85,6 @@ export class AddPassengerDetailsComponent implements OnInit {
         alert('Uspesno uradjeno rezervacija');
         this.router.navigate(['']);
       });
-
     }
   }
 

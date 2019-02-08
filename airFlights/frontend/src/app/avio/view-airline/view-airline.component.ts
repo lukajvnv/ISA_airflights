@@ -24,7 +24,7 @@ export class ViewAirlineComponent implements OnInit {
   ngOnInit() {
     // this.isRightAdmin = true;
     this.isCollapsed = true;
-    this.currentUser = new User('Luka', 'Airline', 'lukajvnv@gmail.com', 'Novi Sad', 0, 'airSerbia');
+    this.currentUser = new User('airSerbia');
 
     this.activatedRoute.paramMap.subscribe(params => {
       const airlineId = params.get('airlineId');

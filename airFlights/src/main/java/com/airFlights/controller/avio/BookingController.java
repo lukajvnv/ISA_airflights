@@ -299,5 +299,14 @@ public class BookingController {
 			return new ResponseEntity<>(HttpStatus.CONFLICT);
 		}
 	}
+	
+	@RequestMapping(path = "/user/{username}", method = RequestMethod.GET)
+	public ResponseEntity<UserDTO> getFlights(@PathVariable("username") String username){
+		User user = bookingService.getUserByUsername(username);
+		
+		UserDTO u = new UserDTO(user.getId(), user.getUsername(), user.getFirstName(), user.getLastName(), user.getEmail(), user.getCity(), user.getPhone_number());
+		
+		return new ResponseEntity<>(u, HttpStatus.OK);
+	}
 
 }
