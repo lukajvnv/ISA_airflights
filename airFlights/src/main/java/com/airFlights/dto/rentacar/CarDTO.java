@@ -30,13 +30,15 @@ public class CarDTO {
 	
 	private Float price;
 	
+	private String tip;
+	
 	public CarDTO() {
 		
 	}
 
 	public CarDTO(Integer carId, Boolean reserved, LocalDate pickupDate, LocalDate dropofDate, String pickupLocation,
 			String dropofLocation, String carName, String carBrand, String carModel, Integer carYear,
-			Integer numberOfSeats, Float price) {
+			Integer numberOfSeats, Float price, String tip) {
 		super();
 		this.carId = carId;
 		this.reserved = reserved;
@@ -50,6 +52,7 @@ public class CarDTO {
 		this.carYear = carYear;
 		this.numberOfSeats = numberOfSeats;
 		this.price = price;
+		this.tip = tip;
 	}
 	
 	public CarDTO(Car car) {
@@ -65,6 +68,7 @@ public class CarDTO {
 		this.carYear = car.getCarYear();
 		this.numberOfSeats = car.getNumberOfSeats();
 		this.price = car.getPrice();
+		this.tip = car.getTip();
 	}
 
 	public Integer getCarId() {
@@ -161,6 +165,14 @@ public class CarDTO {
 
 	public void setPrice(Float price) {
 		this.price = price;
+	}
+
+	public String getTip() {
+		return tip;
+	}
+
+	public void setTip(String tip) {
+		this.tip = tip;
 	}
 
 }

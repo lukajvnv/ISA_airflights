@@ -101,3 +101,66 @@
       </table>
     </div>
   </div>
+  <!--  -->
+  <form (ngSubmit)="searchCars()">
+    <fieldset>
+      <div class="form-group">
+        <label for="pickupLocation">Mesto preuzimanja</label>
+        <input [(ngModel)]="model.pickupLocation" name="pickupLocation" type="text" class="form-control" id="pickupLocation" placeholder="Mesto preuzimanja">
+        <!---->
+        <label for="dropofLocation">Mesto vracanja</label>
+        <input [(ngModel)]="model.dropofLocation" name="dropofLocation" type="text" class="form-control" id="dropofLocation" placeholder="Mesto vracanja">
+        <!---->
+        <label for="dp1">Datum preuzimanja</label>
+        <input [(ngModel)]="model.pickupDate" name="pickupDate" type="text" class="form-control" id="pickupDate" placeholder="Format(YYYY-MM-DD)">
+        <!---->
+        <label for="dp2">Datum vracanja</label>
+        <input [(ngModel)]="model.dropofDate" name="dropofDate" type="text" class="form-control" id="dropofDate" placeholder="Format(YYYY-MM-DD)">
+        <!---->
+        <label for="type">Tip</label>
+        <select [(ngModel)]="model.type" name="type" class="form-control" id="type">
+          <option *ngFor="let type of types; let s = first" [selected]="s" [ngValue]="type">{{type}}</option>
+        </select>
+        <!---->
+        <label for="numberOfSeats">Broj osoba</label>
+        <input [(ngModel)]="model.numberOfSeats" name="carName" type="number" class="form-control" id="numberOfSeats" placeholder="Broj osoba">
+        <!---->
+        <label for="fromPrice">Cena min</label>
+        <input [(ngModel)]="model.fromPrice" name="fromPrice" type="number" class="form-control" id="fromPrice" placeholder="Cena min">
+        <!---->
+        <label for="toPrice">Cena max</label>
+        <input [(ngModel)]="model.toPrice" name="toPrice" type="number" class="form-control" id="toPrice" placeholder="Cena max">
+      </div>
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </fieldset>
+  </form>
+  <div class="row">
+    <div class="col-md-3 mb-3">
+      <label>Vozila koja zadovoljavaju pretragu:</label>
+    </div>
+    <div class="col-md-9 mb-3">
+        <table class="table table-bordered stopsTable">
+          <thead>
+            <tr>
+              <td>Naziv</td>
+              <td>Marka</td>
+              <td>Model</td>
+              <td>Godiste</td>
+              <td>Broj sedista</td>
+              <td>Cena</td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let car of filteredCars">
+              <td>{{car.carName}}</td>
+              <td>{{car.carBrand}}</td>
+              <td>{{car.carModel}}</td>
+              <td>{{car.carYear}}</td>
+              <td>{{car.numberOfSeats}}</td>
+              <td>{{car.price}}</td>
+              <td><button class="btn btn-lg btn-block btn-danger" (click)="reserveCar(car.carId)">Rezervisi</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+  </div>

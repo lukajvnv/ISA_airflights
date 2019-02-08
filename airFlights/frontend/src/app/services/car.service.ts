@@ -26,4 +26,5 @@ export class CarService {
   getRentaCarId(rentacarId: string): void {
     this.rentacarId = rentacarId;
   }
+
 }

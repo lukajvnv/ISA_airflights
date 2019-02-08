@@ -10,8 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-
-import org.hibernate.annotations.ColumnDefault;
+import javax.persistence.Version;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -56,6 +55,12 @@ public class Car {
 	
 	@Column(name = "price", nullable = false)
 	private Float price;
+	
+	@Column(name = "tip", nullable = false)
+	private String tip;
+	
+	@Version
+	private Long version;
 	
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private Rentacar rentacar;
@@ -167,4 +172,21 @@ public class Car {
 	public void setRentacar(Rentacar rentacar) {
 		this.rentacar = rentacar;
 	}
+
+	public String getTip() {
+		return tip;
+	}
+
+	public void setTip(String tip) {
+		this.tip = tip;
+	}
+
+	public Long getVersion() {
+		return version;
+	}
+
+	public void setVersion(Long version) {
+		this.version = version;
+	}
+	
 }
