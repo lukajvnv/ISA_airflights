@@ -9,8 +9,8 @@
     </thead>
     <tbody>
       <tr *ngFor="let korisnik of prijatelji">
-        <td>{{korisnik.firstName}}</td>
-        <td>{{korisnik.lastName}}  </td>
+        <td>{{korisnik?.firstName}}</td>
+        <td>{{korisnik?.lastName}}  </td>
         <td><button class="btn btn-lg btn-block btn-warning" (click)="ukloniPrijatelja(korisnik)">Ukloni</button></td>
       </tr>
     </tbody>

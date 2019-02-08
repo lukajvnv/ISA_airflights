@@ -1,3 +1,4 @@
+import { BookingService } from 'src/app/services/booking.service';
 import { Airline } from './../../models/airline.model';
 import { AirlineService } from './../../services/airline.service';
 import { Component, OnInit, Input } from '@angular/core';
@@ -19,12 +20,21 @@ export class ViewAirlineComponent implements OnInit {
 
   currentUser: User;
 
-  constructor(private airlineServie: AirlineService, private router: Router, private activatedRoute: ActivatedRoute) { }
+  constructor(private airlineServie: AirlineService, private router: Router, private activatedRoute: ActivatedRoute,
+    private bookingService: BookingService) { }
 
   ngOnInit() {
     // this.isRightAdmin = true;
     this.isCollapsed = true;
-    this.currentUser = new User('airSerbia');
+    // this.currentUser = new User('airSerbia');
+
+    const username: string = localStorage.getItem('currentUser');
+    if (username) {
+      // this.currentUser =  new User(username);
+      this.bookingService.getUser(username).subscribe(data => {
+        this.currentUser = data;
+      });
+    }
 
     this.activatedRoute.paramMap.subscribe(params => {
       const airlineId = params.get('airlineId');

@@ -12,7 +12,7 @@ export class UserProfileComponent implements OnInit {
   constructor(private bookingService: BookingService) { }
 
 
-  activeTab = 'friends';
+  activeTab = 'profile';
   currentUser: User;
 
   ngOnInit() {

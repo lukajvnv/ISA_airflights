@@ -34,7 +34,7 @@
   <h2>Oznacite zeljeno mesto</h2>
   <ng-container *ngFor="let seat of flightSeats; let i = index;">
     <span *ngIf="seat.reserved" class="borderCannotBook">{{seat.seatNumber}}</span>
-    <span *ngIf="!seat.reserved" (mouseup)="selektuj(i, seat)" [ngClass]="{'border': !selectDiv[i], 'borderSelected': selectDiv[i]}">{{i+1}}</span>
+    <span *ngIf="!seat.reserved" (mouseup)="selektuj(i, seat)" [ngClass]="{'border': !selectDiv[i], 'borderSelected': selectDiv[i]}">{{seat.seatNumber}}</span>
     <div *ngIf="(i + 1) % 4 === 0" class="w-100"></div>
   </ng-container>
   <div class="w-100"></div>

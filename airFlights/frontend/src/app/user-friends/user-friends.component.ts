@@ -29,6 +29,14 @@ export class UserFriendsComponent implements OnInit {
     this.prijatelji.push(new User('Nenad', 'Hajduk', '', '', 0, ''));
     this.filtriraniKorisnici = this.prijatelji;*/
 
+    const username: string = localStorage.getItem('currentUser');
+    if (username) {
+      // this.currentUser =  new User(username);
+      this.bookingService.getUser(username).subscribe(data => {
+        this.currentUser = data;
+      });
+    }
+
     this.bookingService.getFriends(this.currentUser).subscribe(data => {
       this.prijatelji = data;
     });
@@ -77,7 +85,7 @@ export class UserFriendsComponent implements OnInit {
   }
 
   ukloniPrijatelja(prijatelj: User) {
-    this.bookingService.addFriend(this.currentUser.username, prijatelj).subscribe(data => {
+    this.bookingService.removeFriend(this.currentUser.username, prijatelj).subscribe(data => {
       alert(prijatelj.firstName + 'uspesno uklonjen iz prijatelja');
       this.prijatelji = data;
     },
