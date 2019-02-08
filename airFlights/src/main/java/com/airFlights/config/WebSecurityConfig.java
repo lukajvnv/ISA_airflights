@@ -68,6 +68,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 			.antMatchers("/rentacar/**").permitAll()
 			.antMatchers("/rentabranch/**").permitAll()
 			.antMatchers("/api/updateBasicInfo").permitAll()
+			.antMatchers("/car/**").permitAll()
+			.antMatchers("/reservation/**").permitAll()
 
 
 			//namesti za svoju bazu	

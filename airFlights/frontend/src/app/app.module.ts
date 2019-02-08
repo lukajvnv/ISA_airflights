@@ -56,6 +56,8 @@ import { UserFlightComfirmationComponent } from './user-flight-comfirmation/user
 import { ViewAirlineFlightConfigureComponent } from './avio/view-airline-flight-configure/view-airline-flight-configure.component';
 import { ViewAirlineTicketsComponent } from './avio/view-airline-tickets/view-airline-tickets.component';
 import { NewCarComponent } from './rentacar/new-car/new-car.component';
+
+import { SearchRentacarComponent } from './rentacar/search-rentacar/search-rentacar.component';
 import { ViewAllAirlinesComponent } from './avio/view-all-airlines/view-all-airlines.component';
 
 
@@ -102,6 +104,7 @@ import { ViewAllAirlinesComponent } from './avio/view-all-airlines/view-all-airl
     ViewAirlineFlightConfigureComponent,
     ViewAirlineTicketsComponent,
     NewCarComponent,
+    SearchRentacarComponent,
     ViewAllAirlinesComponent,
   ],
   imports: [
@@ -150,6 +153,10 @@ import { ViewAllAirlinesComponent } from './avio/view-all-airlines/view-all-airl
         component: UpdateRentacarComponent
       },
       {path : 'search', component : SearchFlightComponent},
+      {
+        path: 'searchRentacar',
+        component: SearchRentacarComponent
+      },
       {path : 'analytics/:airlineId', component: AvioAnalyticsComponent,  },
       {path : 'analytics/marks/:airlineId', component: AvioAnalyticsMarksComponent },
       {path : 'analytics/report/:airlineId', component: AvioAnalyticsReportComponent },

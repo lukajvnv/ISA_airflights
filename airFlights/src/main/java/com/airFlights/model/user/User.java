@@ -24,6 +24,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import com.airFlights.model.Reservation;
+import com.airFlights.model.rentacar.Car;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
@@ -68,7 +69,7 @@ public class User implements UserDetails{
     @Column(name = "last_password_reset_date")
     private Timestamp lastPasswordResetDate;
     
-    @Column(name = "activationId")
+    @Column(name = "activation_id")
     private String activationId;
     
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
@@ -85,6 +86,9 @@ public class User implements UserDetails{
 	
 	@OneToMany(mappedBy = "user")
 	private Set<Reservation> reservations = new HashSet<Reservation>();
+	
+	@OneToMany(fetch = FetchType.LAZY)
+	private Set<Car> carReservations = new HashSet<Car>();
     
     public User() {
 		super();
@@ -238,6 +242,14 @@ public class User implements UserDetails{
 
 	public void setReservations(Set<Reservation> reservations) {
 		this.reservations = reservations;
+	}
+
+	public Set<Car> getCarReservations() {
+		return carReservations;
+	}
+
+	public void setCarReservations(Set<Car> carReservations) {
+		this.carReservations = carReservations;
 	}
 
 }

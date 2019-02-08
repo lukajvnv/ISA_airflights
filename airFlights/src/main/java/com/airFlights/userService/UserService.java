@@ -15,4 +15,5 @@ public interface UserService {
     User save(User user);
     void updateUser(UserDTO user);
     User findByActivationId(String activationId);
+    User getCurrentUser();
 }

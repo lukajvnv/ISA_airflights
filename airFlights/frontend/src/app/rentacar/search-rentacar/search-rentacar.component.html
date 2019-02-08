@@ -1,0 +1,67 @@
+<form>
+    <div>
+        <div class="form-group col-md-3 mb-3">
+          <label for="type">Naziv rentacar-a:</label>
+          <input [(ngModel)]="searchName" name="searchName" type="text" class="form-control" id="searchName" placeholder="Naziv servisa..">
+        </div>
+    </div>
+    <div>
+        <div class="form-group col-md-3 mb-3">
+          <label for="type">Lokacija:</label>
+          <input [(ngModel)]="searchLocation" name="searchLocation" type="text" class="form-control" id="searchLocation" placeholder="Lokacija..">
+        </div>
+    </div>
+</form>
+    <div class="row">
+      <div class="row">
+          <div class="col-md-3 mb-3">
+            <label>Rentacar servisi:</label>
+          </div>
+          <div class="col-md-9 mb-3">
+            <table class="table table-bordered stopsTable">
+              <thead>
+                <tr>
+                  <td>Ime servisa</td>
+                  <td>Lokacije filijala</td>
+                  <td>Ocena</td>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let rc of filteredRentacars">
+                  <td>{{rc.name}}</td>
+                  <td>
+                      <ul class="list-group" *ngFor="let br of rc.branches">
+                          <li class="list-group-item">{{br.location}}</li>
+                        </ul>
+                  </td>
+                  <td>{{rc.rating}}</td>
+                  <td>
+                    <button class="btn btn-lg btn-block btn-danger" (click)="showRentacar(rc)">Prikazi</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+<!--
+  <div class="col-md-2 mb-2">
+      <div class="input-group">
+        <input class="form-control" placeholder="yyyy-mm-dd"
+                name="dp1" [(ngModel)]="pickupDate" ngbDatepicker startDate="2019-01-07" #departurePicker="ngbDatepicker" required>
+        <div class="input-group-append">
+          <button class="btn btn-outline-secondary calendar" (click)="departurePicker.toggle()" type="button"><fa name="calendar-alt" style="color:blue" size="lg"></fa></button>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-2 mb-2">
+      <div class="input-group">
+        <input class="form-control" placeholder="yyyy-mm-dd"
+                name="dp1" [(ngModel)]="dropOfDate" ngbDatepicker startDate="2019-01-07" #departurePicker="ngbDatepicker" required>
+        <div class="input-group-append">
+          <button class="btn btn-outline-secondary calendar" (click)="departurePicker.toggle()" type="button"><fa name="calendar-alt" style="color:rgb(255, 0, 0)" size="lg"></fa></button>
+        </div>
+      </div>
+    </div>
+-->

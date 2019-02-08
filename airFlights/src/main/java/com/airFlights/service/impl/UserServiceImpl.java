@@ -3,11 +3,11 @@ package com.airFlights.service.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 import com.airFlights.dto.UserDTO;
 import com.airFlights.model.user.User;
@@ -55,5 +55,16 @@ public class UserServiceImpl implements UserService{
 		user.setPhone_number(userDTO.getPhone_number());
 	
 		userRepository.save(user);
+	}
+	
+	@Override
+	public User getCurrentUser() {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();;
+		
+		org.springframework.security.core.userdetails.User u = (org.springframework.security.core.userdetails.User)auth.getPrincipal();
+		
+		User user = userRepository.findByUsername(u.getUsername());
+		
+		return user;
 	}
 }
