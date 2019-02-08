@@ -59,6 +59,7 @@ import { NewCarComponent } from './rentacar/new-car/new-car.component';
 
 import { SearchRentacarComponent } from './rentacar/search-rentacar/search-rentacar.component';
 import { ViewAllAirlinesComponent } from './avio/view-all-airlines/view-all-airlines.component';
+import { CancelReservationComponent } from './cancel-reservation/cancel-reservation.component';
 
 
 @NgModule({
@@ -106,6 +107,7 @@ import { ViewAllAirlinesComponent } from './avio/view-all-airlines/view-all-airl
     NewCarComponent,
     SearchRentacarComponent,
     ViewAllAirlinesComponent,
+    CancelReservationComponent,
   ],
   imports: [
     BrowserModule,
@@ -121,7 +123,7 @@ import { ViewAllAirlinesComponent } from './avio/view-all-airlines/view-all-airl
         path: 'registration', component: RegistrationComponent
       },
       {
-        path: '', component: AppComponent
+        path: '', component: CancelReservationComponent
       },
       {
         path: 'login',

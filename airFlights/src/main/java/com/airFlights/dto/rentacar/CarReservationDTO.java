@@ -8,7 +8,7 @@ public class CarReservationDTO {
 
 	private Integer carReservationId;
 	
-	private Long userId;
+	private String username;
 	
 	private Integer carId;
 	
@@ -16,11 +16,11 @@ public class CarReservationDTO {
 	
 	private LocalDate dropofDate;
 
-	public CarReservationDTO(Integer carReservationId, Long userId, Integer carId, LocalDate pickupDate,
+	public CarReservationDTO(Integer carReservationId, String username, Integer carId, LocalDate pickupDate,
 			LocalDate dropofDate) {
 		super();
 		this.carReservationId = carReservationId;
-		this.userId = userId;
+		this.username = username;
 		this.carId = carId;
 		this.pickupDate = pickupDate;
 		this.dropofDate = dropofDate;
@@ -28,7 +28,7 @@ public class CarReservationDTO {
 	
 	public CarReservationDTO(CarReservation carReservation) {
 		this.carReservationId = carReservation.getCarReservationId();
-		this.userId = carReservation.getUserId();
+		this.username = carReservation.getUsername();
 		this.carId = carReservation.getCarId();
 		this.pickupDate = carReservation.getPickupDate();
 		this.dropofDate = carReservation.getDropofDate();
@@ -42,12 +42,12 @@ public class CarReservationDTO {
 		this.carReservationId = carReservationId;
 	}
 
-	public Long getUserId() {
-		return userId;
+	public String getUsername() {
+		return username;
 	}
 
-	public void setUserId(Long userId) {
-		this.userId = userId;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 	public Integer getCarId() {

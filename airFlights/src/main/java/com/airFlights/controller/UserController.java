@@ -100,6 +100,16 @@ public class UserController {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 		
+		List<User> users = userService.findAll();
+		if(!users.isEmpty()) {
+			for(User u : users) {
+				if(u.getUsername().equals(userDTO.getUsername()))
+				{
+					return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+				}
+			}
+		}
+		
 		User user = new User();
 		user.setId(userDTO.getId());
 		user.setUsername(userDTO.getUsername());
@@ -128,4 +138,5 @@ public class UserController {
 		}
 	}
 
+	
 }

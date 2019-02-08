@@ -16,8 +16,8 @@ public class CarReservation {
 	@Column(updatable = false)
 	private Integer carReservationId;
 	
-	@Column(name = "user_id", nullable = false)
-	private Long userId;
+	@Column(name = "username", nullable = false)
+	private String username;
 	
 	@Column(name = "car_id", nullable = false)
 	private Integer carId;
@@ -40,12 +40,12 @@ public class CarReservation {
 		this.carReservationId = carReservationId;
 	}
 
-	public Long getUserId() {
-		return userId;
+	public String getUsername() {
+		return username;
 	}
 
-	public void setUserId(Long userId) {
-		this.userId = userId;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 	public Integer getCarId() {

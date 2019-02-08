@@ -36,7 +36,7 @@ public class CarReservationService implements CarReservationServ {
 				
 				carRes.setCarId(searchCarDTO.getCarId());
 				carRes.setCarReservationId(searchCarDTO.getId());
-				carRes.setUserId(user.getId());
+				carRes.setUsername(user.getUsername());
 				carRes.setPickupDate(searchCarDTO.getPickupDate());
 				carRes.setDropofDate(searchCarDTO.getDropofDate());
 				

@@ -143,5 +143,38 @@ insert into flight_rating (user_id, flight_id, rating) values (4, 8, 4);
 insert into flight_rating (user_id, flight_id, rating) values (1, 7, 2);
 insert into flight_rating (user_id, flight_id, rating) values (5, 8, 5);
 
+------------
+insert into car_reservation (car_reservation_id, car_id, dropof_date, pickup_date, username) values (1, 1, '2019-02-10','2019-02-09', 'pass1');
+insert into car_reservation (car_reservation_id, car_id, dropof_date, pickup_date, username) values (2, 2, '2019-02-17','2019-02-15', 'pass1');
 
+insert into rentacar (rentacar_name, rentacar_adress, rentacar_description) values ('Nevian Rent a Car','Banjsak 14, Beograd','NEVIAN rent a car Beograd je kompanija iz Beograda, osnovana 2017. godine. Cilj nam je da vrhunskom uslugom i povoljnim cenama zadovoljimo potrebe naših korisnika.');
+insert into rentacar (rentacar_name, rentacar_adress, rentacar_description) values ('AAA 1 Rent','Zorza Klemansoa 19, Beograd','Bez opisa');
+insert into rentacar (rentacar_name, rentacar_adress, rentacar_description) values ('Abakus Rent Rent a Car','Vidovdanska 11, Beograd','Najpovoljniji Rentacar u Beogradu i na Aerodromu Nikola Tesla.Besplatna dostava u Beogradu i odlicni uslovi iznajmljivanja vozila.');
+insert into rentacar (rentacar_name, rentacar_adress, rentacar_description) values ('Dollar Rent-a-Car UAE','Arenco Building, Zabeel Road, Dubai','Dollar rentacar ima filijale na preko 640 svetskih lokacija u 53 zemlje, sa preko 200 hiljada vozila');
+insert into rentacar (rentacar_name, rentacar_adress, rentacar_description) values ('Hertz Rentacar','Berlin-Charlottenburg, Kaiserdamm 25a, Berlin','Jedna od vodecih rentacar kompanija u Berlinu');
+insert into rentacar (rentacar_name, rentacar_adress, rentacar_description) values ('Avis Rent A Car','Komsomolskaya Square 3, Moskva','Najpopularnija rentacar kompanija u moskvi');
 
+insert into renta_branch (branch_name, branch_location, rentacar_rentacar_id) values ('Nevian', 'Beograd aerodrom', 1);
+insert into renta_branch (branch_name, branch_location, rentacar_rentacar_id) values ('Nevian', 'Beograd centar', 1);
+insert into renta_branch (branch_name, branch_location, rentacar_rentacar_id) values ('AAA 1', 'Novi Beograd', 2);
+insert into renta_branch (branch_name, branch_location, rentacar_rentacar_id) values ('Dollar', 'ABU DHABI AIRPORT TERMINAL 3', 3);
+insert into renta_branch (branch_name, branch_location, rentacar_rentacar_id) values ('Dollar', 'CROWNE PLAZA - YAS ISLAND', 3);
+insert into renta_branch (branch_name, branch_location, rentacar_rentacar_id) values ('Dollar', 'DOLLAR HEAD OFFICE MUSSAFAH, ABU DHABI', 3);
+insert into renta_branch (branch_name, branch_location, rentacar_rentacar_id) values ('Hertz', 'Berlin', 4);
+insert into renta_branch (branch_name, branch_location, rentacar_rentacar_id) values ('Hertz', 'Basel', 4);
+insert into renta_branch (branch_name, branch_location, rentacar_rentacar_id) values ('Hertz', 'Dublin', 4);
+insert into renta_branch (branch_name, branch_location, rentacar_rentacar_id) values ('AVIS', 'Los Andjeles', 5);
+insert into renta_branch (branch_name, branch_location, rentacar_rentacar_id) values ('AVIS', 'London', 5);
+insert into renta_branch (branch_name, branch_location, rentacar_rentacar_id) values ('AVIS', 'Frankfurt', 5);
+
+insert into car (car_brand, car_model, car_name, car_year, number_of_seats, price, dropof_date, pickup_date, dropof_location, pickup_location, rentacar_rentacar_id, tip, version) values ('Mercedes','C180','Mercedes',2002,5,100.0, '2019-02-05', '2019-02-06','lok1','lok2', 1, 'Karavan', 1);
+insert into car (car_brand, car_model, car_name, car_year, number_of_seats, price, dropof_date, pickup_date, dropof_location, pickup_location, rentacar_rentacar_id, tip, version) values ('Mercedes','W213','Mercedes',2017,5,220.0,'1111-11-11','1111-11-11','lok1','lok2', 2, 'Karavan', 1);
+insert into car (car_brand, car_model, car_name, car_year, number_of_seats, price, dropof_date, pickup_date, dropof_location, pickup_location, rentacar_rentacar_id, tip, version) values ('BMW','Serije 3','BMW',2017,5,200.0,'1111-11-11','1111-11-11','lok1','lok2', 3, 'Kombi', 1);
+insert into car (car_brand, car_model, car_name, car_year, number_of_seats, price, dropof_date, pickup_date, dropof_location, pickup_location, rentacar_rentacar_id, tip, version) values ('BMW','M140i','BMW',2015,5,190.0,'1111-11-11','1111-11-11','lok1','lok2', 1, 'Kombi', 1);
+insert into car (car_brand, car_model, car_name, car_year, number_of_seats, price, dropof_date, pickup_date, dropof_location, pickup_location, rentacar_rentacar_id, tip, version) values ('AUDI','Q2','Mercedes',2012,5,120.0,'1111-11-11','1111-11-11','lok1','lok2', 2, 'Kombi', 1);
+insert into car (car_brand, car_model, car_name, car_year, number_of_seats, price, dropof_date, pickup_date, dropof_location, pickup_location, rentacar_rentacar_id, tip, version) values ('AUDI','A6','Audi',2006,5,100.0,'1111-11-11','1111-11-11','lok1','lok2', 3, 'Karavan', 1);
+insert into car (car_brand, car_model, car_name, car_year, number_of_seats, price, dropof_date, pickup_date, dropof_location, pickup_location, rentacar_rentacar_id, tip, version) values ('FIAT','500','Fica',2016,5,180.0,'1111-11-11','1111-11-11','lok1','lok2', 1, 'Karavan', 1);
+insert into car (car_brand, car_model, car_name, car_year, number_of_seats, price, dropof_date, pickup_date, dropof_location, pickup_location, rentacar_rentacar_id, tip, version) values ('FIAT','Punto','Fiat',2005,4,80.0,'1111-11-11','1111-11-11','lok1','lok2',2, 'Kupe', 1);
+insert into car (car_brand, car_model, car_name, car_year, number_of_seats, price, dropof_date, pickup_date, dropof_location, pickup_location, rentacar_rentacar_id, tip, version) values ('PEUGEOT','308','PEUGEOT',2007,5,110.0,'1111-11-11','1111-11-11','lok1','lok2', 3, 'Karavan', 1);
+insert into car (car_brand, car_model, car_name, car_year, number_of_seats, price, dropof_date, pickup_date, dropof_location, pickup_location, rentacar_rentacar_id, tip, version) values ('PEUGEOT','307','PEUGEOT',2010,5,150.0,'1111-11-11','1111-11-11','lok1','lok2', 4, 'Kupe', 1);
+insert into car (car_brand, car_model, car_name, car_year, number_of_seats, price, dropof_date, pickup_date, dropof_location, pickup_location, rentacar_rentacar_id, tip, version) values ('Zastava','55','Yugo',1985,4,20.0,'1111-11-11','1111-11-11','lok1','lok2', 4, 'Karavan', 1);

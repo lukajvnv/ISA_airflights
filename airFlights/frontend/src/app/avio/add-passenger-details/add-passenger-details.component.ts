@@ -83,7 +83,7 @@ export class AddPassengerDetailsComponent implements OnInit {
 
       this.bookingService.makeReservation(reservation).subscribe( () => {
         alert('Uspesno uradjeno rezervacija');
-        this.router.navigate(['']);
+        this.router.navigate(['search']);
       });
     }
   }
