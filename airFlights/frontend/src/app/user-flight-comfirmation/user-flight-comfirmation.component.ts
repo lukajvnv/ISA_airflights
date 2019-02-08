@@ -1,5 +1,5 @@
 import { BookingService } from './../services/booking.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { Reservation } from '../models/reservation.model';
 
@@ -10,7 +10,8 @@ import { Reservation } from '../models/reservation.model';
 })
 export class UserFlightComfirmationComponent implements OnInit {
 
-  constructor(private activatedRoute: ActivatedRoute, private bookingService: BookingService) { }
+  constructor(private activatedRoute: ActivatedRoute, private bookingService: BookingService,
+    private router: Router) { }
 
   reservationId: string;
 
@@ -34,6 +35,7 @@ export class UserFlightComfirmationComponent implements OnInit {
       this.reservation.passportNum = this.passportNum;
       this.bookingService.acceptFlight(this.reservation).subscribe(data => {
         alert('Uspesno prihvacen let');
+        this.router.navigate(['search']);
       });
     }
   }
@@ -41,6 +43,7 @@ export class UserFlightComfirmationComponent implements OnInit {
   decline() {
       this.bookingService.refuseFlight(this.reservation).subscribe(data => {
         alert('Uspesno otkazan let');
+        this.router.navigate(['search']);
       });
   }
 

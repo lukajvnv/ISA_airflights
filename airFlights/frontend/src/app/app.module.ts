@@ -155,12 +155,13 @@ import { ViewAllAirlinesComponent } from './avio/view-all-airlines/view-all-airl
         path: 'rentacar/update/:rentacarId',
         component: UpdateRentacarComponent
       },
+      {path : 'search', component : SearchFlightComponent},
       {
         path: 'searchRentacar',
         component: SearchRentacarComponent
       },
       {path : 'flights/search', component : SearchFlightComponent},
-      {path : 'analytics/:airlineId', component: AvioAnalyticsComponent,  },
+      {path : 'analytics/:airlineId', component: AvioAnalyticsComponent},
       {path : 'analytics/marks/:airlineId', component: AvioAnalyticsMarksComponent },
       {path : 'analytics/report/:airlineId', component: AvioAnalyticsReportComponent },
       {path : 'analytics/income/:airlineId', component: AvioAnalyticsIncomeComponent },

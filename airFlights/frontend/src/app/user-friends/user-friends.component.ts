@@ -20,7 +20,8 @@ export class UserFriendsComponent implements OnInit {
   constructor(private bookingService: BookingService) { }
 
   ngOnInit() {
-    this.currentUser = new User('Luka', 'Jovanovic', '', '', 0, 'pass1');
+    // this.currentUser = new User('pass1');
+
     /*this.prijatelji.push(new User('Luka', 'Jovanovic', '', '', 0, 'pass1'));
     this.prijatelji.push(new User('Mladen', 'Jovanovic', '', '', 0, ''));
     this.prijatelji.push(new User('Luka', 'Ivanovic', '', '', 0, ''));

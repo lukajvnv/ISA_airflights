@@ -22,7 +22,12 @@ export class ViewFlightComponent implements OnInit {
   loggedUser: boolean;
 
   ngOnInit() {
-    this.loggedUser = true;
+    // this.loggedUser = true;
+    const username: string = localStorage.getItem('currentUser');
+    if (username) {
+      // this.currentUser =  new User(username);
+      this.loggedUser = true;
+    }
     this.activatedRoute.paramMap.subscribe(params => {
       const flightId: string = params.get('flightId');
       this.flightService.getFlight(flightId).subscribe(data => {

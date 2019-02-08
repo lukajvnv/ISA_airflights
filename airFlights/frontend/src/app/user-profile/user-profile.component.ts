@@ -1,3 +1,4 @@
+import { BookingService } from './../services/booking.service';
 import { User } from './../models/user.model';
 import { Component, OnInit } from '@angular/core';
 
@@ -8,14 +9,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UserProfileComponent implements OnInit {
 
-  constructor() { }
+  constructor(private bookingService: BookingService) { }
 
 
-  activeTab = 'profile';
+  activeTab = 'friends';
   currentUser: User;
 
   ngOnInit() {
-    this.currentUser = new User('Luka', 'Jovanovic', 'Drage Spasic', 'lukajvnv@gmail.com', 4454, 'pass1');
+    // this.currentUser = new User('pass1');
+    const username: string = localStorage.getItem('currentUser');
+    if (username) {
+      // this.currentUser =  new User(username);
+      this.bookingService.getUser(username).subscribe(data => {
+        this.currentUser = data;
+      });
+    }
   }
 
 }

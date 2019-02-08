@@ -22,7 +22,7 @@ export class UserFriendRequestComponent implements OnInit {
     this.zahtevi.push(new User('Luka', 'Ivanovic', '', '', 0, ''));
     this.zahtevi.push(new User('Luka', 'Jokic', '', '', 0, ''));
     this.zahtevi.push(new User('Nenad', 'Hajduk', '', '', 0, ''));*/
-    this.currentUser = new User('Luka', 'Jovanovic', '', '', 0, 'pass2');
+    // this.currentUser = new User('pass2');
 
 
     this.bookingService.getFriendRequets(this.currentUser).subscribe(data => {

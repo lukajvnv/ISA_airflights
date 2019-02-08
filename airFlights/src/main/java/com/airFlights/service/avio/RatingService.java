@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.airFlights.model.avio.Airline;
@@ -37,6 +38,9 @@ public class RatingService {
 	
 	@Autowired
 	private AirlineTicketRepository airlineTicketRepository;
+	
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 	
 	public String getAirlineRating(Integer airlineId) {
 		Airline airline = airlineRepository.findById(airlineId).get();
@@ -128,5 +132,16 @@ public class RatingService {
 		
 		//Integer profit = airlineTicketRepository.getAirlineReportBetween(airline, query.getFrom(), query.getTo());
 		return values;
+	}
+	
+	public void genPass() {
+		for(int i = 1; i < 7; i++) {
+			String s = passwordEncoder.encode("pass" + i);
+			System.out.println(s);
+		}
+		
+		String s1 = passwordEncoder.encode("airSerbia");
+		System.out.println(s1);
+
 	}
 }

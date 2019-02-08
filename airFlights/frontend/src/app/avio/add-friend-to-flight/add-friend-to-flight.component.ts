@@ -32,17 +32,25 @@ export class AddFriendToFlightComponent implements OnInit {
   ngOnInit() {
     this.searchFlightObject = JSON.parse(sessionStorage.getItem('searchFilterObject'));
 
-    this.currentUser = new User('Luka', 'Jovanovic', '', '', 0, 'pass1');
+    // this.currentUser = new User('Luka', 'Jovanovic', '', '', 0, 'pass1');
+    const username: string = localStorage.getItem('currentUser');
+    if (username) {
+      // this.currentUser =  new User(username);
+      this.bookingService.getUser(username).subscribe(data => {
+        this.currentUser = data;
+        this.bookingService.getFriends(this.currentUser).subscribe(d => {
+          this.korisnici = d;
+          this.filtriraniKorisnici = this.korisnici;
+        });
+      });
+    }
 
     /*this.korisnici.push(new User('Luka', 'Jovanovic', '', '', 0, ''));
     this.korisnici.push(new User('Mladen', 'Jovanovic', '', '', 0, ''));
     this.korisnici.push(new User('Luka', 'Ivanovic', '', '', 0, ''));
     this.korisnici.push(new User('Luka', 'Jokic', '', '', 0, ''));
     this.korisnici.push(new User('Nenad', 'Hajduk', '', '', 0, ''));*/
-    this.bookingService.getFriends(this.currentUser).subscribe(data => {
-      this.korisnici = data;
-      this.filtriraniKorisnici = this.korisnici;
-    });
+
 
     // this.filtriraniKorisnici = this.korisnici;
     this.activatedRoute.paramMap.subscribe(params => {
@@ -115,8 +123,5 @@ export class AddFriendToFlightComponent implements OnInit {
     }, err => {
         alert('Greska prilikom pozivanja na let');
     });
-
-
-
   }
 }

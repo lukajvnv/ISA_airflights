@@ -7,7 +7,7 @@ import { AirlineService } from './../../services/airline.service';
 import { FlightService } from './../../services/flight.service';
 import { SearchFlightParams } from './../../models/search-flight-params.model';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NgbTimeStruct } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
@@ -36,7 +36,7 @@ export class ViewFlightResultComponent implements OnInit {
 
 
   constructor(private searchFlightObject: SearchFlightParams, private activatedRoute: ActivatedRoute,
-     private flightService: FlightService, private airlineService: AirlineService) {
+     private flightService: FlightService, private airlineService: AirlineService, private router: Router) {
 
      }
 
@@ -169,5 +169,9 @@ export class ViewFlightResultComponent implements OnInit {
       }
     });
 
+  }
+
+  back () {
+    this.router.navigate(['search']);
   }
 }
