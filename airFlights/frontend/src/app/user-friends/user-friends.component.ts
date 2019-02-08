@@ -41,6 +41,16 @@ export class UserFriendsComponent implements OnInit {
 
   }
 
+  sortIme() {
+    console.log('ime');
+    this.prijatelji.sort(this.sortByName);
+  }
+
+  sortPrezime() {
+    console.log('prezime');
+    this.prijatelji.sort(this.sortByLastName);
+  }
+
   filterIme(ime: string) {
     this.filtriraniKorisnici = (ime) ?
       this.filtriraniKorisnici.filter( k => k.firstName.toLowerCase().includes(ime.toLowerCase())) :
@@ -73,6 +83,26 @@ export class UserFriendsComponent implements OnInit {
     err => {
       alert('Greska prilikom uklanjanja prijatelja');
     });
+  }
+
+  sortByName(user1: User, user2: User) {
+    if (user1.firstName > user2.lastName) {
+      return 1;
+    }
+    if (user1.firstName < user2.lastName) {
+      return -1;
+    }
+    return 0;
+  }
+
+  sortByLastName(user1: User, user2: User) {
+    if (user1.lastName > user2.lastName) {
+      return 1;
+    }
+    if (user1.lastName < user2.lastName) {
+      return -1;
+    }
+    return 0;
   }
 
 }

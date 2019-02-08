@@ -37,10 +37,6 @@ public class AirlineService {
 		return airline.getDiscountTickets();
 	}
 	
-//	public void removeAirline(Integer index) {
-//		airlineRepository.deleteById(index);
-//	}
-	
 	public void updateAirline(Airline persistAirline, AirlineDTO airline) {
 		persistAirline.setName(airline.getName());
 		persistAirline.setAddress(airline.getAddress());
@@ -57,27 +53,6 @@ public class AirlineService {
 		airlineRepository.save(persistAirline);
 	}
 		
-	public String getAverageMark(Integer index) {
-		Airline airline = findAirlineById(index);
-		
-		int ratingSum, ratingNum;
-		String text = "Prosecna ocena kompanije:";
-		
-		try {
-			ratingSum = airline.getRatingSum();
-			ratingNum = airline.getRatingNumber();
-			if(ratingNum == 0) {
-				throw new NullPointerException();
-			}
-			text += ratingSum/ratingNum;
-		} catch (NullPointerException e) {
-			text += "Nije moguce dobiti prosecnu ocenu";
-			return text;
-		} 
-		return text;
-			
-	}
-	
 	public void addNewDestination(Destination destination) {
 		destinationRepository.saveAndFlush(destination);
 	}

@@ -3,8 +3,12 @@ package com.airFlights.service.avio;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.OptimisticLockException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.airFlights.dto.ReservationDTO;
 import com.airFlights.dto.UserDTO;
@@ -51,12 +55,15 @@ public class BookingService {
 	}
 	
 	public List<FlightSeat> addNewSeat(FlightSeatDTO seat) throws Exception{
-		FlightSeat seatExist = seatRepository.findBySeatNumber(seat.getSeatNumber());
+		Flight flight = flightRepository.findById(seat.getFlight().getFlightId()).get();
+		
+		FlightSeat seatExist = seatRepository.findBySeatNumberAndFlight(seat.getSeatNumber(), flight);
+		
+		//dodavanje sedista sa brojem koji vec postoji
 		if(seatExist != null) {
 			throw new Exception();
 		}
 		
-		Flight flight = flightRepository.findById(seat.getFlight().getFlightId()).get();
 		FlightSeat newSeat = new FlightSeat(false, false, seat.getSeatNumber(), flight);
 		
 		seatRepository.saveAndFlush(newSeat);
@@ -84,10 +91,15 @@ public class BookingService {
 		
 		Flight flight = flightRepository.findById(ticket.getFlight().getFlightId()).get();
 		Airline airline = flight.getAirline();
+		
 		FlightSeat seat = seatRepository.findById(ticket.getSeat().getId()).get();
+		
+		//u slucaju da sediste ne postoji vise
 		if(seat == null) {
 			throw new Exception("Nije moguce rezervisati zelljeno sediste");
 		}
+		
+		// u slucaju da je neko rezervisao mesto u medjuvremenu
 		if(seat.isReserved()) {
 			throw new Exception("Nije moguce rezervisati zelljeno sediste");
 		}
@@ -107,8 +119,8 @@ public class BookingService {
 	}
 	
 	
-	
-	public Reservation makeReservation(ReservationDTO reservationFront) throws Exception {
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW, rollbackFor = OptimisticLockException.class)
+	public Reservation makeReservation(ReservationDTO reservationFront) throws OptimisticLockException , Exception {
 		
 		String userUsername = reservationFront.getUser().getUsername();
 		User user = userRepository.findByUsername(userUsername);
@@ -119,9 +131,13 @@ public class BookingService {
 		ticket.setSellingDate(new Date());
 		
 		FlightSeat seat = seatRepository.findById(ticketFront.getSeat().getId()).get();
+		
+		//u slucaju da sediste ne postoji vise
 		if(seat == null) {
 			throw new Exception("Nije moguce rezervisati zelljeno sediste");
 		}
+		
+		// u slucaju da je neko rezervisao mesto u medjuvremenu
 		if(seat.isReserved()) {
 			throw new Exception("Nije moguce rezervisati zelljeno sediste");
 		}
@@ -145,7 +161,8 @@ public class BookingService {
 		return save;
 	}
 	
-	public Reservation makeQuickReservation(ReservationDTO reservationFront) {
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW, rollbackFor = OptimisticLockException.class)
+	public Reservation makeQuickReservation(ReservationDTO reservationFront) throws OptimisticLockException{
 		
 		String userUsername = reservationFront.getUser().getUsername();
 		User user = userRepository.findByUsername(userUsername);

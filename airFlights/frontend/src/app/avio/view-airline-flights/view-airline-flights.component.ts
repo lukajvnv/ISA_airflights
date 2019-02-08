@@ -23,7 +23,7 @@ export class ViewAirlineFlightsComponent implements OnInit {
   currentUser: User;
 
   ngOnInit() {
-    this.isRightAdmin = true;
+    this.isRightAdmin = false;
 
     this.currentUser = new User('Luka', 'Airline', 'lukajvnv@gmail.com', 'Novi Sad', 0, 'airSerbia');
 
@@ -40,6 +40,10 @@ export class ViewAirlineFlightsComponent implements OnInit {
         }
       });
     });
+  }
+
+  profilKompanije() {
+    this.router.navigate(['airline', this.airlineId]);
   }
 
   pogledajDetalje( flight: Flight) {

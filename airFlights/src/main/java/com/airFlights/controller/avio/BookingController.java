@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import javax.persistence.OptimisticLockException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -55,6 +57,21 @@ public class BookingController {
 			bookingService.makeReservation(newReservation);
 			mailService.sendFinishedReservationNotification(newReservation);
 			return new ResponseEntity<>(HttpStatus.OK);
+		} catch (OptimisticLockException o) {
+			return new ResponseEntity<>("Nije moguce rezervisati zeljeno mesto", HttpStatus.CONFLICT);
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+	}
+	
+	@RequestMapping(path = "/buy/quickTicket", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<String> quickTicketReservation(@RequestBody ReservationDTO newReservation){
+		try {
+			bookingService.makeQuickReservation(newReservation);
+			mailService.sendFinishedReservationNotification(newReservation);
+			return new ResponseEntity<>(HttpStatus.OK);
+		} catch (OptimisticLockException o) {
+			return new ResponseEntity<>("Nije moguce rezervisati zeljeno mesto", HttpStatus.CONFLICT);
 		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 
@@ -171,6 +188,8 @@ public class BookingController {
 				mailService.sendFriendFlightInvitationNotification(inviter, savedReservation);
 			}
 			return new ResponseEntity<>(HttpStatus.OK);
+		} catch (OptimisticLockException o) {
+			return new ResponseEntity<>(HttpStatus.BAD_GATEWAY);
 		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.CONFLICT);
 		}

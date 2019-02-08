@@ -14,4 +14,7 @@ public interface FlightSeatRepository extends JpaRepository<FlightSeat, Integer>
 	
 	FlightSeat findBySeatNumber(Integer seatNum);
 	
+	FlightSeat findBySeatNumberAndFlight(Integer seatNum, Flight flight);
+
+	
 }

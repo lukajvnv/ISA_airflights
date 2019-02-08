@@ -12,7 +12,7 @@ import { User } from 'src/app/models/user.model';
 export class ViewAirlineComponent implements OnInit {
 
   isRightAdmin: boolean;
-  isCollapsed: true;
+  isCollapsed: boolean;
 
   @Input()
   currentAirline: Airline;

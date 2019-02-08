@@ -2,7 +2,7 @@ import { BookingService } from 'src/app/services/booking.service';
 import { FlightTicket } from './../../models/flight-ticket';
 import { AirlineService } from './../../services/airline.service';
 import { Airline } from 'src/app/models/airline.model';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit, Input } from '@angular/core';
 import { Reservation } from 'src/app/models/reservation.model';
 import { User } from 'src/app/models/user.model';
@@ -15,7 +15,7 @@ import { User } from 'src/app/models/user.model';
 export class ViewAirlineTicketsComponent implements OnInit {
 
   constructor(private activatedRoute: ActivatedRoute, private airlineService: AirlineService,
-    private bookingService: BookingService) { }
+    private bookingService: BookingService, private router: Router) { }
 
   quickTickets: FlightTicket[] = [];
 
@@ -45,6 +45,10 @@ export class ViewAirlineTicketsComponent implements OnInit {
     this.selectedTicket = r;
   }
 
+  profilKompanije() {
+    this.router.navigate(['airline', this.airlineId]);
+  }
+
   makeReservation() {
     if (!this.passportInfo) {
       alert('Unesite podatke za pasos');
@@ -53,6 +57,8 @@ export class ViewAirlineTicketsComponent implements OnInit {
     const reservation = new Reservation(this.selectedTicket, this.currentUser, this.passportInfo);
     this.airlineService.bookQuickTicket(reservation).subscribe(data => {
       alert('Uspesno uradjeno rezervacija');
+      this.selectedTicket = undefined;
+      this.isCollapsed = true;
       this.airlineService.getQuickTickets(this.airlineId).subscribe(d => {
         this.quickTickets = d;
       });
