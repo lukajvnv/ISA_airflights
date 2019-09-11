@@ -1,0 +1,47 @@
+<h2>Dodavanje hotela:</h2>
+<form [formGroup] = "noviHotelForm" (ngSubmit) = "onSubmit()">
+  <table class = "table">
+      <tr>
+          <td>Naziv hotela</td>
+          <td>Država</td>
+          <td>Grad</td>
+          <td>Adresa</td>
+          <td>Promo opis</td>
+          
+      </tr>
+      <tr>
+        <td>
+          <input type = "text" formControlName = "naziv" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.naziv.errors }">
+          <div *ngIf="submitted && f.naziv.errors" class="invalid-feedback">
+            <div *ngIf="f.naziv.errors.required">Ovo polje je obavezno!</div>
+          </div>
+        </td>
+        <td>
+            <input type = "text" formControlName = "drzava" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.drzava.errors }">
+            <div *ngIf="submitted && f.drzava.errors" class="invalid-feedback">
+              <div *ngIf="f.drzava.errors.required">Ovo polje je obavezno!</div>
+            </div>
+          </td>
+          <td>
+              <input type = "text" formControlName = "grad" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.grad.errors }">
+              <div *ngIf="submitted && f.grad.errors" class="invalid-feedback">
+                <div *ngIf="f.grad.errors.required">Ovo polje je obavezno!</div>
+              </div>
+            </td>
+            <td>
+                <input type = "text" formControlName = "adresa" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.grad.errors }">
+                <div *ngIf="submitted && f.adresa.errors" class="invalid-feedback">
+                  <div *ngIf="f.adresa.errors.required">Ovo polje je obavezno!</div>
+                </div>
+              </td>
+              <td>
+                <input type = "text" formControlName = "promoOpis" class="form-control">
+              </td>
+      </tr>     
+      <tr>
+          <td *ngIf = "!updateHotel"  colspan = "4"><button class="btn btn-primary">Registruj hotel</button></td>
+          <td *ngIf = "updateHotel" colspan = "4"><button class="btn btn-primary">Izmeni hotel</button></td>
+      </tr>
+  
+  </table>
+  </form>

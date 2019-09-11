@@ -1,0 +1,24 @@
+.list-group-item.list-group-item-action { cursor: pointer; }
+
+.slider {margin: 0px 20px;}
+
+/*#ex1Slidesdr .slider-selection {
+	color: rgb(255, 0, 186);
+}*/
+
+div.divTimeFilter {display: inline-block;}
+
+.vl {
+  border-left: 6px solid green;
+  height: 80px;
+  position: absolute;
+  right: 25%;
+  margin-left: -3px;
+  /* top: 0;*/
+}
+
+.oneFlight {
+  border: 2px solid red;
+  margin-top:5px;
+  background-color: beige;
+}

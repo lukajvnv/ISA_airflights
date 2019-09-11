@@ -1,0 +1,41 @@
+<form [formGroup] = "novaSobaForm" (ngSubmit) = "onSubmit()">
+    <table class = "table">
+        <tr>
+            <td>Broj sobe</td>
+            <td>Opis</td>
+            <td>Broj kreveta</td>
+            <td>Sprat</td>
+            
+        </tr>
+        <tr>
+          <td>
+            <input type = "number" formControlName = "brojSobe" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.brojSobe.errors }">
+            <div *ngIf="submitted && f.brojSobe.errors" class="invalid-feedback">
+                <div *ngIf="f.brojSobe.errors.required">Ovo polje je obavezno!</div>
+              </div>  
+        </td>
+          <td>
+              <input type = "text" formControlName = "opis" >
+            
+            </td>
+            <td>
+                <input type = "number" formControlName = "brojKreveta" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.brojKreveta.errors }">
+                <div *ngIf="submitted && f.brojKreveta.errors" class="invalid-feedback">
+                    <div *ngIf="f.brojKreveta.errors.required">Ovo polje je obavezno!</div>
+                  </div>  
+            </td>
+              <td>
+                  <input type = "number" formControlName = "sprat" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.sprat.errors }">
+                  <div *ngIf="submitted && f.sprat.errors" class="invalid-feedback">
+                    <div *ngIf="f.sprat.errors.required">Ovo polje je obavezno!</div>
+                  </div>
+                </td>
+        </tr>
+        <tr>
+            <td *ngIf = "!zaUpdate" colspan = "4" ><button class="btn btn-primary" >Dodaj sobu</button></td>
+            <td *ngIf = "zaUpdate" colspan = "4"><button class="btn btn-primary">Izmeni sobu</button></td>
+        </tr>
+    
+    </table>
+    </form>
+    

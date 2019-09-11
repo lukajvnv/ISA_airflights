@@ -1,0 +1,162 @@
+<form *ngIf = "showForm" [formGroup] = "rezervisiSobeForm" (ngSubmit) = "onSubmit()">
+  <div class="form-group row">
+    <label for="datumDolaska" class="col-sm-2 col-form-label">Datum dolaska</label>
+    <div class="col-sm-10">
+      <input type="date" class="form-control" id="datumDolaska"  formControlName = "datumDolaska" [ngClass]="{ 'is-invalid': submitted && f.datumDolaska.errors }">
+      <div *ngIf="submitted && f.datumDolaska.errors" class="invalid-feedback">
+        <div *ngIf="f.datumDolaska.errors.required">Ovo polje je obavezno!</div>
+      </div>
+    </div>
+  </div>
+  <div class="form-group row">
+    <label for="brojNocenja" class="col-sm-2 col-form-label">Broj noćenja</label>
+    <div class="col-sm-10">
+      <input type="number" class="form-control" id="brojNocenja" value="0" formControlName ="brojNocenja"[ngClass]="{ 'is-invalid': submitted && f.brojNocenja.errors }">
+      <div *ngIf="submitted && f.brojNocenja.errors" class="invalid-feedback">
+        <div *ngIf="f.brojNocenja.errors.required">Ovo polje je obavezno!</div>
+      </div>
+    </div>
+  </div>
+  <div class="form-group row">
+    <label for="brojGostiju" class="col-sm-2 col-form-label">Broj gostiju</label>
+    <div class="col-sm-10">
+      <input type="number" class="form-control" id="brojGostiju" value="0" formControlName ="brojGostiju"[ngClass]="{ 'is-invalid': submitted && f.brojGostiju.errors }" >
+      <div *ngIf="submitted && f.brojGostiju.errors" class="invalid-feedback">
+        <div *ngIf="f.brojGostiju.errors.required">Ovo polje je obavezno!</div>
+      </div>
+    </div>
+  </div>
+  <div class="form-group row">
+    <label for="cenaPoNocenjuOd" class="col-sm-2 col-form-label">Ukupna cena rezervacije soba od:</label>
+    <div class="col-sm-10">
+      <input type="number" class="form-control" id="cenaPoNocenjuOd" formControlName ="cenaPoNocenjuOd">
+    </div>
+  </div>
+  <div class="form-group row">
+    <label for="cenaPoNocenjuDo" class="col-sm-2 col-form-label">Ukupna cena rezervacije soba do</label>
+    <div class="col-sm-10">
+      <input type="number" class="form-control" id="cenaPoNocenjuDo" formControlName ="cenaPoNocenjuDo">
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <div class="col-sm-10">
+      <button type="submit" class="btn btn-primary">Dalje</button>
+    </div>
+  </div>
+</form>
+
+<h2 *ngIf = "showSobe"> Dostupne sobe</h2>           
+<table class="table" *ngIf = "showSobe">
+  <thead>
+    <tr>
+      <th>Broj sobe</th>
+      <th>Opis</th>
+      <th>Broj kreveta</th>
+      <th>Sprat</th>
+      <th>Prosecna ocena</th>
+      <th>Ukupna cena za sva nocenja</th>
+      <th>Rezervacija</th>
+      
+      
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let retVal of listaSoba">
+      <td>{{retVal.soba.brojSobe}}</td>
+      <td>{{retVal.soba.opis}}</td>
+      <td>{{retVal.soba.brojKreveta}}</td>
+      <td>{{retVal.soba.sprat}}</td>
+      <td *ngIf = "retVal.ocena!=0">{{retVal.ocena}}</td>
+      <td *ngIf = "retVal.ocena==0">Nema ocenu</td>
+      <td>{{retVal.ukupnaCena}}</td>
+      <td><input type="checkbox" name="sobe" value="{{retVal.soba.id}}"></td>
+    </tr>
+    <tr>
+  </tbody>
+</table>
+<button *ngIf = "showSobe" type="submit" class="btn btn-primary" (click) = "onOdabirSobaClick()">Dodatne usluge</button>
+<button *ngIf = "showSobe"  class="btn btn-primary" (click) = "onBackToFormClick()">Nazad na formu</button>
+
+<h2 *ngIf = "showUsluge">Dodatne usluge</h2>
+<p *ngIf = "showUsluge">Ukupna cena svih rezervisanih soba: {{ukupnaCenaSvihSoba}} RSD</p> 
+<table class="table" *ngIf = "showUsluge">
+  <thead>
+    <tr>
+      <th>Naziv usluge</th>
+      <th>Opis</th>
+      <th>Cena</th>
+      <th>Popust pri korišćenju usluge</th>
+      <th>Dodaj uslugu</th>
+      
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let usluga of listaUsluga">
+      <td>{{usluga.naziv}}</td>
+      <td>{{usluga.opis}}</td>
+      <td>{{usluga.cena}}</td>
+      <td>{{usluga.popust}}%</td>
+      <td><input type="checkbox" name="usluge" value="{{usluga.id}}"></td>
+    </tr>
+    <tr>
+  </tbody>
+</table>
+<button *ngIf = "showUsluge" type="submit" class="btn btn-primary" (click) = "onIzvrsiRezervacijuClick()">Izvrsi rezervaciju</button>
+<button *ngIf = "showUsluge"  class="btn btn-primary" (click) = "onBackToSobeClick()">Nazad na odabir soba</button>
+
+<h2 *ngIf = "showSazetak"> Sažetak rezervacije: </h2>
+<h3 *ngIf = "showSazetak">Rezervisane sobe: </h3>
+<table class="table" *ngIf = "showSazetak">
+  <thead>
+    <tr>
+      <th>Broj sobe</th>
+      <th>Opis</th>
+      <th>Broj kreveta</th>
+      <th>Sprat</th>
+      <th>Prosecna ocena</th>
+      <th>Ukupna cena za sva nocenja</th>
+      
+      
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let retVal of rezervacija.sobe">
+      <td>{{retVal.soba.brojSobe}}</td>
+      <td>{{retVal.soba.opis}}</td>
+      <td>{{retVal.soba.brojKreveta}}</td>
+      <td>{{retVal.soba.sprat}}</td>
+      <td *ngIf = "retVal.ocena!=0">{{retVal.ocena}}</td>
+      <td *ngIf = "retVal.ocena==0">Nema ocenu</td>
+      <td>{{retVal.ukupnaCena}}</td>      
+    </tr>
+    <tr>
+  </tbody>
+</table>
+<h3 *ngIf = "showSazetak">Dodatne usluge</h3>
+<table class="table" *ngIf = "showSazetak">
+  <thead>
+    <tr>
+      <th>Naziv usluge</th>
+      <th>Opis</th>
+      <th>Cena</th>
+      <th>Popust pri korišćenju usluge</th>
+      
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let usluga of rezervacija.usluge">
+      <td>{{usluga.naziv}}</td>
+      <td>{{usluga.opis}}</td>
+      <td>{{usluga.cena}}</td>
+      <td>{{usluga.popust}}%</td>
+    </tr>
+    <tr>
+  </tbody>
+</table>
+<button *ngIf = "showSazetak" type="submit" class="btn btn-primary" (click) = "onPotvrdiRezervacijuClick()">Potvrdi rezervaciju bez auta</button>
+<button *ngIf = "showSazetak" type="submit" class="btn btn-primary" (click) = "onPotvrdiRezervacijuSaAutomClick()">Potvrdi rezervaciju sa autom</button>
+<button *ngIf = "showSazetak"  class="btn btn-primary" (click) = "onBackToUslugeClick()">Nazad na odabir usluga</button>
+<h4 *ngIf = "showSazetak" >Ukupna cena je: {{ukupnaSve}} RSD</h4>
+<h4 *ngIf = "showSazetak">Ukupan popust je: {{ukupanPopustSvihUsluga}}% </h4>
+<h4 *ngIf = "showSazetak">Ukupna cena sa popustom je: {{ukupnaCenaSaPopustom}} RSD</h4>

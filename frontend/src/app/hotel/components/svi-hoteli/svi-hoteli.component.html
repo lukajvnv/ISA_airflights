@@ -1,0 +1,44 @@
+<div class="jumbotron text-center">
+  <h1>Spisak svih hotela</h1>
+</div>
+<form [formGroup] = "searchHotelForm">
+  <table class = "table">
+      <tr>
+          <td>Naziv</td>
+          <td>Adresa</td>
+          <td>Grad</td>
+          <td>Država</td>
+          <td>Pretraga</td>
+          
+      </tr>
+      <tr>
+        <td>
+          <input type = "text" formControlName = "naziv">
+        </td>
+        <td>
+            <input type = "text" formControlName = "adresa">
+          </td>
+          <td>
+              <input type = "text" formControlName = "grad">
+            </td>
+            <td>
+                <input type = "text" formControlName = "drzava">
+              </td>
+    
+              <td ><button (click) = "pretraziHotele()">Pretraži hotele</button></td>
+            
+      </tr>  
+  </table>
+  </form>
+<div class="container mx-auto">
+  <div class="row mx-auto">
+    <div class="well col-sm-3" *ngFor = "let hotel of filtriraniHoteli"> 
+      <h3>{{hotel?.naziv}}</h3>
+      <p>Država: {{hotel?.drzava}}</p>
+      <p>Grad: {{hotel?.grad}}</p>
+      <p>Adresa: {{hotel?.adresa}}</p>
+      <p>{{hotel?.promoOpis}}</p>
+      <p><a [href]="urlHotel + hotel?.id">Prikazi detalje</a></p>
+      <!-- <p><a [href]="urlHotelUredjuj + hotel?.id" >Uredjuj stranicu</a></p> -->
+  </div>
+</div>

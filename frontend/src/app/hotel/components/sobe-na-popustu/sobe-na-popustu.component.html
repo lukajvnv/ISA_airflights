@@ -1,0 +1,50 @@
+<form [formGroup] = "rezervacijaForm">
+  <div class="form-group row">
+    <label for="datumOd" class="col-sm-2 col-form-label">Od datuma</label>
+    <div class="col-sm-10">
+      <input type="date" class="form-control" id="datumOd"  formControlName = "datumOd" >
+
+    </div>
+    <label for="datumDo" class="col-sm-2 col-form-label">Do datuma</label>
+    <div class="col-sm-10">
+      <input type="date" class="form-control" id="datumDo"  formControlName = "datumDo">
+    </div>
+  </div>
+</form>
+
+<h2>Dostupne sobe na popustu </h2>           
+<table class="table">
+  <thead>
+    <tr>
+      <th>Broj sobe</th>
+      <th>Opis</th>
+      <th>Broj kreveta</th>
+      <th>Sprat</th>
+      <th>Usluge</th>
+      <th>Stara cena</th>
+      <th>Popust</th>
+      <th>U periodu</th>
+      <th>Cena sa popustom</th>
+      
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let soba of retVal">
+      <td>{{soba.soba.brojSobe}}</td>
+      <td>{{soba.soba.opis}}</td>
+      <td>{{soba.soba.brojKreveta}}</td>
+      <td>{{soba.soba.sprat}}</td>
+      <td>
+        <ul class="list-group">
+          <li class="list-group-item" *ngFor = "let usluga of soba?.usluge">{{usluga.naziv}} (cena:{{usluga.cena}}RSD)</li>
+        </ul>
+      </td>
+      <td>{{soba.staraCena}} RSD</td>
+      <td>{{soba.popust}}%</td>
+      <td>{{soba.datumOd}} DO {{soba.datumDo}}</td>
+      <td>{{soba.novaCena}} RSD</td>
+      <td colspan = "4"> <button (click) = "onClickBrzaRezervacija(soba.soba.id)">Rezervisi sobu</button> </td>
+    </tr>
+    <tr>
+  </tbody>
+</table>

@@ -1,0 +1,159 @@
+<div class="container">
+    <h1>{{hotel?.naziv}}</h1>
+    <p>{{hotel?.promoOpis}}</p>
+    <p>Drzava: {{hotel?.drzava}}</p>
+    <p>Grad: {{hotel?.grad}}</p>
+    <p>Adresa: {{hotel?.adresa}}</p>
+    <p>Prosecna ocena hotela: {{prosecnaOcena}}</p>
+    <p><a  [href]="urlHotelIzmeni">Izmeni podatke o hotelu</a></p>
+    <!-- <p><a  [href]="urlHotelAdmin">Prikazi profilnu stranicu</a></p> -->
+    <app-map *ngIf = "adresa && drzava && grad" [address] = "adresa" [city] = "grad" [state] = "drzava"></app-map>
+  <h2>Cenovnik usluga </h2> 
+  <a  [href]="urlUsluga">Dodaj uslugu</a>          
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Naziv usluge</th>
+        <th>Opis</th>
+        <th>Cena</th>
+        <th>Popust pri korišćenju usluge</th>
+        <th>Izmena usluge</th>
+        <th>Brisanje usluge</th>
+        
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let usluga of hotel?.dodatneUsluge">
+        <td>{{usluga.naziv}}</td>
+        <td>{{usluga.opis}}</td>
+        <td>{{usluga.cena}}</td>
+        <td>{{usluga.popust}}</td>
+        <td><a [href] = "urlUsluguIzmeni + usluga.id">Izmeni uslugu</a></td>
+        <td><button (click) = "onIzbrisiUsluguClick(usluga.id)">Izbrisi uslugu</button></td>
+      </tr>
+      <tr>
+    </tbody>
+  </table>
+  
+
+  <h2>Dostupne sobe  </h2>      
+  <a [href]="urlSoba">Dodaj sobu</a>      
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Broj sobe</th>
+        <th>Opis</th>
+        <th>Broj kreveta</th>
+        <th>Sprat</th>
+        <th *ngIf = "uloga === 'ADMINHOTEL'" >Brisanje</th>
+        <th *ngIf = "uloga === 'ADMINHOTEL'">Izmena</th>
+        <th>Prosecna ocena</th>
+        <th>Cene nocenja</th>
+        
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let soba of hotel?.sobe" >
+        <td>{{soba.brojSobe}}</td>
+        <td>{{soba.opis}}</td>
+        <td>{{soba.brojKreveta}}</td>
+        <td>{{soba.sprat}}</td>
+        <td > <button (click) = "onIzbrisiSobuClick(soba.id)">Izbrisi sobu</button></td>
+        <td ><a [href] = "urlSobaIzmeni + soba.id">Izmeni sobu</a> </td>
+        <td> <button (click) = "onPrikaziProsecnuOcenuSobeClick(soba.id)">Prikazi prosecnu ocenu</button></td>
+        <td><a [href] = "urlCeneNocenja + soba.id">Prikazi cene noćenja</a> </td>
+      </tr>
+      <tr>
+    </tbody>
+  </table>
+  
+  
+
+  <h2  >Dodaj sobu na popustu</h2>
+  <form [formGroup] = "sobaNaPopustuForm" id="sobaNaPopustu" (ngSubmit) = "onSubmitPopust()" *ngIf = "uloga === 'ADMINHOTEL'"> 
+      <table class="table">
+          <thead>
+            <tr>
+              <th>Labela</th>
+              <th>Odabir</th>  
+            </tr>
+          </thead>
+          <tbody>
+        <tr>
+          <td>
+            <label for="odabirSobe">Izaberite broj sobe za popust</label>
+          </td>
+          <td>
+            <select form = "sobaNaPopustu" formControlName = "soba" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.soba.errors }">
+              <option *ngFor = "let soba of hotel?.sobe" value="{{soba.id}}"> {{soba.brojSobe}} (id = {{soba.id}}) </option>
+            </select>
+            <div *ngIf="submitted && f.soba.errors" class="invalid-feedback">
+              <div *ngIf="f.soba.errors.required">Ovo polje je obavezno!</div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td> <label for="datumOd">Datum od kog vazi popust</label> </td>
+           <td> <input type="date" class="form-control" id="datumOd"  formControlName = "datumOd" [ngClass]="{ 'is-invalid': submitted && f.datumOd.errors }">
+            <div *ngIf="submitted && f.datumOd.errors" class="invalid-feedback">
+              <div *ngIf="f.datumOd.errors.required">Ovo polje je obavezno!</div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+            <td> <label for="datumDo">Datum do kog vazi popust</label> </td>
+             <td> <input type="date" class="form-control" id="datumDo"  formControlName = "datumDo" [ngClass]="{ 'is-invalid': submitted && f.datumDo.errors }">
+              <div *ngIf="submitted && f.datumDo.errors" class="invalid-feedback">
+                <div *ngIf="f.datumDo.errors.required">Ovo polje je obavezno!</div>
+              </div>
+            </td>
+          </tr>
+          <tr>
+              <td> <label for="popust">Popust u %</label> </td>
+               <td> <input type="number" class="form-control" id="popust"  formControlName = "popust" [ngClass]="{ 'is-invalid': submitted && f.popust.errors }">
+                <div *ngIf="submitted && f.popust.errors" class="invalid-feedback">
+                  <div *ngIf="f.popust.errors.required">Ovo polje je obavezno!</div>
+                </div>
+              </td>
+          </tr>
+
+      <tr><td><label for="uslugeSobaNaPopustu">Izaberite usluge</label></td>
+      <td><select class="multiselect" multiple="multiple" form = "sobaNaPopustu"  id="uslugeSobaNaPopustu" formControlName = "usluge">
+        <option *ngFor = "let usluga of hotel?.dodatneUsluge" value = "{{usluga.id}}" > {{usluga.naziv}}</option>
+      </select>
+
+    </td>
+    </tr>
+    </tbody>
+  </table>
+    <button type="submit" class="btn btn-primary">Dodaj sobu na popustu</button>
+  </form>
+  <p><a  [href]="urlGrafikPosecenosti">Prikazi grafik posecenosti</a></p>
+  <h2 >Prikaz prihoda za uneti period:</h2>
+<form [formGroup] = "prikazPrihodaForm" (ngSubmit) = "onSubmitPrihodi()" >
+  <div class="form-group row">
+    <label for="datumOd" class="col-sm-2 col-form-label">Od datuma</label>
+    <div class="col-sm-10">
+      <input type="date" class="form-control" id="datumOd"  formControlName = "datumOd" [ngClass]="{ 'is-invalid': submittedP && p.datumOd.errors }">
+      <div *ngIf="submittedP && p.datumOd.errors" class="invalid-feedback">
+        <div *ngIf="p.datumOd.errors.required">Ovo polje je obavezno!</div>
+      </div>
+    </div>
+    <label for="datumDo" class="col-sm-2 col-form-label">Do datuma</label>
+    <div class="col-sm-10">
+      <input type="date" class="form-control" id="datumDo"  formControlName = "datumDo" [ngClass]="{ 'is-invalid': submittedP && p.datumDo.errors }">
+      <div *ngIf="submittedP && p.datumDo.errors" class="invalid-feedback">
+        <div *ngIf="p.datumDo.errors.required">Ovo polje je obavezno!</div>
+      </div>
+    </div>
+  </div>
+  <div class="form-group row">
+    <div class="col-sm-10">
+      <button type="submit" class="btn btn-primary">Prikazi prihode</button>
+    </div>
+  </div>
+</form>
+<h4 >Prihod od rezervacija soba za odabrani period je: {{prihodi?.sobePrihod}} RSD</h4>
+<h4 >Prihod od dodatnih usluga za odabrani period je: {{prihodi?.uslugePrihod}} RSD</h4>
+<h4 >Ukupan prihod za odabrani period je: {{prihodi?.ukupanPrihod}} RSD</h4>
+</div>

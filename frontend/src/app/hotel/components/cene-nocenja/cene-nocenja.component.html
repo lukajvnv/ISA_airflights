@@ -1,0 +1,66 @@
+<div class="container">
+
+    <form [formGroup] = "cenaNocenjaForm" (ngSubmit) = "onSubmit()" *ngIf = "uloga === 'ADMINHOTEL'">
+        <table class = "table">
+          <thead>
+            <tr>
+                <td>Od datuma</td>
+                <td>Do datuma</td>
+                <td>Cena</td> 
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <input type = "date" formControlName = "odDatuma" max="3000-12-31" 
+                min="1000-01-01" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.odDatuma.errors }">
+                <div *ngIf="submitted && f.odDatuma.errors" class="invalid-feedback">
+                  <div *ngIf="f.odDatuma.errors.required">Ovo polje je obavezno!</div>
+                </div>
+              </td>
+              <td>
+                  <input type = "date" formControlName = "doDatuma"  max="3000-12-31" 
+                  min="1000-01-01" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.doDatuma.errors }">
+                  <div *ngIf="submitted && f.doDatuma.errors" class="invalid-feedback">
+                    <div *ngIf="f.doDatuma.errors.required">Ovo polje je obavezno!</div>
+                  </div>
+              </td>
+                <td>
+                    <input type = "number" formControlName = "cena" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.cena.errors }">
+                    <div *ngIf="submitted && f.cena.errors" class="invalid-feedback">
+                      <div *ngIf="f.cena.errors.required">Ovo polje je obavezno!</div>
+                    </div>
+                  </td>
+            </tr>
+          
+            <tr>
+                <td ><button class="btn btn-primary">Dodaj cenu nocenja</button></td>
+      
+            </tr>
+          </tbody>
+        </table>
+        </form>
+
+
+  <h2>Cene noćenja</h2>           
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Od datuma</th>
+        <th>Do datuma</th>
+        <th>Cena</th>
+
+        
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let cena of soba?.ceneNocenja">
+        <td>{{cena.odDatuma}}</td>
+        <td>{{cena.doDatuma}}</td>
+        <td>{{cena.cena}}</td>
+      </tr>
+      <tr>
+    </tbody>
+  </table>
+
+</div>

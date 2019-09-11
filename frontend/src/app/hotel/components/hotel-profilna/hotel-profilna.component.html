@@ -1,0 +1,85 @@
+<div class="container">
+  <h1>{{hotel?.naziv}}</h1>
+  <p>{{hotel?.promoOpis}}</p>
+  <p>Drzava: {{hotel?.drzava}}</p>
+  <p>Grad: {{hotel?.grad}}</p>
+  <p>Adresa: {{hotel?.adresa}}</p>
+  <p>Prosecna ocena hotela: {{prosecnaOcena}}</p>
+  <p><a [href] = "urlRezervisiSobu" >REZERVISI SOBU</a></p>
+  <!-- <p><a [href] = "urlRezervisiSobuBrza" >BRZA REZERVACIJA SOBE</a></p> -->
+  <app-map *ngIf = "adresa && drzava && grad" [address] = "adresa" [city] = "grad" [state] = "drzava"></app-map>
+<h2>Cenovnik usluga </h2> 
+<table class="table">
+  <thead>
+    <tr>
+      <th>Naziv usluge</th>
+      <th>Opis</th>
+      <th>Cena</th>
+      <th>Popust pri korišćenju usluge</th>
+      
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let usluga of hotel?.dodatneUsluge">
+      <td>{{usluga.naziv}}</td>
+      <td>{{usluga.opis}}</td>
+      <td>{{usluga.cena}}</td>
+      <td>{{usluga.popust}}</td>
+    </tr>
+    <tr>
+  </tbody>
+</table>
+
+
+<h2 >Prikaz slobodnih soba za period:</h2>
+<form [formGroup] = "slobodneSobeForm" (ngSubmit) = "onSubmit()">
+  <div class="form-group row">
+    <label for="datumOd" class="col-sm-2 col-form-label">Od datuma</label>
+    <div class="col-sm-10">
+      <input type="date" class="form-control" id="datumOd"  formControlName = "datumOd" [ngClass]="{ 'is-invalid': submittedP && p.datumOd.errors }">
+      <div *ngIf="submittedP && p.datumOd.errors" class="invalid-feedback">
+        <div *ngIf="p.datumOd.errors.required">Ovo polje je obavezno!</div>
+      </div>
+    </div>
+    <label for="datumDo" class="col-sm-2 col-form-label">Do datuma</label>
+    <div class="col-sm-10">
+      <input type="date" class="form-control" id="datumDo"  formControlName = "datumDo" [ngClass]="{ 'is-invalid': submittedP && p.datumDo.errors }">
+      <div *ngIf="submittedP && p.datumDo.errors" class="invalid-feedback">
+        <div *ngIf="p.datumDo.errors.required">Ovo polje je obavezno!</div>
+      </div>
+    </div>
+  </div>
+  <div class="form-group row">
+    <div class="col-sm-10">
+      <button type="submit" class="btn btn-primary">Prikazi slobodne sobe</button>
+    </div>
+  </div>
+</form>
+
+
+<h2>Dostupne sobe  </h2>      
+<table class="table">
+  <thead>
+    <tr>
+      <th>Broj sobe</th>
+      <th>Opis</th>
+      <th>Broj kreveta</th>
+      <th>Sprat</th>
+      <th>Prosecna ocena</th>
+      <th>Cene nocenja</th>
+      
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let soba of sobeZaPrikaz" >
+      <td>{{soba.brojSobe}}</td>
+      <td>{{soba.opis}}</td>
+      <td>{{soba.brojKreveta}}</td>
+      <td>{{soba.sprat}}</td>
+      <td><a [href] = "urlCeneNocenja + soba.id">Prikazi cene noćenja</a> </td>
+    </tr>
+    <tr>
+  </tbody>
+</table>
+</div>
+

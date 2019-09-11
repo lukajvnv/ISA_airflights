@@ -178,3 +178,65 @@ insert into car (car_brand, car_model, car_name, car_year, number_of_seats, pric
 insert into car (car_brand, car_model, car_name, car_year, number_of_seats, price, dropof_date, pickup_date, dropof_location, pickup_location, rentacar_rentacar_id, tip, version) values ('PEUGEOT','308','PEUGEOT',2007,5,110.0,'1111-11-11','1111-11-11','lok1','lok2', 3, 'Karavan', 1);
 insert into car (car_brand, car_model, car_name, car_year, number_of_seats, price, dropof_date, pickup_date, dropof_location, pickup_location, rentacar_rentacar_id, tip, version) values ('PEUGEOT','307','PEUGEOT',2010,5,150.0,'1111-11-11','1111-11-11','lok1','lok2', 4, 'Kupe', 1);
 insert into car (car_brand, car_model, car_name, car_year, number_of_seats, price, dropof_date, pickup_date, dropof_location, pickup_location, rentacar_rentacar_id, tip, version) values ('Zastava','55','Yugo',1985,4,20.0,'1111-11-11','1111-11-11','lok1','lok2', 4, 'Karavan', 1);
+
+
+
+
+
+
+
+
+INSERT INTO hoteli (`adresa`,`grad`,`drzava`,`naziv`,`promo_opis`,`version`, `obrisan` )VALUES("Pop Lukina 25" ,"Beograd" ,"Srbija","Prvi hotel","Prvi hotel ikada u bazi",0,false);
+INSERT INTO hoteli (`adresa`,`grad`,`drzava`,`naziv`,`promo_opis`,`version`, `obrisan`)VALUES("Knez Mihajilova" ,"Beograd" ,"Srbija","Drugi hotel hotel","Drugi hotel ikada u bazi",0,false);
+INSERT INTO hoteli (`adresa`,`grad`,`drzava`,`naziv`,`promo_opis`,`version`, `obrisan`)VALUES("Detelinarska 4" ,"Novi sad" ,"Srbija","Treci hotel","Treci hotel ikada u bazi",0,false);
+INSERT INTO hoteli (`adresa`,`grad`,`drzava`,`naziv`,`promo_opis`,`version`, `obrisan`)VALUES("Hadzi Ruvimova 5" ,"Podgorica" ,"Crna Gora","Cetvrti hotel","Cetvrti hotel ikada u bazi",0,false);
+INSERT INTO hoteli (`adresa`,`grad`,`drzava`,`naziv`,`promo_opis`,`version`, `obrisan`)VALUES("Filipa Filipovica" ,"Bijeljina" ,"Bosna i Hercegovina","Peti hotel","Peti hotel ikada u bazi",0,false);
+
+INSERT INTO usluge(`cena`,`naziv`,`opis`,`popust`,`hotel_id`,`version`, `obrisana`)VALUES(1000,"Parking","Parking u garazi",0,2,0,false);
+INSERT INTO usluge(`cena`,`naziv`,`opis`,`popust`,`hotel_id`,`version`, `obrisana`)VALUES(100,"Wifi","Wifi na celom prostoru",0,2,0,false);
+INSERT INTO usluge(`cena`,`naziv`,`opis`,`popust`,`hotel_id`,`version`, `obrisana`)VALUES(1000,"Dorucak","Dorucak svedski sto",10,2,0,false);
+INSERT INTO usluge(`cena`,`naziv`,`opis`,`popust`,`hotel_id`,`version`, `obrisana`)VALUES(700,"Parking","Parking u garazi",0,1,0,false);
+INSERT INTO usluge(`cena`,`naziv`,`opis`,`popust`,`hotel_id`,`version`, `obrisana`)VALUES(2500,"Svi obroci","Svi obroci",0,1,0,false);
+
+INSERT INTO sobe(`broj_kreveta`,`broj_sobe`,`opis`,`hotel_id`,`sprat`,`zauzeta`,`version`, `obrisana`)VALUES(2,1,"Dvokrevetna soba sa dva mala kreveta",2,1,false,0,false);
+INSERT INTO sobe(`broj_kreveta`,`broj_sobe`,`opis`,`hotel_id`,`sprat`,`zauzeta`,`version`, `obrisana`)VALUES(2,2,"Soba sa jednim velikim bracnim krevetom",2,1,false,0,false);
+INSERT INTO sobe(`broj_kreveta`,`broj_sobe`,`opis`,`hotel_id`,`sprat`,`zauzeta`,`version`, `obrisana`)VALUES(2,3,"Dvokrevetna soba sa dva mala kreveta",1,1,false,0,false);
+INSERT INTO sobe(`broj_kreveta`,`broj_sobe`,`opis`,`hotel_id`,`sprat`,`zauzeta`,`version`, `obrisana`)VALUES(2,4,"Trokrevetna soba sa tri mala kreveta",1,1,false,0,false);
+
+INSERT INTO ocene_hotela (`ocena`,`version`,`hotel_id`,`korisnik_id`)VALUES(10,0,1,null);
+INSERT INTO ocene_hotela (`ocena`,`version`,`hotel_id`,`korisnik_id`)VALUES(9,0,1,null);
+INSERT INTO ocene_hotela (`ocena`,`version`,`hotel_id`,`korisnik_id`)VALUES(5,0,2,null);
+INSERT INTO ocene_hotela (`ocena`,`version`,`hotel_id`,`korisnik_id`)VALUES(10,0,2,null);
+
+INSERT INTO ocene_soba (`ocena`,`version`,`korisnik_id`,`soba_id`)VALUES(10,0,null,1);
+INSERT INTO ocene_soba (`ocena`,`version`,`korisnik_id`,`soba_id`)VALUES(9,0,null,1);
+INSERT INTO ocene_soba (`ocena`,`version`,`korisnik_id`,`soba_id`)VALUES(9,0,null,1);
+INSERT INTO ocene_soba (`ocena`,`version`,`korisnik_id`,`soba_id`)VALUES(10,0,null,3);
+INSERT INTO ocene_soba (`ocena`,`version`,`korisnik_id`,`soba_id`)VALUES(8,0,null,3);
+INSERT INTO ocene_soba (`ocena`,`version`,`korisnik_id`,`soba_id`)VALUES(9,0,null,3);
+
+INSERT INTO cene_nocenja (`cena`,`od_datuma`,`do_datuma`,`version`,`soba_id`)VALUES(1000,"2019-01-01","2019-04-01",0,3);
+INSERT INTO cene_nocenja (`cena`,`od_datuma`,`do_datuma`,`version`,`soba_id`)VALUES(1200,"2019-04-01","2019-08-01",0,3);
+INSERT INTO cene_nocenja (`cena`,`od_datuma`,`do_datuma`,`version`,`soba_id`)VALUES(1300,"2019-08-01","2019-12-01",0,3);
+INSERT INTO cene_nocenja (`cena`,`od_datuma`,`do_datuma`,`version`,`soba_id`)VALUES(1200,"2019-01-01","2019-04-01",0,4);
+INSERT INTO cene_nocenja (`cena`,`od_datuma`,`do_datuma`,`version`,`soba_id`)VALUES(1300,"2019-04-01","2019-08-01",0,4);
+INSERT INTO cene_nocenja (`cena`,`od_datuma`,`do_datuma`,`version`,`soba_id`)VALUES(1400,"2019-08-01","2019-12-01",0,4);
+INSERT INTO cene_nocenja (`cena`,`od_datuma`,`do_datuma`,`version`,`soba_id`)VALUES(1200,"2019-01-01","2019-04-01",0,1);
+INSERT INTO cene_nocenja (`cena`,`od_datuma`,`do_datuma`,`version`,`soba_id`)VALUES(1300,"2019-04-01","2019-08-01",0,1);
+INSERT INTO cene_nocenja (`cena`,`od_datuma`,`do_datuma`,`version`,`soba_id`)VALUES(1400,"2019-08-01","2019-12-01",0,1);
+INSERT INTO cene_nocenja (`cena`,`od_datuma`,`do_datuma`,`version`,`soba_id`)VALUES(1200,"2019-01-01","2019-04-01",0,2);
+INSERT INTO cene_nocenja (`cena`,`od_datuma`,`do_datuma`,`version`,`soba_id`)VALUES(1300,"2019-04-01","2019-08-01",0,2);
+INSERT INTO cene_nocenja (`cena`,`od_datuma`,`do_datuma`,`version`,`soba_id`)VALUES(1400,"2019-08-01","2019-12-01",0,2);
+
+INSERT INTO zauzetost_soba (`od_datuma`,`do_datuma`,`soba_id`)VALUES("2019-01-01","2019-01-15",3);
+
+INSERT INTO sobe_na_popustu(`do_datuma`,`od_datuma`,`popust`,`hotel_id`,`soba_id`,`version`)VALUES("2019-01-20","2019-01-17",10,1,3,0);
+INSERT INTO sobe_na_popustu(`do_datuma`,`od_datuma`,`popust`,`hotel_id`,`soba_id`,`version`)VALUES("2019-01-22","2019-01-20",15,1,4,0);
+INSERT INTO sobe_na_popustu(`do_datuma`,`od_datuma`,`popust`,`hotel_id`,`soba_id`,`version`)VALUES("2019-02-26","2019-02-21",15,1,4,0);
+
+INSERT INTO soba_popust_usluga (`id`,`dodatne_usluge_id`)VALUES(1,4);
+INSERT INTO soba_popust_usluga (`id`,`dodatne_usluge_id`)VALUES(1,5);
+INSERT INTO soba_popust_usluga (`id`,`dodatne_usluge_id`)VALUES(2,5);
+
+
+

@@ -1,0 +1,41 @@
+<form   [formGroup] = "grafikPosecenostiForm" id="grafikForm" (ngSubmit) = "onSubmit()">
+  <table class = "table">
+      <tr>
+          <td>Datum od</td>
+          <td>Datum do</td>
+          <td>Tip</td>
+          
+      </tr>
+      <tr>
+        <td>
+          <input type = "date" formControlName = "datumOd" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.datumOd.errors }">
+          <div *ngIf="submitted && f.datumOd.errors" class="invalid-feedback">
+            <div *ngIf="f.datumOd.errors.required">Ovo polje je obavezno!</div>
+          </div>
+        </td>
+        <td>
+            <input type = "date" formControlName = "datumDo" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.datumDo.errors }">
+            <div *ngIf="submitted && f.datumDo.errors" class="invalid-feedback">
+              <div *ngIf="f.datumDo.errors.required">Ovo polje je obavezno!</div>
+            </div>
+          </td>
+          <td> 
+            <select  formControlName = "tip" form = "grafikForm" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.tip.errors }">
+              <option value="Dnevno">Na dnevnom nivou</option>
+              <option value="Mesecno">Na mesecnom nivou</option>
+              <option value="Sedmicno">Na nivou sedmice</option>
+            </select>
+            <div *ngIf="submitted && f.tip.errors" class="invalid-feedback">
+              <div *ngIf="f.tip.errors.required">Ovo polje je obavezno!</div>
+            </div>
+          </td>
+      </tr>
+      <tr>
+          <td  colspan = "4"><button class="btn btn-primary">Prikaz</button></td>
+      </tr>
+  
+  </table>
+  </form>
+  <div *ngIf="chart">
+    <canvas id="canvas">{{ chart }}</canvas>
+  </div>
